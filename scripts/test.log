@@ -1,0 +1,28 @@
+[FLOW]: ==================================================
+[FLOW]: access-flow
+[FLOW]: ==================================================
+[FLOW]: Date: 2024-09-28 23:32
+[FLOW]: Number of threads: 1
+[FLOW]: Getting records from spreadsheet-storer
+[STEP]: - [spreadsheet-storer] Accessing spreadsheet...
+[STEP]: - [spreadsheet-storer] Accessed spreadsheet 'ece2300-course-database'
+[STEP]: - [spreadsheet-storer] Found worksheet 'api'
+[STEP]: - [spreadsheet-storer] Found 132 records!
+[FLOW]: 
+[FLOW]: --------------------------------------------------
+[FLOW]: Running record steps...
+[FLOW]: --------------------------------------------------
+[FLOW]: 
+[FLOW]: --------------------------------------------------
+[FLOW]: Running update steps...
+[FLOW]: --------------------------------------------------
+[FLOW]: Running update-enrollment on Worker 0
+[FLOW]: Running get-github-usernames on Worker 0
+[FLOW]: Running github-accepted on Worker 0
+[FLOW]: 
+[FLOW]: --------------------------------------------------
+[FLOW]: Running propagate steps...
+[FLOW]: --------------------------------------------------
+[FLOW]: Running assign-canvas-groups on Worker 0
+[STEP]: - [assign-canvas-groups] Disabling self-signup for ECE 2300: Lab Groups
+[STEP]: - [assign-canvas-groups] Removed solo student apn32 from ECE 2300: Lab Group 56

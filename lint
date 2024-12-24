@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+# ========================================================================
+# lint
+# ========================================================================
+# A Bash script for linting all of ECE 2300's Python scripts/libraries
+
+TOP_DIR=$(dirname "$0")
+
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+BLUE='\033[1;34m'
+RESET='\033[0m'
+
+info() {
+    echo -e "${BLUE}[INFO]${RESET} $1"
+}
+
+error() {
+    echo -e "${RED}[ERROR]${RESET} $1"
+}
+
+success() {
+    echo -e "${GREEN}[SUCCESS]${RESET} $1"
+}
+
+# ------------------------------------------------------------------------
+# Format with Black
+# ------------------------------------------------------------------------
+# https://black.readthedocs.io/en/stable/
+#
+#  - Format for 80 characters per line
+
+info "Formatting with Black..."
+python -m black . --line-length 80
+if [ $? == 0 ]; then
+    success "Formatted with Black"
+else
+    error "Could not format"
+    exit 1
+fi
+
+# ------------------------------------------------------------------------
+# Check style with Flake8
+# ------------------------------------------------------------------------
+# https://flake8.pycqa.org/en/latest/
+#
+#  - Require some plugins to make sure we have good support
+#  - Enforce a maximum line length of 80
+#  - Ignore DOC301, to enforce docstrings in __init__
+#      https://github.com/jsh9/pydoclint/blob/f75860489c4d4769767beabcad9b099cc2b2a88d/docs/violation_codes.md?plain=1#L67
+#  - Ignore E731, to allow lambdas
+#  - Ignore W503, due to recent changes (Black formats like this)
+#      https://peps.python.org/pep-0008/#should-a-line-break-before-or-after-a-binary-operator
+#  - Ignore E203, to be PEP 8 compliant and so Black's output is good
+#      https://github.com/psf/black/issues/1701
+
+info "Checking style with Flake8..."
+python -m flake8 . --require-plugins flake8-pydocstyle,pydoclint,flake8-annotations \
+                   --max-line-length 80 \
+                   --ignore DOC301,E731,W503,E203
+if [ $? == 0 ]; then
+    success "Style looks good!"
+else
+    error "Uh-oh; style errors encountered"
+    exit 1
+fi
+
+# ------------------------------------------------------------------------
+# Type check with Mypy
+# ------------------------------------------------------------------------
+# https://mypy.readthedocs.io/en/stable/index.html
+
+info "Type checking with Mypy..."
+python -m mypy --strict .
+if [ $? == 0 ]; then
+    success "Code is type-safe"
+else
+    error "Uh-oh; type errors encountered"
+    exit 1
+fi
+
+success "All checks passed!"
+
+
+

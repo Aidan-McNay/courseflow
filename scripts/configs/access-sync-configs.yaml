@@ -1,0 +1,139 @@
+# =============================================================================
+# Overall Flow
+# =============================================================================
+
+_description: A flow to update records and synchronize GitHub access based on Canvas
+
+num_threads: 1
+
+# -----------------------------------------------------------------------------
+# Step Modes
+# -----------------------------------------------------------------------------
+
+add-canvas-enrollment-mode: include
+assign-canvas-groups-mode: include
+get-github-usernames-mode: include
+github-accepted-mode: include
+group-repo-permissions-mode: debug
+invite-students-mode: include
+make-group-repos-mode: include
+make-personal-repos-mode: include
+personal-repo-permissions-mode: include
+ping-enrollment-mode: include
+ping-group-join-mode: include
+ping-invalid-username-mode: include
+ping-no-username-mode: include
+ping-unaccepted-invite-mode: include
+remove-dropped-mode: include
+spreadsheet-storer-mode: include
+update-enrollment-mode: include
+
+# -----------------------------------------------------------------------------
+# Record Storer
+# -----------------------------------------------------------------------------
+
+spreadsheet-storer:
+  _description: A Python representation of a Google Sheet for getting and setting
+    records
+  sheet_id: 12vIRPQ3zT89two_IDsuo3b9AAbHhCJeSTsuKTcvlEDU
+  tab: api
+
+# -----------------------------------------------------------------------------
+# Steps
+# -----------------------------------------------------------------------------
+
+add-canvas-enrollment:
+  _description: Add newly enrolled students from Canvas
+
+assign-canvas-groups:
+  _description: Assign remaining students to a group on Canvas randomly.
+  canvas_group_pattern: "ECE 2300: Lab Group <num>"
+  canvas_group_regex: 'ECE 2300: Lab Group (\d+)'
+  form_date: 2024-09-20 09:00:00
+  group_category: "ECE 2300: Lab Groups"
+
+get-github-usernames:
+  _description: Get usernames from a 'Fill in the Blank' question on a Canvas Quiz
+  question_id: 1510089
+  quiz_id: 153416
+
+github-accepted:
+  _description: Check and update students who have joined the GitHub org
+  staff_team: staff
+
+group-repo-permissions:
+  _description: Give students access to their group repos
+  name_format: "group<num>"
+  num_places: 2
+
+invite-students:
+  _description: Invite students to join the GitHub organization
+  student_team: students
+
+make-group-repos:
+  _description: Create personal repositories for students.
+  create_upstream: true
+  naming: "group<num>"
+  num_places: 2
+  readme_commit_msg: Initial import
+  readme_path: /home/acm289/ece2300-TA/ece2300-labs/admin/logistics/scripts/templates/group_repo_readme.md
+  staff_permissions: push
+  staff_team: staff
+
+make-personal-repos:
+  _description: Create personal repositories for students.
+  create_upstream: true
+  naming: <netid>
+  readme_commit_msg: Initial import
+  readme_path: /home/acm289/ece2300-TA/ece2300-labs/admin/logistics/scripts/templates/student_repo_readme.md
+  staff_team: staff
+  staff_permissions: push
+
+personal-repo-permissions:
+  _description: Give students access to their personal repos
+
+ping-enrollment:
+  _description: Send an email when new course enrollment is detected
+  recv_email: acm289@cornell.edu
+  send_email: acm289@cornell.edu
+  subject: "[ECE 2300] New Enrollment"
+
+ping-group-join:
+  _description: Email students who haven't joined a Canvas group
+  email_gap: 7
+  email_template: /home/acm289/ece2300-TA/ece2300-labs/admin/logistics/scripts/templates/ping-join-group.txt
+  group_category: "ECE 2300: Lab Groups"
+  send_email: acm289@cornell.edu
+  start_date: 2024-09-19 09:00:00
+  subject: "[ECE 2300] Lab Group Sign-Up"
+
+ping-invalid-username:
+  _description: Email students who've submitted an invalid username
+  email_gap: 2
+  email_template: /home/acm289/ece2300-TA/ece2300-labs/admin/logistics/scripts/templates/ping-invalid-username.txt
+  send_email: acm289@cornell.edu
+  start_date: 2024-09-01 00:00:00
+  subject: "[ECE 2300] Invalid Username"
+
+ping-no-username:
+  _description: Email students who haven't submitted a GitHub username
+  email_gap: 1
+  email_template: /home/acm289/ece2300-TA/ece2300-labs/admin/logistics/scripts/templates/ping-no-username.txt
+  send_email: acm289@cornell.edu
+  start_date: 2024-09-01 00:00:00
+  subject: "[ECE 2300] GitHub Username"
+
+ping-unaccepted-invite:
+  _description: Email students who haven't accepted a GitHub org invite
+  email_gap: 2
+  email_template: /home/acm289/ece2300-TA/ece2300-labs/admin/logistics/scripts/templates/ping-unaccepted-invite.txt
+  send_email: acm289@cornell.edu
+  start_date: 2024-09-01 00:00:00
+  subject: "[ECE 2300] Accept GitHub Invite"
+
+remove-dropped:
+  _description: Remove dropped students from GitHub
+  staff_team: staff
+
+update-enrollment:
+  _description: Add newly enrolled students from Canvas

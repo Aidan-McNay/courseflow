@@ -1,0 +1,12 @@
+Whoops - looks like you haven't accepted our invitation to the ECE 2300 \
+GitHub organization yet!
+
+You should've received an email inviting you to our GitHub organization. \
+Alternatively, you can accept the invitation by going here: https://github.com/orgs/cornell-ece2300/invitation
+
+Please accept the invitation promptly, so that we can configure your \
+access to your project's repository and get you all set for the labs.
+
+Thanks!
+
+ - The ECE 2300 Staff

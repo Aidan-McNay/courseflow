@@ -1,0 +1,88 @@
+# =============================================================================
+# Overall Flow
+# =============================================================================
+
+_description: A flow to update records and synchronize GitHub access based on Canvas
+
+num_threads: 1
+
+# -----------------------------------------------------------------------------
+# Step Modes
+# -----------------------------------------------------------------------------
+
+get-repos-mode: include
+spreadsheet-storer-mode: include
+tag-lab1.1-mode: include
+tag-lab1.2-mode: include
+tag-lab2a-mode: include
+tag-lab2b-mode: include
+tag-lab3a-mode: include
+tag-lab3b-mode: include
+tag-lab4a-mode: include
+tag-lab4b-mode: include
+tag-lab4c-mode: include
+
+# -----------------------------------------------------------------------------
+# Record Storer
+# -----------------------------------------------------------------------------
+
+spreadsheet-storer:
+  _description: A Python representation of a Google Sheet for getting and setting
+    records
+  sheet_id: 12vIRPQ3zT89two_IDsuo3b9AAbHhCJeSTsuKTcvlEDU
+  tab: tags
+
+# -----------------------------------------------------------------------------
+# Steps
+# -----------------------------------------------------------------------------
+
+get-repos:
+  _description: Use a spreadsheet with StudentRecord representations to make TagRecords
+    for the repos
+  sheet_id: 12vIRPQ3zT89two_IDsuo3b9AAbHhCJeSTsuKTcvlEDU
+  tab: api
+
+tag-lab1.1:
+  _description: A step to tag submissions for lab1.1
+  deadline: 2024-09-13 01:00:00
+  tag_name: lab1.1-submission
+
+tag-lab1.2:
+  _description: A step to tag submissions for lab1.2
+  deadline: 2024-09-20 01:00:00
+  tag_name: lab1.2-submission
+
+tag-lab2a:
+  _description: A step to tag submissions for lab2a
+  deadline: 2024-09-27 01:00:00
+  tag_name: lab2a-submission
+
+tag-lab2b:
+  _description: A step to tag submissions for lab2b
+  deadline: 2024-10-04 01:00:00
+  tag_name: lab2b-submission
+
+tag-lab3a:
+  _description: A step to tag submissions for lab3a
+  deadline: 2024-10-18 01:00:00
+  tag_name: lab3a-submission
+
+tag-lab3b:
+  _description: A step to tag submissions for lab3b
+  deadline: 2024-10-25 01:00:00
+  tag_name: lab3b-submission
+
+tag-lab4a:
+  _description: A step to tag submissions for lab4a
+  deadline: 2024-11-08 01:00:00
+  tag_name: lab4a-submission
+
+tag-lab4b:
+  _description: A step to tag submissions for lab4b
+  deadline: 2024-11-15 01:00:00
+  tag_name: lab4b-submission
+
+tag-lab4c:
+  _description: A step to tag submissions for lab4c
+  deadline: 2024-11-27 01:00:00
+  tag_name: lab4c-submission
