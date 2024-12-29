@@ -2,6 +2,11 @@
 
 A framework for managing and connecting (Cornell) courses in Canvas
 
+## Documentation
+
+Documentation for the framework, including prerequisites, usage, and
+a reference for steps/flows, can be found [here](https://aidan-mcnay.github.io/cornell-canvas/)
+
 ## Prerequisites
 
 Scripts in this directory assume that the following environment variables
