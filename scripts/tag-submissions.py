@@ -5,7 +5,7 @@ Author: Aidan McNay
 Date: September 19th, 2024
 """
 
-from flow.admin_flow import AdminFlow
+from flow.flow import Flow
 from flow.run_flow import run_flow
 from github_steps.tag_repo import get_tagger
 from google_steps.get_tag_records import GetTagRecords
@@ -34,7 +34,7 @@ class LabTagRecords(TagRecords):
     headers = get_tag_headers(labs)
 
 
-access_flow = AdminFlow(
+access_flow = Flow(
     name="tag-flow",
     description=("A flow to tag repository submissions."),
     record_storer_type=SpreadsheetStorer[LabTagRecords],

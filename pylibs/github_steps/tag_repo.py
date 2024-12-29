@@ -8,7 +8,7 @@ from datetime import datetime
 from threading import Lock
 from typing import Any, Callable, Literal, Self, Type, TypeVar
 
-from flow.admin_step import AdminPropagateStep
+from flow.flow_steps import FlowPropagateStep
 from github_steps import _org
 from records.tag_record import TagRecords
 
@@ -28,7 +28,7 @@ def get_tagger(
     lab: str,
     repo_type: Literal["personal", "group"],
     tag_records_type: Type[RecordType],
-) -> Type[AdminPropagateStep[RecordType]]:
+) -> Type[FlowPropagateStep[RecordType]]:
     """Return a class that tags a specific lab.
 
     Args:
@@ -37,11 +37,11 @@ def get_tagger(
         tag_records_type: The type of TagRagords to operate on
 
     Returns:
-        Type[AdminPropagateStep[TagRecords]]: The generated class to tag the
+        Type[FlowPropagateStep[TagRecords]]: The generated class to tag the
           lab
     """
 
-    class RepoTagger(AdminPropagateStep[RecordType]):
+    class RepoTagger(FlowPropagateStep[RecordType]):
         """A class to tag a specific lab submission."""
 
         lab_to_tag = lab

@@ -9,7 +9,7 @@ import os
 from threading import Lock
 from typing import Any, Callable, Self
 
-from flow.admin_step import AdminPropagateStep
+from flow.flow_steps import FlowPropagateStep
 from records.student_record import StudentRecord
 from utils.mailer import Mailer
 
@@ -18,7 +18,7 @@ from utils.mailer import Mailer
 # -----------------------------------------------------------------------------
 
 
-class PingInvalidUsername(AdminPropagateStep[StudentRecord]):
+class PingInvalidUsername(FlowPropagateStep[StudentRecord]):
     """Ping users who submitted an invalid username."""
 
     description = "Email students who've submitted an invalid username"

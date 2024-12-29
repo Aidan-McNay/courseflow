@@ -9,7 +9,7 @@ from threading import Lock
 from typing import Any, Callable, Self
 
 from github_steps import _github, _org
-from flow.admin_step import AdminPropagateStep
+from flow.flow_steps import FlowPropagateStep
 from records.student_record import StudentRecord
 
 # -----------------------------------------------------------------------------
@@ -17,7 +17,7 @@ from records.student_record import StudentRecord
 # -----------------------------------------------------------------------------
 
 
-class RemoveUnenrolled(AdminPropagateStep[StudentRecord]):
+class RemoveUnenrolled(FlowPropagateStep[StudentRecord]):
     """A propagate step to remove unenrolled users from GitHub."""
 
     description = "Remove dropped students from GitHub"

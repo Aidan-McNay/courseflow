@@ -8,7 +8,7 @@ from threading import Lock
 from typing import Any, Callable, Self
 
 from github_steps import _org
-from flow.admin_step import AdminUpdateStep
+from flow.flow_steps import FlowUpdateStep
 from records.student_record import StudentRecord
 
 # -----------------------------------------------------------------------------
@@ -16,7 +16,7 @@ from records.student_record import StudentRecord
 # -----------------------------------------------------------------------------
 
 
-class MarkAccepted(AdminUpdateStep[StudentRecord]):
+class MarkAccepted(FlowUpdateStep[StudentRecord]):
     """An update step to mark students who have accepted a GitHub invite."""
 
     description = "Check and update students who have joined the GitHub org"

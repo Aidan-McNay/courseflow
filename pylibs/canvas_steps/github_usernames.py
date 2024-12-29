@@ -10,7 +10,7 @@ from typing import Any, Callable, Optional, Self
 
 from canvas_steps import _course
 from github_steps import _github
-from flow.admin_step import AdminUpdateStep
+from flow.flow_steps import FlowUpdateStep
 from records.student_record import StudentRecord
 
 # ------------------------------------------------------------------------
@@ -39,7 +39,7 @@ def valid_username(username: str) -> bool:
 # -----------------------------------------------------------------------------
 
 
-class GitHubUsernames(AdminUpdateStep[StudentRecord]):
+class GitHubUsernames(FlowUpdateStep[StudentRecord]):
     """An update step for getting student's GitHub usernames from Canvas.
 
     This relies on having a quiz where they previously submitted their

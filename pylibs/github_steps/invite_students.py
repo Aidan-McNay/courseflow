@@ -10,7 +10,7 @@ from threading import Lock
 from typing import Any, Callable, Self
 
 from github_steps import _github, _org
-from flow.admin_step import AdminPropagateStep
+from flow.flow_steps import FlowPropagateStep
 from records.student_record import StudentRecord
 
 # -----------------------------------------------------------------------------
@@ -18,7 +18,7 @@ from records.student_record import StudentRecord
 # -----------------------------------------------------------------------------
 
 
-class InviteStudents(AdminPropagateStep[StudentRecord]):
+class InviteStudents(FlowPropagateStep[StudentRecord]):
     """Invite students to join the GitHub organization."""
 
     description = "Invite students to join the GitHub organization"

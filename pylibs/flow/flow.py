@@ -21,10 +21,10 @@ from typing import (
     TypeVar,
 )
 
-from flow.admin_step import (
-    AdminRecordStep,
-    AdminUpdateStep,
-    AdminPropagateStep,
+from flow.flow_steps import (
+    FlowRecordStep,
+    FlowUpdateStep,
+    FlowPropagateStep,
     ValidConfigTypes,
 )
 from flow.flow_logger import (
@@ -52,7 +52,7 @@ class StepMode(StrEnum):
 
 
 # -----------------------------------------------------------------------------
-# AdminFlow
+# Flow
 # -----------------------------------------------------------------------------
 # The main flow that manages and executes steps
 
@@ -71,13 +71,13 @@ flow_config_types: list[tuple[str, Type[ValidConfigTypes], str]] = [
     )
 ]
 
-AdminFlowConfigs = TypedDict(
-    "AdminFlowConfigs",
+FlowConfigs = TypedDict(
+    "FlowConfigs",
     {"num_threads": NotRequired[int]},
 )
 
 
-class AdminFlow(Generic[RecordType]):
+class Flow(Generic[RecordType]):
     """An administrative flow that manages and runs different sections."""
 
     def __init__(
@@ -103,7 +103,7 @@ class AdminFlow(Generic[RecordType]):
         self.record_storer: Optional[RecordStorer[RecordType]] = None
         self.record_storer_type = record_storer_type
         self.record_storer_name = record_storer_name
-        self.configs: AdminFlowConfigs = {}
+        self.configs: FlowConfigs = {}
         self.configured = False
 
         # Store each step as a tuple of the form
@@ -114,13 +114,13 @@ class AdminFlow(Generic[RecordType]):
         # )
         # Record steps don't have dependencies (executed sequentially)
         self.record_steps: list[
-            tuple[str, Type[AdminRecordStep[RecordType]]]
+            tuple[str, Type[FlowRecordStep[RecordType]]]
         ] = []
         self.update_steps: list[
-            tuple[str, Type[AdminUpdateStep[RecordType]], list[str]]
+            tuple[str, Type[FlowUpdateStep[RecordType]], list[str]]
         ] = []
         self.propagate_steps: list[
-            tuple[str, Type[AdminPropagateStep[RecordType]], list[str]]
+            tuple[str, Type[FlowPropagateStep[RecordType]], list[str]]
         ] = []
 
         # Store a mapping of step names to the method to run them
@@ -132,13 +132,13 @@ class AdminFlow(Generic[RecordType]):
         self.step_modes: dict[str, StepMode] = {}
 
         self.concrete_record_steps: list[
-            tuple[str, AdminRecordStep[RecordType]]
+            tuple[str, FlowRecordStep[RecordType]]
         ] = []
         self.concrete_update_steps: list[
-            tuple[str, AdminUpdateStep[RecordType], list[str]]
+            tuple[str, FlowUpdateStep[RecordType], list[str]]
         ] = []
         self.concrete_propagate_steps: list[
-            tuple[str, AdminPropagateStep[RecordType], list[str]]
+            tuple[str, FlowPropagateStep[RecordType], list[str]]
         ] = []
         self.step_metadata: dict[str, object] = {}
         self._step_metadata_lock = Lock()
@@ -259,13 +259,13 @@ class AdminFlow(Generic[RecordType]):
         )
 
     def add_record_step(
-        self: Self, name: str, step: Type[AdminRecordStep[RecordType]]
+        self: Self, name: str, step: Type[FlowRecordStep[RecordType]]
     ) -> None:
         """Add a record step to the flow.
 
         Args:
             name (str): The name of the record step
-            step (Type[AdminRecordStep[RecordType]]): The type of the record
+            step (Type[FlowRecordStep[RecordType]]): The type of the record
               step
 
         Raises:
@@ -278,14 +278,14 @@ class AdminFlow(Generic[RecordType]):
     def add_update_step(
         self: Self,
         name: str,
-        step: Type[AdminUpdateStep[RecordType]],
+        step: Type[FlowUpdateStep[RecordType]],
         depends_on: list[str] = [],
     ) -> None:
         """Add an update step to the flow.
 
         Args:
             name (str): The name of the record step
-            step (Type[AdminRecordStep[RecordType]]): The type of the record
+            step (Type[FlowRecordStep[RecordType]]): The type of the record
               step
             depends_on (list[str]): Other steps that this one should run after
 
@@ -314,14 +314,14 @@ class AdminFlow(Generic[RecordType]):
     def add_propagate_step(
         self: Self,
         name: str,
-        step: Type[AdminPropagateStep[RecordType]],
+        step: Type[FlowPropagateStep[RecordType]],
         depends_on: list[str] = [],
     ) -> None:
         """Add a propagate step to the flow.
 
         Args:
             name (str): The name of the record step
-            step (Type[AdminRecordStep[RecordType]]): The type of the record
+            step (Type[FlowRecordStep[RecordType]]): The type of the record
               step
             depends_on (list[str]): Other steps that this one should run after
 
@@ -663,19 +663,19 @@ class AdminFlow(Generic[RecordType]):
             self (Self): The current flow
             records (list[RecordType]): The list of records to update
         """
-        work_queue: list[Optional[tuple[str, AdminUpdateStep[RecordType]]]] = []
+        work_queue: list[Optional[tuple[str, FlowUpdateStep[RecordType]]]] = []
         work_queue_lock = Lock()
 
         completed_steps: list[str] = []
         completed_steps_lock = Lock()
 
         def add_work(
-            new_work: Optional[tuple[str, AdminUpdateStep[RecordType]]]
+            new_work: Optional[tuple[str, FlowUpdateStep[RecordType]]]
         ) -> None:
             """Add new work to the work queue.
 
             Args:
-                new_work (Optional[tuple[str, AdminUpdateStep[RecordType]]]):
+                new_work (Optional[tuple[str, FlowUpdateStep[RecordType]]]):
                   The new work to send to the workers
             """
             with work_queue_lock:
@@ -773,7 +773,7 @@ class AdminFlow(Generic[RecordType]):
         remaining_steps = enabled_update_steps
         while len(remaining_steps) > 0:
             new_remaining_steps: list[
-                tuple[str, AdminUpdateStep[RecordType], list[str]]
+                tuple[str, FlowUpdateStep[RecordType], list[str]]
             ] = []
             with completed_steps_lock:
                 new_completed_steps = completed_steps
@@ -800,7 +800,7 @@ class AdminFlow(Generic[RecordType]):
             records (list[RecordType]): The list of records to update
         """
         work_queue: list[
-            Optional[tuple[str, AdminPropagateStep[RecordType]]]
+            Optional[tuple[str, FlowPropagateStep[RecordType]]]
         ] = []
         work_queue_lock = Lock()
 
@@ -808,12 +808,12 @@ class AdminFlow(Generic[RecordType]):
         completed_steps_lock = Lock()
 
         def add_work(
-            new_work: Optional[tuple[str, AdminPropagateStep[RecordType]]]
+            new_work: Optional[tuple[str, FlowPropagateStep[RecordType]]]
         ) -> None:
             """Add new work to the work queue.
 
             Args:
-                new_work (Optional[tuple[str, AdminUpdateStep[RecordType]]]):
+                new_work (Optional[tuple[str, FlowUpdateStep[RecordType]]]):
                   The new work to send to the workers
             """
             with work_queue_lock:
@@ -913,7 +913,7 @@ class AdminFlow(Generic[RecordType]):
         remaining_steps = enabled_propagate_steps
         while len(remaining_steps) > 0:
             new_remaining_steps: list[
-                tuple[str, AdminPropagateStep[RecordType], list[str]]
+                tuple[str, FlowPropagateStep[RecordType], list[str]]
             ] = []
             with completed_steps_lock:
                 new_completed_steps = completed_steps

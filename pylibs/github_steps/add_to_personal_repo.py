@@ -9,7 +9,7 @@ from threading import Lock
 from typing import Any, Callable, Self, Type
 
 from github_steps import _github, _org
-from flow.admin_step import AdminPropagateStep, ValidConfigTypes
+from flow.flow_steps import FlowPropagateStep, ValidConfigTypes
 from records.student_record import StudentRecord
 
 # -----------------------------------------------------------------------------
@@ -17,7 +17,7 @@ from records.student_record import StudentRecord
 # -----------------------------------------------------------------------------
 
 
-class AddToPersonalRepos(AdminPropagateStep[StudentRecord]):
+class AddToPersonalRepos(FlowPropagateStep[StudentRecord]):
     """A propagate step to give students permission to their personal repos."""
 
     description = "Give students access to their personal repos"

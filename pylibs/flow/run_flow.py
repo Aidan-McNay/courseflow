@@ -8,7 +8,7 @@ import argparse
 from typing import TypeVar
 import yaml
 
-from flow.admin_flow import AdminFlow
+from flow.flow import Flow
 
 # -----------------------------------------------------------------------------
 # run_flow
@@ -18,11 +18,11 @@ from flow.admin_flow import AdminFlow
 RecordType = TypeVar("RecordType")
 
 
-def run_flow(flow: AdminFlow[RecordType]) -> None:
+def run_flow(flow: Flow[RecordType]) -> None:
     """Run a flow as a main script.
 
     Args:
-        flow (AdminFlow): The flow to run
+        flow (Flow): The flow to run
     """
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Define Arguments

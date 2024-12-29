@@ -9,7 +9,7 @@ import os
 from threading import Lock
 from typing import Any, Callable, Self
 
-from flow.admin_step import AdminPropagateStep
+from flow.flow_steps import FlowPropagateStep
 from records.student_record import StudentRecord
 from utils.mailer import Mailer
 
@@ -18,7 +18,7 @@ from utils.mailer import Mailer
 # -----------------------------------------------------------------------------
 
 
-class PingNoAccept(AdminPropagateStep[StudentRecord]):
+class PingNoAccept(FlowPropagateStep[StudentRecord]):
     """Ping users who haven't accepted their GitHub invitation."""
 
     description = "Email students who haven't accepted a GitHub org invite"

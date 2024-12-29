@@ -12,7 +12,7 @@ from threading import Lock
 from typing import Any, Callable, cast, Optional, Self
 
 from canvas_steps import _canvas, _course
-from flow.admin_step import AdminPropagateStep
+from flow.flow_steps import FlowPropagateStep
 from records.student_record import StudentRecord
 
 random.seed(0xDEADBEEF)
@@ -22,7 +22,7 @@ random.seed(0xDEADBEEF)
 # ------------------------------------------------------------------------
 
 
-class AssignGroups(AdminPropagateStep[StudentRecord]):
+class AssignGroups(FlowPropagateStep[StudentRecord]):
     """A propagate step to assign students to a group on Canvas."""
 
     description = "Assign remaining students to a group on Canvas randomly."

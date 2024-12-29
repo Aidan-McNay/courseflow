@@ -9,7 +9,7 @@ import os
 from threading import Lock
 from typing import Any, Callable, Self
 
-from flow.admin_step import AdminPropagateStep
+from flow.flow_steps import FlowPropagateStep
 from records.student_record import StudentRecord
 from utils.mailer import Mailer
 
@@ -18,7 +18,7 @@ from utils.mailer import Mailer
 # -----------------------------------------------------------------------------
 
 
-class PingNoUsername(AdminPropagateStep[StudentRecord]):
+class PingNoUsername(FlowPropagateStep[StudentRecord]):
     """Ping users who haven't submitted a username."""
 
     description = "Email students who haven't submitted a GitHub username"

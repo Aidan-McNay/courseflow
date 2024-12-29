@@ -13,7 +13,7 @@ from canvas_steps.enrollment import (
 )
 from canvas_steps.github_usernames import GitHubUsernames
 from canvas_steps.ping_join_group import PingJoinGroup
-from flow.admin_flow import AdminFlow
+from flow.flow import Flow
 from flow.run_flow import run_flow
 from github_steps.add_to_personal_repo import AddToPersonalRepos
 from github_steps.add_to_group_repo import AddToGroupRepos
@@ -32,7 +32,7 @@ from utils.ping_no_username import PingNoUsername
 # Define our flow
 # -----------------------------------------------------------------------------
 
-access_flow = AdminFlow(
+access_flow = Flow(
     name="access-flow",
     description=(
         "A flow to update records and synchronize "

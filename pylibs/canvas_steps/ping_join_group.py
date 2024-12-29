@@ -11,7 +11,7 @@ from threading import Lock
 from typing import Any, Callable, Optional, Self
 
 from canvas_steps import _course
-from flow.admin_step import AdminPropagateStep
+from flow.flow_steps import FlowPropagateStep
 from records.student_record import StudentRecord
 from utils.mailer import Mailer
 
@@ -20,7 +20,7 @@ from utils.mailer import Mailer
 # -----------------------------------------------------------------------------
 
 
-class PingJoinGroup(AdminPropagateStep[StudentRecord]):
+class PingJoinGroup(FlowPropagateStep[StudentRecord]):
     """Ping users who haven't joined a group on Canvas."""
 
     description = "Email students who haven't joined a Canvas group"

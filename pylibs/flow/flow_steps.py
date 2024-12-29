@@ -11,16 +11,16 @@ from threading import Lock
 from typing import Any, Callable, final, Generic, Self, Type, TypeVar
 
 # -----------------------------------------------------------------------------
-# AdminStep
+# FlowStep
 # -----------------------------------------------------------------------------
 # A base class for all future steps
 
 ValidConfigTypes = int | bool | str | datetime
 
-AdminStepChild = TypeVar("AdminStepChild", bound="AdminStep")
+FlowStepChild = TypeVar("FlowStepChild", bound="FlowStep")
 
 
-class AdminStep(ABC):
+class FlowStep(ABC):
     """A base class representing an abstract step in our flow.
 
     Attributes:
@@ -29,7 +29,7 @@ class AdminStep(ABC):
          description) tuples describing the intended configurations for the
          step.
      - config_type: (Type) The type for our configurations. The type will be
-         such that if the AdminStep is defined with
+         such that if the FlowStep is defined with
 
          config_types = [
            ("x", int,  "An integer"),
@@ -102,7 +102,7 @@ class AdminStep(ABC):
         self.validate()
 
     @classmethod
-    def describe_config(cls: Type[AdminStepChild]) -> dict[str, str]:
+    def describe_config(cls: Type[FlowStepChild]) -> dict[str, str]:
         """Return a mapping of configurations to their descriptions.
 
         Returns:
@@ -117,14 +117,14 @@ class AdminStep(ABC):
 
 
 # -----------------------------------------------------------------------------
-# AdminRecordStep
+# FlowRecordStep
 # -----------------------------------------------------------------------------
 # A flow step for adding new records.
 
 RecordType = TypeVar("RecordType")
 
 
-class AdminRecordStep(AdminStep, Generic[RecordType]):
+class FlowRecordStep(FlowStep, Generic[RecordType]):
     """A flow step to update the overall list of records."""
 
     @abstractmethod
@@ -157,12 +157,12 @@ class AdminRecordStep(AdminStep, Generic[RecordType]):
 
 
 # -----------------------------------------------------------------------------
-# AdminUpdateStep
+# FlowUpdateStep
 # -----------------------------------------------------------------------------
 # A flow step for updating existing records
 
 
-class AdminUpdateStep(AdminStep, Generic[RecordType]):
+class FlowUpdateStep(FlowStep, Generic[RecordType]):
     """A flow step to update the overall list of records."""
 
     @abstractmethod
@@ -192,12 +192,12 @@ class AdminUpdateStep(AdminStep, Generic[RecordType]):
 
 
 # -----------------------------------------------------------------------------
-# AdminPropagateStep
+# FlowPropagateStep
 # -----------------------------------------------------------------------------
 # A flow step for making external changes based on our records
 
 
-class AdminPropagateStep(AdminStep, Generic[RecordType]):
+class FlowPropagateStep(FlowStep, Generic[RecordType]):
     """A flow step to make external changes based on our records."""
 
     @abstractmethod

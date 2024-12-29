@@ -8,7 +8,7 @@ from threading import Lock
 from typing import Any, Callable, cast, Self
 
 from canvas_steps import _course
-from flow.admin_step import AdminRecordStep, AdminUpdateStep, AdminPropagateStep
+from flow.flow_steps import FlowRecordStep, FlowUpdateStep, FlowPropagateStep
 from records.student_record import StudentRecord
 from utils.mailer import Mailer
 
@@ -17,7 +17,7 @@ from utils.mailer import Mailer
 # -----------------------------------------------------------------------------
 
 
-class AddEnrollment(AdminRecordStep[StudentRecord]):
+class AddEnrollment(FlowRecordStep[StudentRecord]):
     """A record step that adds new student records for new enrollment.
 
     We also set the global metadata 'new_netids' to a list of NetIDs that
@@ -87,7 +87,7 @@ class AddEnrollment(AdminRecordStep[StudentRecord]):
 # -----------------------------------------------------------------------------
 
 
-class UpdateEnrollment(AdminUpdateStep[StudentRecord]):
+class UpdateEnrollment(FlowUpdateStep[StudentRecord]):
     """An update step that updates enrollment for based on Canvas.
 
     We also set the global metadata 'unenrolled_netids' to a list of NetIDs
@@ -157,7 +157,7 @@ class UpdateEnrollment(AdminUpdateStep[StudentRecord]):
 # -----------------------------------------------------------------------------
 
 
-class PingNewEnrollment(AdminPropagateStep[StudentRecord]):
+class PingNewEnrollment(FlowPropagateStep[StudentRecord]):
     """A propagate step to pinga user when new enrollment is detected."""
 
     description = "Send an email when new course enrollment is detected"

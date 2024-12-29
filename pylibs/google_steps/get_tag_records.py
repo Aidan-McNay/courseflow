@@ -6,7 +6,7 @@ Date: September 19th, 2024
 
 from typing import Any, Callable, Generic, get_args, Self, TypeVar
 
-from flow.admin_step import AdminRecordStep
+from flow.flow_steps import FlowRecordStep
 from google_steps import _sheets
 from google_steps.spreadsheet_storer import SpreadsheetStorer
 from records.student_record import StudentRecord
@@ -21,7 +21,7 @@ from utils.api_call import retry_call
 RecordType = TypeVar("RecordType", bound=TagRecords)
 
 
-class GetTagRecords(Generic[RecordType], AdminRecordStep[RecordType]):
+class GetTagRecords(Generic[RecordType], FlowRecordStep[RecordType]):
     """Get TagRecords from a spreadsheet containing StudentRecords."""
 
     description = (

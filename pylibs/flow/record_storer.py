@@ -7,7 +7,7 @@ Date: September 14th, 2024
 from abc import abstractmethod
 from typing import Callable, Generic, Self, TypeVar
 
-from flow.admin_step import AdminStep
+from flow.flow_steps import FlowStep
 
 # -----------------------------------------------------------------------------
 # RecordStorer
@@ -18,8 +18,8 @@ from flow.admin_step import AdminStep
 RecordType = TypeVar("RecordType")
 
 
-# Inherit from AdminStep to make sure that a RecordStorer can be configured
-class RecordStorer(AdminStep, Generic[RecordType]):
+# Inherit from FlowStep to make sure that a RecordStorer can be configured
+class RecordStorer(FlowStep, Generic[RecordType]):
     """An abstract interface for retrieving and storing records."""
 
     @abstractmethod

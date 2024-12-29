@@ -9,7 +9,7 @@ from threading import Lock
 from typing import Any, Callable, Self
 
 from github_steps import _org
-from flow.admin_step import AdminPropagateStep
+from flow.flow_steps import FlowPropagateStep
 from records.student_record import StudentRecord
 
 # -----------------------------------------------------------------------------
@@ -17,7 +17,7 @@ from records.student_record import StudentRecord
 # -----------------------------------------------------------------------------
 
 
-class CreatePersonalRepos(AdminPropagateStep[StudentRecord]):
+class CreatePersonalRepos(FlowPropagateStep[StudentRecord]):
     """A propagate step to create any needed personal repos."""
 
     description = "Create personal repositories for students."
