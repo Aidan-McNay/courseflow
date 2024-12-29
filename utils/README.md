@@ -10,10 +10,10 @@ The current utility scripts include:
 
  - `group-section-check.py`: Check that all groups in a given category on
      Canvas contain students in the same lab section
- - `pull-assignment.py`: Pulls data about the current grading status of an
-     assignment to a spreadsheet
  - `tag-integrity-check.py`: Chach that no tags have been messed with for
      a given lab, using the collected hashes in `TagRecord`s
+ - `upload-grades.py`: Upload grades for a given assignment from a
+     spreadsheet to Canvas
 
 ## Running
 
@@ -30,4 +30,5 @@ or simply
 ```
 
 The script will tell you information about what it does and any arguments
-it needs
+it needs. For more verbose information about a script's usage, check the
+documentation or use the `-i` flag.
