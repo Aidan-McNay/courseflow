@@ -10,8 +10,11 @@ This is the home for ``cornell-canvas``'s documentation, including
 prerequisites, usage, and a reference of implemented steps/flows.
 
 .. toctree::
-   :maxdepth: 1
-   :caption: Overview
+   :maxdepth: 2
+   :titlesonly:
+   :caption: Getting Started
 
    overview.md
+   prerequisites.md
+   installation.md
 
