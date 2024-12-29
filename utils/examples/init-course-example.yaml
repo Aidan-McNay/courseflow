@@ -1,0 +1,83 @@
+# ========================================================================
+# An example attribute file to initialize a course with
+# ========================================================================
+# Author: Aidan McNay
+# Date: December 29th, 2024
+
+# ------------------------------------------------------------------------
+# Assignment Groups
+# ------------------------------------------------------------------------
+
+assignment_groups:
+ - name: "Quizzes"
+   weight: 10
+ - name: "Labs"
+   weight: 25
+
+# ------------------------------------------------------------------------
+# Group Categories
+# ------------------------------------------------------------------------
+
+group_categories:
+ - name: "Lab 1 Report Groups"
+ - name: "Lab 2 Report Groups"
+   self_signup: "enabled"
+
+# ------------------------------------------------------------------------
+# Assignments
+# ------------------------------------------------------------------------
+
+assignments:
+ - name: "Lab 1 Report"
+   description: "The Canvas Assignment for the Lab 1 Report"
+   assignment_group: "Labs"
+   submission_types: "online_upload"
+   allowed_extensions:
+    - "docx"
+    - "pdf"
+   grading_type: "points"
+   group_category: "Lab 1 Report Groups"
+   published: True
+
+ - name: "Lab 2 Report"
+   description: "The Canvas Assignment for the Lab 2 Report"
+   assignment_group: "Labs"
+   submission_types: "online_upload"
+   allowed_extensions:
+    - "pdf"
+   grading_type: "points"
+   group_category: "Lab 2 Report Groups"
+   published: False
+   due_at: 2024-12-24 11:59:00
+   unlock_at: 2024-12-09 11:59:00
+   lock_at: 2024-12-26 11:59:00
+
+# ------------------------------------------------------------------------
+# Quizzes
+# ------------------------------------------------------------------------
+
+quizzes:
+ - title: "GitHub Username Form"
+   description: >-
+     We will be using GitHub to distribute and grade the lab assignments. 
+     Students will also be using GitHub to collaborate with their lab
+     partner on lab assignments. In order to invite students to the
+     course's GitHub organization we need to know your NetID and your
+     GitHub username.
+
+
+     <b>NOTE</b>: We do NOT use the Cornell GitHub. We use the public
+     github.com system which means you need to explicitly have an account
+     on github.com. If you do not already have a GitHub account, go to
+     https://github.com/join. Make sure you use your netid@cornell.edu
+     email address if you are creating a new account. Your NetID makes a
+     good GitHub username.
+   quiz_type: "graded_survey"
+   assignment_group: "Quizzes"
+   published: True
+   allowed_attempts: -1
+   questions:
+    - name: "GitHub Username"
+      text: "GitHub Username:"
+      type: "short_answer_question"
+      points_possible: 0
