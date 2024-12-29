@@ -6,8 +6,8 @@
 cornell-canvas documentation
 ============================
 
-This is the home for `cornell-canvas`'s documentation, including prerequisites,
-usage, and a reference of implemented steps/flows.
+This is the home for ``cornell-canvas``'s documentation, including
+prerequisites, usage, and a reference of implemented steps/flows.
 
 .. toctree::
    :maxdepth: 1
