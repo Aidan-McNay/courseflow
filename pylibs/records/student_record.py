@@ -8,7 +8,7 @@ Date: September 14th, 2024
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Optional, NotRequired, Self, Type, TypeVar, TypedDict
+from typing import Optional, NotRequired, Type, TypeVar, TypedDict
 
 from records.spreadsheet_record import SpreadsheetRecord
 
@@ -49,7 +49,11 @@ StudentRecordAttrs = TypedDict(
 
 @dataclass
 class StudentRecord(SpreadsheetRecord):
-    """A record indicating a student's status.
+    """A record indicating a student's status in the class.
+
+    This includes metadata about the student, as well as
+    attributes reflecting whether specific activities have been
+    completed.
 
     Attributes:
      - first_name (str): The student's first name
@@ -62,9 +66,10 @@ class StudentRecord(SpreadsheetRecord):
      - github_valid (Optional[bool]):
          Whether their GitHub username is valid
      - last_no_username_ping (Optional[datetime.datetime]):
-         When they were last pinged about not submitting a username
+         When they were last pinged about not submitting a GitHub username
      - last_valid_ping (Optional[datetime.datetime]):
-         When they were last pinged about their invalid username, if at all
+         When they were last pinged about their invalid GitHub username,
+         if at all
      - sent_invite (bool):
          Whether they've been sent a GitHub invitation
      - invite_date (Optional[datetime.datetime]):
@@ -72,17 +77,17 @@ class StudentRecord(SpreadsheetRecord):
      - github_accepted (bool):
          Whether they've accepted their GitHub invite
      - last_accepted_ping (Optional[datetime.datetime]):
-         When they were last pinged to accept the invite, if at all
+         When they were last pinged to accept the GitHub invite, if at all
      - personal_repo_name (Optional[str]):
-         The name of their personal repository
+         The name of their personal GitHub repository
      - added_to_personal (bool):
-         Whether they've been added to their personal repository
+         Whether they've been added to their personal GitHub repository
      - group_num (Optional[str]):
-         The number of their group on Canvas
+         The number of their lab group on Canvas
      - group_repo_name (Optional[str]):
-         The name of their group's repo on GitHub
+         The name of their lab group's repo on GitHub
      - added_to_group (bool):
-         Whether they've been added to their group's repo on GitHub
+         Whether they've been added to their lab group's repo on GitHub
     """
 
     first_name: str
@@ -131,11 +136,13 @@ class StudentRecord(SpreadsheetRecord):
         "AddedToGroup?",
     ]
 
-    def to_strings(self: Self) -> list[str]:
+    def to_strings(self: "StudentRecord") -> list[str]:
         """Represent the record as a list of strings.
 
+        This is used to store the record in a spreadsheet.
+
         Args:
-            self (Self): The record to represent
+            self (StudentRecord): The record to represent
 
         Returns:
             list[str]: The strings that represent the record
@@ -181,6 +188,8 @@ class StudentRecord(SpreadsheetRecord):
         cls: Type[StudentRecordChild], header_mapping: dict[str, str]
     ) -> StudentRecordChild:
         """Form a StudentRecord from the data found under headers.
+
+        This is used to obtain a record from a spreadsheet entry.
 
         Args:
             header_mapping (dict[str, str]): The mapping of headers to row data

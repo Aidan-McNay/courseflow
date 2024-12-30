@@ -4,10 +4,12 @@ Author: Aidan McNay
 Date: September 19th, 2024
 """
 
+# flake8: noqa D412
+
 from dataclasses import dataclass
 from datetime import datetime
 from itertools import chain
-from typing import Literal, Optional, Self, Type, TypeGuard, TypeVar
+from typing import Literal, Optional, Type, TypeGuard, TypeVar
 
 from records.spreadsheet_record import SpreadsheetRecord
 
@@ -18,15 +20,18 @@ from records.spreadsheet_record import SpreadsheetRecord
 
 @dataclass
 class TagRecord:
-    """A representation of a tag on a repository.
+    """A (possible) representation of a tag on a repository.
 
-    Attr:
+    A TagRecord does not have to represent a current tag; it can also
+    serve as a placeholder for a tag that hasn't been created yet.
+
+    Attributes:
 
      - name (Optional[str]): The name of the tag
      - time (Optional[datetime]): The time the tag was created
      - ref_sha (Optional[str]): The SHA-1 Hash of the Git Reference
-     - commit_sha (Optional[str]): The SHA-1 Hash of the commit that the tag
-         references
+     - commit_sha (Optional[str]):
+         The SHA-1 Hash of the commit that the tag references
     """
 
     name: Optional[str] = None
@@ -34,11 +39,11 @@ class TagRecord:
     ref_sha: Optional[str] = None
     commit_sha: Optional[str] = None
 
-    def tagged(self: Self) -> bool:
+    def tagged(self: "TagRecord") -> bool:
         """Return whether the repo has already been tagged.
 
         Args:
-            self (Self): The TagRecord
+            self (TagRecord): The TagRecord which may represent a tag
 
         Returns:
             bool: Whether the record represents an actual tag
@@ -69,13 +74,15 @@ def is_repo_type(
 
 
 def get_tag_headers(labs: list[str]) -> list[str]:
-    """Define the headers for a specific set of labs.
+    """Create the headers for a TagRecords, based on its labs.
 
     Args:
-        labs (list[str]): The labs to make headers for.
+        labs (list[str]): The labs that a TagRecords hold.
 
     Returns:
-        list[str]: The corresponding spreadsheet headers for the labs
+        list[str]:
+          The corresponding spreadsheet headers that should be used to
+          represent the TagRecords
     """
     lab_headers_nested = [
         [
@@ -97,12 +104,14 @@ class TagRecords(SpreadsheetRecord):
     # Users should override labs to define their own lab instances
     labs: list[str] = []
 
-    # Users should override headers with the output og get_tag_headers
+    # Users should override headers with the output of get_tag_headers
     # for their labs
     headers: list[str] = []
 
     def __init__(
-        self: Self, repo_name: str, repo_type: Literal["personal", "group"]
+        self: "TagRecords",
+        repo_name: str,
+        repo_type: Literal["personal", "group"],
     ) -> None:
         """Initialize the TagRecords for a specific repository.
 
@@ -122,7 +131,7 @@ class TagRecords(SpreadsheetRecord):
         if len(self.headers) == 0:
             raise Exception("Class attributes 'headers' isn't overriden!")
 
-    def to_strings(self: Self) -> list[str]:
+    def to_strings(self: "TagRecords") -> list[str]:
         """Represent an instance of the generated class as strings.
 
         Args:
@@ -161,15 +170,19 @@ class TagRecords(SpreadsheetRecord):
     @classmethod
     def from_strings(
         cls: Type[TagRecordsChild], header_mapping: dict[str, str]
-    ) -> TagRecordsChild:
-        """Create an instance of our generated type from strings.
+    ) -> "TagRecords":
+        """Form a TagRecords from the data found under headers.
+
+        This is used to obtain a record from a spreadsheet entry.
 
         Args:
-            cls (TagRecords): The generated class
             header_mapping (dict[str, str]): The mapping of headers to row data
 
+        Raises:
+            Exception: Raised if a mandatory header is missing
+
         Returns:
-            TagRecords: An instance of the generated class
+            TagRecords: The corresponding record with the desired data
         """
         mandatory_headers = ["RepoName", "RepoType"]
         for header in mandatory_headers:

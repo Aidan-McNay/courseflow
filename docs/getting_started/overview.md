@@ -44,7 +44,8 @@ class MyFlowStep(FlowStep):
  - `config_types`: The name, type, and description of all
      configurations that the step needs. The type should be a _flat_
      type (a.k.a. not a collection), such that it can be checked with
-     `isinstance`
+     `isinstance`. Currently supported configuration types are `int`,
+     `str`, `bool`, and `datetime.datetime`
  - `validate`: A function fo validate configurations (without running
      the step). If the configurations aren't "valid" (where validity
      differs based on the semantics of each step), `validate` should
@@ -108,7 +109,7 @@ records:
 ```{admonition} Update vs. Propagate
 A key note is the difference between `FlowUpdateStep`s and
 `FlowPropagateStep`s; the former should add and check any incoming data,
-whereas the later uses said data to update other external entities, such
+whereas the latter uses said data to update other external entities, such
 as Canvas and GitHub. These are separated such that all `FlowUpdateStep`s
 occur before any `FlowPropagateStep`s, ensuring that any exceptions are
 caught before external state is modified (similar to a processor's commit
@@ -233,6 +234,55 @@ However, this introduces a number of other considerations:
    documentation)
  - Steps accessing a particular piece of data must be sure to use the same
    name as the step that set the data
+
+## Configuring Flows
+
+Once we have a flow, we need to be able to configure it for our specific
+needs. All `Flow`s have a `config` method that takes in a dictionary
+configuratioin for the flow, and configures each step appropriately. Each
+step should have a different entry in the configuration dictionary with
+all of its configurations. The flow will check that all necessary
+configurations are present (of the correct type), and will instantiate all
+steps with their configurations. Once configured, a flow can be run using
+the `run` method.
+
+While it is possible to ascertain the necessary configurations from the
+flow and its construction, `Flow`s additionally provide a
+`describe_config` method to make this process easier. For a constructed
+`Flow`, this method will produce a dictionary of identical structure to
+the expected configuration, where each entry is a description of what is
+expected in the configuration. See the
+[tutorial](tutorial.md) for more details.
+
+### Step Modes
+
+In addition to each `FlowStep`'s configurations, a _mode_ is expected for
+each step. Each step can be configured in one of three modes:
+
+ - `include`: This should be the default mode, and runs the step
+     "normally"
+ - `debug`: When a step is run in debug mode, its operation may differ
+     slightly. This is up to each individual step, but may include
+     providing sample data and/or more verbose output
+
+     ```{admonition} Propagate Steps in debug
+     :class: caution
+
+     When run in debug, `FlowPropagateStep`s should __never__ actually
+     modify external state (as doing so on debug data may be incorrect,
+     as well as because we may not wish to perform updates when debugging
+     a script). Instead, such steps should use their `logger` to indicate
+     their intent to modify state, but not actually do so
+     ```
+
+  - `exclude`: The step is excluded, and will not be run. Dependencies on
+      excluded steps are removed from DAGs
+
+      ```{admonition} Record Storing
+
+     Because of their central role in a flow, a `Flow`'s `RecordStorer`
+     cannot be excluded
+     ```
 
 ## Flow Managers
 

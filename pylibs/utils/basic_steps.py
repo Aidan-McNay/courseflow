@@ -25,11 +25,11 @@ class BasicRecordStorer(RecordStorer[int]):
     description = "A basic record storer that stores integers in a file."
     config_types = [("file_path", str, "The path to a file to store records")]
 
-    def validate(self: Self) -> None:
+    def validate(self: "BasicRecordStorer") -> None:
         """Validate the configurations for the step.
 
         Args:
-            self (Self): The step to validate
+            self (BasicRecordStorer): The step to validate
         """
         if not os.path.isfile(self.configs.file_path):
             if os.path.exists(self.configs.file_path):
@@ -41,11 +41,14 @@ class BasicRecordStorer(RecordStorer[int]):
                 _ = [int(x) for x in f.readlines()]
 
     def get_records(
-        self: Self, logger: Callable[[str], None], debug: bool = False
+        self: "BasicRecordStorer",
+        logger: Callable[[str], None],
+        debug: bool = False,
     ) -> list[int]:
         """Get the records from the file.
 
         Args:
+            self (BasicRecordStorer): The record storer to get records with
             logger (Callable[[str], None]): A logger for recording notable
               events
             debug (bool): Whether to run in debug mode. Defaults to False
@@ -71,6 +74,7 @@ class BasicRecordStorer(RecordStorer[int]):
         """Store the updated records in the file.
 
         Args:
+            self (BasicRecordStorer): The record storer to store records with
             rec_list (list[int]): The records to store
             logger (Callable[[str], None]): A logger for recording notable
               events
@@ -145,7 +149,7 @@ class BasicRecordStep(FlowRecordStep[int]):
 class BasicUpdateStep(FlowUpdateStep[int]):
     """A basic flow update step to increment records."""
 
-    description = "A basic flow record step to increment all records"
+    description = "A basic flow update step to increment all records"
     config_types = [("increment", int, "The amount to increment by")]
 
     def validate(self: Self) -> None:
@@ -196,9 +200,9 @@ class BasicUpdateStep(FlowUpdateStep[int]):
 
 
 class BasicPropagateStep(FlowPropagateStep[int]):
-    """A basic flow update step to increment records."""
+    """A basic flow propagate step to log the sum of all records."""
 
-    description = "A basic flow record step to log the sum of all records"
+    description = "A basic flow propagate step to log the sum of all records"
     config_types = []
 
     def validate(self: Self) -> None:

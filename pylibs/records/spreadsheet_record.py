@@ -5,7 +5,7 @@ Date: September 14th, 2024
 """
 
 from abc import ABC, abstractmethod
-from typing import Self, Type, TypeVar
+from typing import Type, TypeVar
 
 # -----------------------------------------------------------------------------
 # SpreadsheetRecord
@@ -29,23 +29,28 @@ class SpreadsheetRecord(ABC):
     # Records must define their headers
     @property
     @abstractmethod
-    def headers(self: Self) -> list[str]:
-        """The headers for the given object."""
+    def headers(self: "SpreadsheetRecord") -> list[str]:
+        """The headers to use for the given object.
+
+        These should be sufficient to represent all data in an object
+        instance, and be of the same order as the data in the string
+        representation.
+        """
         return []
 
     # Must be able to represent itself as a list of strings
     @abstractmethod
-    def to_strings(self: Self) -> list[str]:
+    def to_strings(self: "SpreadsheetRecord") -> list[str]:
         """Represent itself as a list of strings.
 
         The list should be the same length as its headers, with each element
         representing the data for the corresponding header.
 
         Args:
-            self (Self): The object to represent as strings
+            self (SpreadsheetRecord): The class instance to represent as strings
 
         Returns:
-            list[str]: The representation as strings
+            list[str]: A representation of the instance as strings
         """
         return []
 
@@ -54,7 +59,7 @@ class SpreadsheetRecord(ABC):
     @abstractmethod
     def from_strings(
         cls: Type[SpreadsheetRecordChild], header_mapping: dict[str, str]
-    ) -> SpreadsheetRecordChild:
+    ) -> "SpreadsheetRecord":
         """Construct itself from a mapping of strings.
 
         Args:
@@ -63,5 +68,6 @@ class SpreadsheetRecord(ABC):
               the class must determine whether it can still be constructed.
 
         Returns:
-            Self: The constructed mapping
+            SpreadsheetRecord: An instance of the class constructed
+              from the provided data
         """

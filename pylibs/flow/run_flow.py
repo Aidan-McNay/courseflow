@@ -36,6 +36,7 @@ def run_flow(flow: Flow[RecordType]) -> None:
 
     flow_args = parser.add_argument_group("Flow Arguments")
     flow_args.add_argument(
+        "-d",
         "--dump",
         help=(
             "Dump a YAML file with documentation for "

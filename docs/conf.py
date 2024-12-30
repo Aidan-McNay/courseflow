@@ -25,10 +25,22 @@ release = "1.0.0"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["sphinx_rtd_theme", "myst_parser", "sphinx.ext.autodoc"]
+extensions = ["sphinx_rtd_theme", "myst_parser", "sphinx.ext.napoleon"]
 
 templates_path = ["_templates"]
 exclude_patterns = []
+
+
+# Add generic parameter types (https://github.com/sphinx-doc/sphinx/issues/10568#issuecomment-2413039360)
+def process_signature(app, what, name, obj, options, signature, return_annotation):
+    if what == "class":
+        if name == "flow.flow.Flow":
+            signature = "[RecordType]" + (signature or "")
+    return signature, return_annotation
+
+
+def setup(app):
+    app.connect("autodoc-process-signature", process_signature)
 
 
 # -- Options for HTML output -------------------------------------------------

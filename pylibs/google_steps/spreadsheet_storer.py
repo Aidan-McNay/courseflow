@@ -5,7 +5,7 @@ Date: September 16th, 2024
 """
 
 from datetime import datetime
-from typing import Callable, get_args, Self, TypeVar
+from typing import Callable, get_args, TypeVar
 
 from google_steps import _sheets
 from flow.record_storer import RecordStorer
@@ -33,11 +33,11 @@ class SpreadsheetStorer(RecordStorer[RecordType]):
         ("tab", str, "The tab to access for records"),
     ]
 
-    def validate(self: Self) -> None:
+    def validate(self: "SpreadsheetStorer[RecordType]") -> None:
         """Validate the configurations for the spreadsheet storer.
 
         Args:
-            self (Self): The step to validate
+            self (SpreadsheetStorer[RecordType]): The step to validate
         """
         # Make sure we can connect to the spreadsheet
         try:
@@ -49,11 +49,15 @@ class SpreadsheetStorer(RecordStorer[RecordType]):
             )
 
     def get_records(
-        self: Self, logger: Callable[[str], None], debug: bool = False
+        self: "SpreadsheetStorer[RecordType]",
+        logger: Callable[[str], None],
+        debug: bool = False,
     ) -> list[RecordType]:
         """Get the records from the spreadsheet.
 
         Args:
+            self (SpreadsheetStorer[RecordType]): The record step to get
+              records with
             logger (Callable[[str], None]): A logger for recording notable
               events
             debug (bool): Whether to run in debug mode. Defaults to False
@@ -110,7 +114,7 @@ class SpreadsheetStorer(RecordStorer[RecordType]):
         return records
 
     def set_records(
-        self: Self,
+        self: "SpreadsheetStorer[RecordType]",
         rec_list: list[RecordType],
         logger: Callable[[str], None],
         debug: bool = False,
@@ -118,6 +122,8 @@ class SpreadsheetStorer(RecordStorer[RecordType]):
         """Store the updated records in the Google Sheet.
 
         Args:
+            self (SpreadsheetStorer[RecordType]): The step to store
+              records with
             rec_list (list[T]): The records to store
             logger (Callable[[str], None]): A logger for recording notable
               events

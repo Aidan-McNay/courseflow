@@ -15,7 +15,6 @@ from typing import (
     Generic,
     Optional,
     NotRequired,
-    Self,
     Type,
     TypedDict,
     TypeVar,
@@ -81,7 +80,7 @@ class Flow(Generic[RecordType]):
     """An administrative flow that manages and runs different sections."""
 
     def __init__(
-        self: Self,
+        self: "Flow[RecordType]",
         name: str,
         description: str,
         record_storer_type: Type[RecordStorer[RecordType]],
@@ -90,7 +89,7 @@ class Flow(Generic[RecordType]):
         """Initialize the flow with a name, description, and a RecordStorer.
 
         Args:
-            self (Self): The flow to initialize
+            self (Flow[RecordType]): The flow to initialize
             name (str): The name of the flow
             description (str): A high-level description of what the flow does
             record_storer (RecordStorer[RecordType]): The storage object used
@@ -150,16 +149,32 @@ class Flow(Generic[RecordType]):
     # Logging
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    def silent(self: Self) -> None:
-        """Make the flow suppress terminal output."""
+    def silent(self: "Flow[RecordType]") -> None:
+        """Make the flow suppress terminal output.
+
+        Args:
+            self (Flow[RecordType]): The flow to suppress output from
+        """
         set_verbosity(False)
 
-    def verbose(self: Self) -> None:
-        """Enable terminal output, if it was previously disabled."""
+    def verbose(self: "Flow[RecordType]") -> None:
+        """Enable terminal output, if it was previously disabled.
+
+        Args:
+            self (Flow[RecordType]): The flow to enable output from
+        """
         set_verbosity(True)
 
-    def logfile(self: Self, file_path: str) -> None:
-        """Add a logfile path, to output logs to."""
+    def logfile(self: "Flow[RecordType]", file_path: str) -> None:
+        """Add a logfile path, to output logs to.
+
+        Args:
+            self (Flow[RecordType]): The flow to add a logfile path to
+            file_path (str): The path to log to
+
+        Raises:
+            Exception: Raised if the file exists already and isn't a file
+        """
         if os.path.exists(file_path) and not os.path.isfile(file_path):
             raise Exception(
                 f"Logfile path {file_path} already exists and isn't a file!"
@@ -167,29 +182,33 @@ class Flow(Generic[RecordType]):
 
         add_logfile(self.logger, file_path)
 
-    def flow_log(self: Self, msg: str) -> None:
+    def flow_log(self: "Flow[RecordType]", msg: str) -> None:
         """Log a message from the flow.
 
         Args:
+            self (Flow[RecordType]): The flow to log a message for
             msg (str): The message to log
         """
         with self._log_lock:
             self.logger.log(FLOW, msg)
 
-    def flow_success(self: Self, msg: str) -> None:
+    def flow_success(self: "Flow[RecordType]", msg: str) -> None:
         """Log a success message from the flow.
 
         Args:
-            msg (str): The message to log
+            self (Flow[RecordType]): The flow to log a message for
+            msg (str): The success message to log
         """
         with self._log_lock:
             self.logger.log(SUCCESS, msg)
 
-    def step_log(self: Self, step_name: str, msg: str) -> None:
+    def step_log(self: "Flow[RecordType]", step_name: str, msg: str) -> None:
         """Log a message from a step.
 
         Args:
-            step_name (str): The step that's logging
+            self (Flow[RecordType]): The flow to log a message with
+            step_name (str):
+              The name of the step that's logging the message
             msg (str): The message to log
         """
         with self._log_lock:
@@ -199,22 +218,24 @@ class Flow(Generic[RecordType]):
     # Step Metadata
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    def set_metadata(self: Self, name: str, value: object) -> None:
+    def set_metadata(
+        self: "Flow[RecordType]", name: str, value: object
+    ) -> None:
         """Set global metadata for the flow from a step.
 
         Args:
-            self (Self): The flow to set metadata for
+            self (Flow[RecordType]): The flow to set metadata for
             name (str): The name of the metadata
             value (object): The value for the metadata
         """
         with self._step_metadata_lock:
             self.step_metadata[name] = value
 
-    def get_metadata(self: Self, name: str) -> object:
+    def get_metadata(self: "Flow[RecordType]", name: str) -> object:
         """Get global metadata from the flow for a step.
 
         Args:
-            self (Self): The flow to set metadata for
+            self (Flow[RecordType]): The flow to set metadata for
             name (str): The name of the metadata
 
         Returns:
@@ -230,11 +251,11 @@ class Flow(Generic[RecordType]):
     # Adding Steps
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    def step_names(self: Self) -> list[str]:
+    def step_names(self: "Flow[RecordType]") -> list[str]:
         """Get the names of all the steps in the flow.
 
         Args:
-            self (Self): The flow to get the step names for
+            self (Flow[RecordType]): The flow to get the step names for
 
         Returns:
             list[str]: The names of all the steps in the flow
@@ -244,10 +265,11 @@ class Flow(Generic[RecordType]):
         propagate_names = [name for name, _, _ in self.propagate_steps]
         return record_names + update_names + propagate_names
 
-    def step_exists(self: Self, step_name: str) -> bool:
+    def step_exists(self: "Flow[RecordType]", step_name: str) -> bool:
         """Determine whether a step with the given name already exists.
 
         Args:
+            self (Flow[RecordType]): The flow to check for the name
             step_name (str): The step's name
 
         Returns:
@@ -259,14 +281,17 @@ class Flow(Generic[RecordType]):
         )
 
     def add_record_step(
-        self: Self, name: str, step: Type[FlowRecordStep[RecordType]]
+        self: "Flow[RecordType]",
+        name: str,
+        step: Type[FlowRecordStep[RecordType]],
     ) -> None:
         """Add a record step to the flow.
 
         Args:
+            self (Flow[RecordType]): The flow to add the step to
             name (str): The name of the record step
-            step (Type[FlowRecordStep[RecordType]]): The type of the record
-              step
+            step (Type[FlowRecordStep[RecordType]]):
+              The type of the record step to add
 
         Raises:
             Exception: Raised if a step with the name already exists
@@ -276,7 +301,7 @@ class Flow(Generic[RecordType]):
         self.record_steps.append((name, step))
 
     def add_update_step(
-        self: Self,
+        self: "Flow[RecordType]",
         name: str,
         step: Type[FlowUpdateStep[RecordType]],
         depends_on: list[str] = [],
@@ -284,10 +309,12 @@ class Flow(Generic[RecordType]):
         """Add an update step to the flow.
 
         Args:
+            self (Flow[RecordType]): The flow to add the step to
             name (str): The name of the record step
-            step (Type[FlowRecordStep[RecordType]]): The type of the record
-              step
-            depends_on (list[str]): Other steps that this one should run after
+            step (Type[FlowUpdateStep[RecordType]]):
+              The type of the update step to add
+            depends_on (list[str]):
+              Names of others steps that this one should run after
 
         Raises:
             Exception: Raised if a step with the name already exists, or if the
@@ -312,7 +339,7 @@ class Flow(Generic[RecordType]):
         self.update_steps.append((name, step, depends_on))
 
     def add_propagate_step(
-        self: Self,
+        self: "Flow[RecordType]",
         name: str,
         step: Type[FlowPropagateStep[RecordType]],
         depends_on: list[str] = [],
@@ -320,10 +347,12 @@ class Flow(Generic[RecordType]):
         """Add a propagate step to the flow.
 
         Args:
+            self (Flow[RecordType]): The flow to add the step to
             name (str): The name of the record step
-            step (Type[FlowRecordStep[RecordType]]): The type of the record
-              step
-            depends_on (list[str]): Other steps that this one should run after
+            step (Type[FlowPropagateStep[RecordType]]):
+              The type of the propagate step to add
+            depends_on (list[str]):
+              Names of others steps that this one should run after
 
         Raises:
             Exception: Raised if a step with the name already exists, or if the
@@ -353,11 +382,13 @@ class Flow(Generic[RecordType]):
     # Configuring
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    def describe_config(self: Self) -> dict[str, str | dict[str, str]]:
-        """Return a dictionary describing the flow and all steps.
+    def describe_config(
+        self: "Flow[RecordType]",
+    ) -> dict[str, str | dict[str, str]]:
+        """Provide a dictionary describing the flow and all steps.
 
         Args:
-            self (Self): The flow to describe
+            self (Flow[RecordType]): The flow to describe
 
         Returns:
             dict[str, str | dict[str, str]]: A mapping of configurations to
@@ -399,12 +430,17 @@ class Flow(Generic[RecordType]):
 
         return config_descriptions
 
-    def config(self: Self, config_dict: dict[str, Any]) -> None:
+    def config(self: "Flow[RecordType]", config_dict: dict[str, Any]) -> None:
         """Configure the flow and its steps.
 
         Args:
-            self (Self): The flow to configure
+            self (Flow[RecordType]): The flow to configure
             config_dict (dict[str, Any]): The configurations for the flow
+
+        Raises:
+            Exception: Raised if the configurations are incorrect. This
+              can be called for a variety of reasons; the exception
+              message will describe why
         """
         # First, check the type of the dictionary
         for value in config_dict.values():
@@ -568,11 +604,11 @@ class Flow(Generic[RecordType]):
     # Running
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    def _get_records(self: Self) -> list[RecordType]:
+    def _get_records(self: "Flow[RecordType]") -> list[RecordType]:
         """Get the records from the record storer.
 
         Args:
-            self (Self): The flow to get records for
+            self (Flow[RecordType]): The flow to get records with
 
         Returns:
             list[RecordType]: The retrieved records
@@ -593,11 +629,13 @@ class Flow(Generic[RecordType]):
             debug=(self.step_modes[self.record_storer_name] == StepMode.DEBUG),
         )
 
-    def _set_records(self: Self, records: list[RecordType]) -> None:
-        """Set the records using the record storer.
+    def _set_records(
+        self: "Flow[RecordType]", records: list[RecordType]
+    ) -> None:
+        """Set the records using the flow's record storer.
 
         Args:
-            self (Self): The flow with the records.
+            self (Flow[RecordType]): The flow to store the records with
             records (list[RecordType]): The records to store
         """
 
@@ -618,12 +656,12 @@ class Flow(Generic[RecordType]):
         )
 
     def _run_record_steps(
-        self: Self, records: list[RecordType]
+        self: "Flow[RecordType]", records: list[RecordType]
     ) -> list[RecordType]:
-        """Run our record steps over the list of records.
+        """Run the flow's record steps over the list of records.
 
         Args:
-            self (Self): The current flow
+            self (Flow[RecordType]): The flow to run the record steps of
             records (list[RecordType]): The current list of records
 
         Returns:
@@ -656,11 +694,13 @@ class Flow(Generic[RecordType]):
             )
         return records
 
-    def _run_update_steps(self: Self, records: list[RecordType]) -> None:
-        """Run our update steps over the list of records.
+    def _run_update_steps(
+        self: "Flow[RecordType]", records: list[RecordType]
+    ) -> None:
+        """Run the flow's update steps over the list of records.
 
         Args:
-            self (Self): The current flow
+            self (Flow[RecordType]): The flow to run the update steps of
             records (list[RecordType]): The list of records to update
         """
         work_queue: list[Optional[tuple[str, FlowUpdateStep[RecordType]]]] = []
@@ -796,11 +836,13 @@ class Flow(Generic[RecordType]):
         for i in range(len(records)):
             records[i] = zipped_records[i][0]
 
-    def _run_propagate_steps(self: Self, records: list[RecordType]) -> None:
-        """Run our propagate steps over the list of records.
+    def _run_propagate_steps(
+        self: "Flow[RecordType]", records: list[RecordType]
+    ) -> None:
+        """Run the flow's propagate steps over the list of records.
 
         Args:
-            self (Self): The current flow
+            self (Flow[RecordType]): The flow to run the propagate steps of
             records (list[RecordType]): The list of records to update
         """
         work_queue: list[
@@ -940,11 +982,21 @@ class Flow(Generic[RecordType]):
         for i in range(len(records)):
             records[i] = zipped_records[i][0]
 
-    def run(self: Self) -> None:
-        """Run all of the steps, getting and storing the needed records.
+    def run(self: "Flow[RecordType]") -> None:
+        """Run the flow, running all of the associated steps.
+
+        This will:
+         - Get a list of records using the flow's record storer
+         - Run the flow's record steps sequentially to add to the list of
+           records
+         - Run the flow's update steps in parallel to update the list of
+           records
+         - Run the flow's propagate steps in parallel to propagate the
+           data in the list of records
+         - Store the updated records using the flow's record storer
 
         Args:
-            self (Self): The flow to run
+            self (Flow[RecordType]): The flow to run
         """
         self.flow_log("==================================================")
         self.flow_log(self.name)
