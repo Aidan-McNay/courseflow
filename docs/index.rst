@@ -14,7 +14,26 @@ prerequisites, usage, and a reference of implemented steps/flows.
    :titlesonly:
    :caption: Getting Started
 
-   overview.md
-   prerequisites.md
-   installation.md
+   getting_started/overview.md
+   getting_started/prerequisites.md
+   getting_started/installation.md
+
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+   :caption: Using Flows
+
+   using_flows/basic_flow.md
+   using_flows/configuring.md
+   using_flows/adding_new_steps.md
+
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+   :caption: Library Reference
+
+   library_reference/record_storers.md
+   library_reference/record_steps.md
+   library_reference/update_steps.md
+   library_reference/propagate_steps.md
 
