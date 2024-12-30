@@ -64,7 +64,10 @@ flow_config_types: list[tuple[str, Type[ValidConfigTypes], str]] = [
     (
         "num_threads",
         int,
-        ("The number of threads to use when " "running update and propagate steps"),
+        (
+            "The number of threads to use when "
+            "running update and propagate steps"
+        ),
     )
 ]
 
@@ -110,7 +113,9 @@ class Flow(Generic[RecordType]):
         #   dependencies (list[str])
         # )
         # Record steps don't have dependencies (executed sequentially)
-        self.record_steps: list[tuple[str, Type[FlowRecordStep[RecordType]]]] = []
+        self.record_steps: list[
+            tuple[str, Type[FlowRecordStep[RecordType]]]
+        ] = []
         self.update_steps: list[
             tuple[str, Type[FlowUpdateStep[RecordType]], list[str]]
         ] = []
@@ -126,7 +131,9 @@ class Flow(Generic[RecordType]):
         # }
         self.step_modes: dict[str, StepMode] = {}
 
-        self.concrete_record_steps: list[tuple[str, FlowRecordStep[RecordType]]] = []
+        self.concrete_record_steps: list[
+            tuple[str, FlowRecordStep[RecordType]]
+        ] = []
         self.concrete_update_steps: list[
             tuple[str, FlowUpdateStep[RecordType], list[str]]
         ] = []
@@ -294,9 +301,13 @@ class Flow(Generic[RecordType]):
             raise Exception(f"{name} already exists as a step!")
         for dependency in depends_on:
             if dependency not in curr_step_names:
-                raise Exception(f"Dependency {dependency} doesn't exist as a step!")
+                raise Exception(
+                    f"Dependency {dependency} doesn't exist as a step!"
+                )
             if dependency not in curr_update_step_names:
-                raise Exception(f"Dependency {dependency} isn't an update step!")
+                raise Exception(
+                    f"Dependency {dependency} isn't an update step!"
+                )
 
         self.update_steps.append((name, step, depends_on))
 
@@ -320,15 +331,21 @@ class Flow(Generic[RecordType]):
               type
         """
         curr_step_names = self.step_names()
-        curr_propagate_step_names = [name for name, _, _ in self.propagate_steps]
+        curr_propagate_step_names = [
+            name for name, _, _ in self.propagate_steps
+        ]
 
         if name in curr_step_names:
             raise Exception(f"{name} already exists as a step!")
         for dependency in depends_on:
             if dependency not in curr_step_names:
-                raise Exception(f"Dependency {dependency} doesn't exist as a step!")
+                raise Exception(
+                    f"Dependency {dependency} doesn't exist as a step!"
+                )
             if dependency not in curr_propagate_step_names:
-                raise Exception(f"Dependency {dependency} isn't a propagate step!")
+                raise Exception(
+                    f"Dependency {dependency} isn't a propagate step!"
+                )
 
         self.propagate_steps.append((name, step, depends_on))
 
@@ -419,7 +436,9 @@ class Flow(Generic[RecordType]):
             else:
                 raise Exception("Configuration 'num_threads' isn't an int")
         else:
-            raise Exception("Configuration 'num_threads' isn't in configuration")
+            raise Exception(
+                "Configuration 'num_threads' isn't in configuration"
+            )
 
         # Get whether our record storer is enabled
         if f"{self.record_storer_name}-mode" in config_dict:
@@ -453,16 +472,20 @@ class Flow(Generic[RecordType]):
                     config_dict[self.record_storer_name],
                 )
                 storer_config_dict = {
-                    x: y for x, y in storer_config_dict.items() if not x.startswith("_")
+                    x: y
+                    for x, y in storer_config_dict.items()
+                    if not x.startswith("_")
                 }
                 self.record_storer = self.record_storer_type(storer_config_dict)
             else:
                 raise Exception(
-                    f"Configuration '{self.record_storer_name}' isn't " "a dictionary"
+                    f"Configuration '{self.record_storer_name}' isn't "
+                    "a dictionary"
                 )
         else:
             raise Exception(
-                f"Configuration '{self.record_storer_name}' isn't " "in configuration"
+                f"Configuration '{self.record_storer_name}' isn't "
+                "in configuration"
             )
 
         # Configure/instantiate our steps
@@ -482,9 +505,13 @@ class Flow(Generic[RecordType]):
                         (name, record_step_type(step_config_dict))
                     )
                 else:
-                    raise Exception(f"Configuration '{name}' isn't " "a dictionary")
+                    raise Exception(
+                        f"Configuration '{name}' isn't " "a dictionary"
+                    )
             else:
-                raise Exception(f"Configuration '{name}' isn't " "in configuration")
+                raise Exception(
+                    f"Configuration '{name}' isn't " "in configuration"
+                )
         for name, update_step_type, dependencies in self.update_steps:
             if name in config_dict:
                 if isinstance(config_dict[name], dict):
@@ -501,9 +528,13 @@ class Flow(Generic[RecordType]):
                         (name, update_step_type(step_config_dict), dependencies)
                     )
                 else:
-                    raise Exception(f"Configuration '{name}' isn't " "a dictionary")
+                    raise Exception(
+                        f"Configuration '{name}' isn't " "a dictionary"
+                    )
             else:
-                raise Exception(f"Configuration '{name}' isn't " "in configuration")
+                raise Exception(
+                    f"Configuration '{name}' isn't " "in configuration"
+                )
         for name, propagate_step_type, dependencies in self.propagate_steps:
             if name in config_dict:
                 if isinstance(config_dict[name], dict):
@@ -524,9 +555,13 @@ class Flow(Generic[RecordType]):
                         )
                     )
                 else:
-                    raise Exception(f"Configuration '{name}' isn't " "a dictionary")
+                    raise Exception(
+                        f"Configuration '{name}' isn't " "a dictionary"
+                    )
             else:
-                raise Exception(f"Configuration '{name}' isn't " "in configuration")
+                raise Exception(
+                    f"Configuration '{name}' isn't " "in configuration"
+                )
         self.configured = True
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -582,7 +617,9 @@ class Flow(Generic[RecordType]):
             debug=(self.step_modes[self.record_storer_name] == StepMode.DEBUG),
         )
 
-    def _run_record_steps(self: Self, records: list[RecordType]) -> list[RecordType]:
+    def _run_record_steps(
+        self: Self, records: list[RecordType]
+    ) -> list[RecordType]:
         """Run our record steps over the list of records.
 
         Args:
@@ -645,7 +682,9 @@ class Flow(Generic[RecordType]):
                 work_queue.append(new_work)
 
         # Use lock striping to protect records
-        zipped_records = list(zip(records, [Lock() for _ in range(len(records))]))
+        zipped_records = list(
+            zip(records, [Lock() for _ in range(len(records))])
+        )
 
         def worker(worker_name: str) -> None:
             """Run work from the work queue until told to stop by a 'None'.
@@ -709,15 +748,20 @@ class Flow(Generic[RecordType]):
             Returns:
                 list[str]: The updated dependencies
             """
-            return [dep for dep in curr_deps if dep in enabled_update_step_names]
+            return [
+                dep for dep in curr_deps if dep in enabled_update_step_names
+            ]
 
         enabled_update_steps = [
-            (name, step, new_deps(deps)) for (name, step, deps) in enabled_update_steps
+            (name, step, new_deps(deps))
+            for (name, step, deps) in enabled_update_steps
         ]
 
         # Start a pool of workers
         if self.configs["num_threads"] < 1:
-            raise Exception("Configuration 'num_threads' doesn't use any threads!")
+            raise Exception(
+                "Configuration 'num_threads' doesn't use any threads!"
+            )
         worker_pool = [
             Thread(target=worker, args=[f"Worker {i}"])
             for i in range(self.configs["num_threads"])
@@ -759,7 +803,9 @@ class Flow(Generic[RecordType]):
             self (Self): The current flow
             records (list[RecordType]): The list of records to update
         """
-        work_queue: list[Optional[tuple[str, FlowPropagateStep[RecordType]]]] = []
+        work_queue: list[
+            Optional[tuple[str, FlowPropagateStep[RecordType]]]
+        ] = []
         work_queue_lock = Lock()
 
         completed_steps: list[str] = []
@@ -778,7 +824,9 @@ class Flow(Generic[RecordType]):
                 work_queue.append(new_work)
 
         # Use lock striping to protect records
-        zipped_records = list(zip(records, [Lock() for _ in range(len(records))]))
+        zipped_records = list(
+            zip(records, [Lock() for _ in range(len(records))])
+        )
 
         def worker(worker_name: str) -> None:
             """Run work from the work queue until told to stop by a 'None'.
@@ -831,7 +879,9 @@ class Flow(Generic[RecordType]):
             for step in self.concrete_propagate_steps
             if self.step_modes[step[0]] != StepMode.EXCLUDE
         ]
-        enabled_propagate_step_names = [step[0] for step in enabled_propagate_steps]
+        enabled_propagate_step_names = [
+            step[0] for step in enabled_propagate_steps
+        ]
 
         def new_deps(curr_deps: list[str]) -> list[str]:
             """Update dependencies based on enabled steps.
@@ -842,7 +892,9 @@ class Flow(Generic[RecordType]):
             Returns:
                 list[str]: The updated dependencies
             """
-            return [dep for dep in curr_deps if dep in enabled_propagate_step_names]
+            return [
+                dep for dep in curr_deps if dep in enabled_propagate_step_names
+            ]
 
         enabled_propagate_steps = [
             (name, step, new_deps(deps))
@@ -851,7 +903,9 @@ class Flow(Generic[RecordType]):
 
         # Start a pool of workers
         if self.configs["num_threads"] < 1:
-            raise Exception("Configuration 'num_threads' doesn't use any threads!")
+            raise Exception(
+                "Configuration 'num_threads' doesn't use any threads!"
+            )
         worker_pool = [
             Thread(target=worker, args=[f"Worker {i}"])
             for i in range(self.configs["num_threads"])

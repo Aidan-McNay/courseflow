@@ -7,8 +7,14 @@ Required environment variables:
 
 import gspread
 import os
+from typing import cast
 
 # Initialize our main service account object
-#  - Have mypy ignore, as it isn't explicitly exported, but mentioned in the
-#    documentation
-_sheets = gspread.auth.service_account(filename=os.environ["GOOGLE_API_JSON"])
+#  - For documentation generation, use a dummy object, and pretend it's
+#    the correct type for linting
+if "AUTODOC_GEN" in os.environ:
+    _sheets = cast(gspread.client.Client, object())
+else:
+    _sheets = gspread.auth.service_account(
+        filename=os.environ["GOOGLE_API_JSON"]
+    )
