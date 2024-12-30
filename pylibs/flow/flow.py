@@ -792,6 +792,10 @@ class Flow(Generic[RecordType]):
         for worker_thread in worker_pool:
             worker_thread.join()
 
+        # Copy all records back over
+        for i in range(len(records)):
+            records[i] = zipped_records[i][0]
+
     def _run_propagate_steps(self: Self, records: list[RecordType]) -> None:
         """Run our propagate steps over the list of records.
 
@@ -931,6 +935,10 @@ class Flow(Generic[RecordType]):
             add_work(None)
         for worker_thread in worker_pool:
             worker_thread.join()
+
+        # Copy all records back over
+        for i in range(len(records)):
+            records[i] = zipped_records[i][0]
 
     def run(self: Self) -> None:
         """Run all of the steps, getting and storing the needed records.

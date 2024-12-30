@@ -1,0 +1,56 @@
+# ========================================================================
+# Basic Flow Configurations
+# ========================================================================
+
+_description: A basic flow to access and manipulate integer records
+num_threads: 4
+
+# ------------------------------------------------------------------------
+# Step Modes
+# ------------------------------------------------------------------------
+
+basic-storer-mode: debug
+
+new-integer-mode: debug
+
+increment-1-mode: debug
+increment-2-mode: debug
+increment-3-mode: debug
+
+print-sum-mode: debug
+
+# ------------------------------------------------------------------------
+# RecordStorer
+# ------------------------------------------------------------------------
+
+basic-storer:
+  _description: A basic record storer that stores integers in a file.
+  file_path: ./basic-flow-records.txt
+
+# ------------------------------------------------------------------------
+# FlowRecordStep
+# ------------------------------------------------------------------------
+
+new-integer:
+  _description: A basic flow record step to add a (changing) new record.
+
+# ------------------------------------------------------------------------
+# FlowUpdateStep
+# ------------------------------------------------------------------------
+
+increment-1:
+  _description: A basic flow record step to increment all records
+  increment: 1
+increment-2:
+  _description: A basic flow record step to increment all records
+  increment: 2
+increment-3:
+  _description: A basic flow record step to increment all records
+  increment: 3
+
+# ------------------------------------------------------------------------
+# FlowPropagateStep
+# ------------------------------------------------------------------------
+
+print-sum:
+  _description: A basic flow record step to log the sum of all records

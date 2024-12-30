@@ -4,7 +4,7 @@ Author: Aidan McNay
 Date: September 19th, 2024
 """
 
-from typing import Any, Callable, Generic, get_args, Self, TypeVar
+from typing import Any, Callable, get_args, Self, TypeVar
 
 from flow.flow_steps import FlowRecordStep
 from google_steps import _sheets
@@ -21,7 +21,7 @@ from utils.api_call import retry_call
 RecordType = TypeVar("RecordType", bound=TagRecords)
 
 
-class GetTagRecords(Generic[RecordType], FlowRecordStep[RecordType]):
+class GetTagRecords(FlowRecordStep[RecordType]):
     """Get TagRecords from a spreadsheet containing StudentRecords."""
 
     description = (

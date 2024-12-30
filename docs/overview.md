@@ -76,7 +76,7 @@ of the class:
    particular instance
 ```
 
-In addition to a base `FlowStep`, three more abstract classes are defined to
+In addition to a base `FlowStep`, four more abstract classes are defined to
 further define the semantics of a step, based on how they interact with
 records:
 
@@ -102,6 +102,8 @@ records:
    by the `FlowUpdateStep` that added it. Like `FlowUpdateStep`s, 
    `FlowPropagateStep`s are allowed to modify record data, primarily to
    indicate that propagation to external entities has occurred.
+ - A `RecordStorer` is used to store records; we'll cover them more with
+   flows.
 
 ```{admonition} Update vs. Propagate
 A key note is the difference between `FlowUpdateStep`s and
@@ -157,6 +159,41 @@ acyclic graph (DAG).
 :alt: An example execution timeline of a flow
 :width: 50%
 :align: center
+```
+
+## Record Storers
+
+Aside from adding to, updating, and propagating lists of records, a flow
+also needs to be able to store records. This is abstracted away with a
+`RecordStorer`, an abstract class that inherits from `FlowStep`. In
+addition to the required attributes for a `FlowStep`, a `RecordStorer`
+must implement the following two methods:
+
+ - `get_records`: This is used to access the list of records from
+     wherever/however they're stored, and is used at the start of a
+     `Flow` to get the pre-existing list of records
+ - `set_records`: This is used to store the (new) list of records at
+     the end of a `Flow`, after they have been processed by the other
+     steps
+
+```python
+class MyRecordStorer(RecordStorer):
+    """A custom RecordStorer."""
+    
+    ...
+
+    def get_records(
+        self: Self, logger: Callable[[str], None], debug: bool = False
+    ) -> list[RecordType]:
+        ...
+
+    def set_records(
+        self: Self,
+        rec_list: list[RecordType],
+        logger: Callable[[str], None],
+        debug: bool = False,
+    ) -> None:
+        ...
 ```
 
 ### Metadata

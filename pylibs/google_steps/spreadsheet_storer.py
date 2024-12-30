@@ -5,7 +5,7 @@ Date: September 16th, 2024
 """
 
 from datetime import datetime
-from typing import Callable, Generic, get_args, Self, TypeVar
+from typing import Callable, get_args, Self, TypeVar
 
 from google_steps import _sheets
 from flow.record_storer import RecordStorer
@@ -20,7 +20,7 @@ from utils.api_call import retry_call
 RecordType = TypeVar("RecordType", bound=SpreadsheetRecord)
 
 
-class SpreadsheetStorer(Generic[RecordType], RecordStorer[RecordType]):
+class SpreadsheetStorer(RecordStorer[RecordType]):
     """An abstraction of getting and storing records in a Google Sheet."""
 
     description = (
