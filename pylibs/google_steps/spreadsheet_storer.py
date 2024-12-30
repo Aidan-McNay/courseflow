@@ -34,11 +34,7 @@ class SpreadsheetStorer(RecordStorer[RecordType]):
     ]
 
     def validate(self: "SpreadsheetStorer[RecordType]") -> None:
-        """Validate the configurations for the spreadsheet storer.
-
-        Args:
-            self (SpreadsheetStorer[RecordType]): The step to validate
-        """
+        """Validate the configurations for the spreadsheet storer."""
         # Make sure we can connect to the spreadsheet
         try:
             retry_call(_sheets.open_by_key, self.configs.sheet_id)
@@ -56,8 +52,6 @@ class SpreadsheetStorer(RecordStorer[RecordType]):
         """Get the records from the spreadsheet.
 
         Args:
-            self (SpreadsheetStorer[RecordType]): The record step to get
-              records with
             logger (Callable[[str], None]): A logger for recording notable
               events
             debug (bool): Whether to run in debug mode. Defaults to False
@@ -122,8 +116,6 @@ class SpreadsheetStorer(RecordStorer[RecordType]):
         """Store the updated records in the Google Sheet.
 
         Args:
-            self (SpreadsheetStorer[RecordType]): The step to store
-              records with
             rec_list (list[T]): The records to store
             logger (Callable[[str], None]): A logger for recording notable
               events

@@ -42,9 +42,6 @@ class TagRecord:
     def tagged(self: "TagRecord") -> bool:
         """Return whether the repo has already been tagged.
 
-        Args:
-            self (TagRecord): The TagRecord which may represent a tag
-
         Returns:
             bool: Whether the record represents an actual tag
         """
@@ -132,10 +129,9 @@ class TagRecords(SpreadsheetRecord):
             raise Exception("Class attributes 'headers' isn't overriden!")
 
     def to_strings(self: "TagRecords") -> list[str]:
-        """Represent an instance of the generated class as strings.
+        """Represent the record as a list of strings.
 
-        Args:
-            self (TagRecords): An instance of the generated class
+        This is used to store the record in a spreadsheet.
 
         Returns:
             list[str]: The string representation

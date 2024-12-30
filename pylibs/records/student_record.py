@@ -141,9 +141,6 @@ class StudentRecord(SpreadsheetRecord):
 
         This is used to store the record in a spreadsheet.
 
-        Args:
-            self (StudentRecord): The record to represent
-
         Returns:
             list[str]: The strings that represent the record
         """

@@ -46,9 +46,6 @@ class SpreadsheetRecord(ABC):
         The list should be the same length as its headers, with each element
         representing the data for the corresponding header.
 
-        Args:
-            self (SpreadsheetRecord): The class instance to represent as strings
-
         Returns:
             list[str]: A representation of the instance as strings
         """

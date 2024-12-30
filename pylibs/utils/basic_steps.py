@@ -26,11 +26,7 @@ class BasicRecordStorer(RecordStorer[int]):
     config_types = [("file_path", str, "The path to a file to store records")]
 
     def validate(self: "BasicRecordStorer") -> None:
-        """Validate the configurations for the step.
-
-        Args:
-            self (BasicRecordStorer): The step to validate
-        """
+        """Validate the configurations for the step."""
         if not os.path.isfile(self.configs.file_path):
             if os.path.exists(self.configs.file_path):
                 raise Exception("Path exists, but isn't file!")
@@ -48,7 +44,6 @@ class BasicRecordStorer(RecordStorer[int]):
         """Get the records from the file.
 
         Args:
-            self (BasicRecordStorer): The record storer to get records with
             logger (Callable[[str], None]): A logger for recording notable
               events
             debug (bool): Whether to run in debug mode. Defaults to False
@@ -74,7 +69,6 @@ class BasicRecordStorer(RecordStorer[int]):
         """Store the updated records in the file.
 
         Args:
-            self (BasicRecordStorer): The record storer to store records with
             rec_list (list[int]): The records to store
             logger (Callable[[str], None]): A logger for recording notable
               events
@@ -102,11 +96,7 @@ class BasicRecordStep(FlowRecordStep[int]):
     config_types = []
 
     def validate(self: Self) -> None:
-        """Validate the configurations for the step.
-
-        Args:
-            self (Self): The step to validate
-        """
+        """Validate the configurations for the step."""
         return
 
     def new_records(
@@ -120,7 +110,6 @@ class BasicRecordStep(FlowRecordStep[int]):
         """Add a new record to the list.
 
         Args:
-            self (Self): The current step
             curr_records (list[int]): The current list of records
             logger (Callable[[str], None]): A function to log data
             get_metadata (Callable[[str], Any]): A function to get flow
@@ -153,11 +142,7 @@ class BasicUpdateStep(FlowUpdateStep[int]):
     config_types = [("increment", int, "The amount to increment by")]
 
     def validate(self: Self) -> None:
-        """Validate the configurations for the step.
-
-        Args:
-            self (Self): The step to validate
-        """
+        """Validate the configurations for the step."""
         if self.configs.increment < 0:
             raise Exception("The increment must be positive!")
 
@@ -172,7 +157,6 @@ class BasicUpdateStep(FlowUpdateStep[int]):
         """Increment all records by the configured amount.
 
         Args:
-            self (Self): The current step
             curr_records (list[tuple[int, Lock]]): The current list of records
             logger (Callable[[str], None]): A function to log data
             get_metadata (Callable[[str], Any]): A function to get flow
@@ -206,11 +190,7 @@ class BasicPropagateStep(FlowPropagateStep[int]):
     config_types = []
 
     def validate(self: Self) -> None:
-        """Validate the configurations for the step.
-
-        Args:
-            self (Self): The step to validate
-        """
+        """Validate the configurations for the step."""
         return
 
     def propagate_records(
@@ -224,7 +204,6 @@ class BasicPropagateStep(FlowPropagateStep[int]):
         """Log the sum of all records.
 
         Args:
-            self (Self): The current step
             curr_records (list[tuple[int, Lock]]): The current list of records
             logger (Callable[[str], None]): A function to log data
             get_metadata (Callable[[str], Any]): A function to get flow

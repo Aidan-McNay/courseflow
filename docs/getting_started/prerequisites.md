@@ -1,5 +1,9 @@
 # Prerequisites
 
+`cornell-canvas` is written in Python, and was developed using
+Python 3.11.9. Earlier versions may be supported, but are not
+guaranteed.
+
 `cornell-canvas` requires the following Python prerequisites at a
 baseline:
 
@@ -42,7 +46,3 @@ git clone git@github.com:Aidan-McNay/cornell-canvas.git
 cd cornell-canvas
 pip install -r requirements.txt
 ```
-```
-
-
- 

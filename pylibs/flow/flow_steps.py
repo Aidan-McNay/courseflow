@@ -51,11 +51,7 @@ class FlowStep(ABC):
 
     @abstractmethod
     def validate(self: Self) -> None:
-        """Validate the configurations for the step.
-
-        Args:
-            self (Self): The step to validate
-        """
+        """Validate the configurations for the step."""
         return
 
     @final

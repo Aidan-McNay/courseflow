@@ -39,4 +39,5 @@ basic_flow.add_propagate_step("print-sum", BasicPropagateStep)
 # Main Program
 # -----------------------------------------------------------------------------
 
-run_flow(basic_flow)
+if __name__ == "__main__":
+    run_flow(basic_flow)
