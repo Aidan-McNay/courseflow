@@ -6,21 +6,20 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'cornell-canvas'
-copyright = '2024, Aidan McNay'
-author = 'Aidan McNay'
+project = "cornell-canvas"
+copyright = "2024, Aidan McNay"
+author = "Aidan McNay"
 
-version = '1.0.0'
-release = '1.0.0'
+version = "1.0.0"
+release = "1.0.0"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["sphinx_rtd_theme", "myst_parser", "sphinxcontrib.wavedrom"]
+extensions = ["sphinx_rtd_theme", "myst_parser"]
 
 templates_path = ["_templates"]
 exclude_patterns = []
-
 
 
 # -- Options for HTML output -------------------------------------------------
