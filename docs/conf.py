@@ -35,14 +35,23 @@ extensions = [
 templates_path = ["_templates"]
 exclude_patterns = []
 
+parametrized_on_type = {
+    "flow.flow.Flow": "RecordType",
+    "flow.record_storer.RecordStorer": "RecordType",
+    "google_steps.spreadsheet_storer.SpreadsheetStorer": "SpreadsheetRecord",
+    "flow.flow_steps.FlowRecordStep": "RecordType",
+    "flow.flow_steps.FlowUpdateStep": "RecordType",
+    "flow.flow_steps.FlowPropagateStep": "RecordType",
+}
+
 
 # Add generic parameter types (https://github.com/sphinx-doc/sphinx/issues/10568#issuecomment-2413039360)
 def process_signature(
     app, what, name, obj, options, signature, return_annotation
 ):
     if what == "class":
-        if name == "flow.flow.Flow":
-            signature = "[RecordType]" + (signature or "")
+        if name in parametrized_on_type:
+            signature = f"[{parametrized_on_type[name]}]" + (signature or "")
     return signature, return_annotation
 
 
@@ -64,6 +73,7 @@ html_context = {
 html_theme = "sphinx_rtd_theme"
 html_static_path = ["_static"]
 html_favicon = "_static/img/favicon.ico"
+html_css_files = ["css/py_xref.css"]
 
 html_theme_options = {
     "navigation_depth": 3,

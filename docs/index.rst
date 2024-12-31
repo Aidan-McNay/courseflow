@@ -17,14 +17,7 @@ prerequisites, usage, and a reference of implemented steps/flows.
    getting_started/prerequisites.md
    getting_started/installation.md
    getting_started/tutorial.md
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Using Flows
-
-   using_flows/basic_flow.md
-   using_flows/configuring.md
-   using_flows/adding_new_steps.md
+   getting_started/linting.md
 
 .. toctree::
    :maxdepth: 1

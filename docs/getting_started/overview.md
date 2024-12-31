@@ -51,78 +51,96 @@ class MyFlowStep(FlowStep):
      differs based on the semantics of each step), `validate` should
      raise an exception
 
-The base class `FlowStep` implements the `__init__` method, such that
-all configurations are included in a `configs` attribute for each step
-object when it's instantiated (with each configuration being appropriately
-typed). In addition, the above attributes allow a `FlowStep` to dump its
+```{eval-rst}
+The base class :py:class:`~flow.flow_steps.FlowStep` implements the
+``__init__`` method, such that all configurations are included in a
+``configs`` attribute for each step object when it's instantiated (with
+each configuration being appropriately typed). In addition, the above
+attributes allow a :py:class:`~flow.flow_steps.FlowStep` to dump its
 high-level description and configurations into template configuration
-files, allowing users to get an example of what the expected configurations
-might look like.
+files, allowing users to get an example of what the expected
+configurations might look like.
 
-```{admonition} Why class attributes?
-The above configurations are specified as part of the class, not of a
-particular instance. When extending the flow, if you want a `FlowStep`
-that performs a different high-level action (beyond configurations), you
-will need to implement a new `FlowStep`. Having the configurations as part
-of the class:
+.. admonition:: Why class attributes?
+   :class: note
 
- - Helps extenders of the class by forcing configurations to be checked
-   upon step instantion, causing faulty configurations to be caught
-   early-on before any other steps have run
- - Allows documentation to be generated for a step without an instance
-   of the class
- - Allows for robust type checking and type annotation
- - Makes sense semantically; the functionality and expected configurations
-   of a step should be engrained as part of its type, not checked for a
-   particular instance
-```
+   The above configurations are specified as part of the class, not of a
+   particular instance. When extending the flow, if you want a
+   :py:class:`~flow.flow_steps.FlowStep` that performs a different
+   high-level action (beyond configurations), you will need to implement a
+   new :py:class:`~flow.flow_steps.FlowStep`. Having the configurations as
+   part of the class:
 
-In addition to a base `FlowStep`, four more abstract classes are defined to
-further define the semantics of a step, based on how they interact with
-records:
+    * Helps extenders of the class by forcing configurations to be checked
+      upon step instantion, causing faulty configurations to be caught
+      early-on before any other steps have run
+    * Allows documentation to be generated for a step without an instance
+      of the class
+    * Allows for robust type checking and type annotation
+    * Makes sense semantically; the functionality and expected configurations
+      of a step should be engrained as part of its type, not checked for a
+      particular instance
 
- - A `FlowRecordStep` __generates__ records. It takes in a current list of
-   records, and possibly adds records to the list, returning the new list.
-   For example, a `FlowRecordStep` might look at the current Canvas
-   enrollment, and add records for any student not already in the list of
-   records.
- - A `FlowUpdateStep` __updates__ records. It takes in a current list of
-   records, and updates the records based on current information. For
-   example, a `FlowUpdateStep` might look at each record, and update it
-   with the student's current submission to a Canvas quiz. 
-   `FlowUpdateStep`s __DO NOT__ update any external entity about the
-   information in records. Instead, they should check the gathered 
-   information, and generate any necessary exceptions (although ideally,
-   `FlowUpdateStep`s would handle any exceptions themselves).
- - A `FlowPropagateStep` __propagates__ the data in records to external
-   entities, such as Canvas and GitHub. For example, a `FlowPropagateStep`
+In addition to a base :py:class:`~flow.flow_steps.FlowStep`, four more
+abstract classes are defined to further define the semantics of a step,
+based on how they interact with records:
+
+ - A :py:class:`~flow.flow_steps.FlowRecordStep` **generates** records. It
+   takes in a current list of records, and possibly adds records to the
+   list, returning the new list. For example, a
+   :py:class:`~flow.flow_steps.FlowRecordStep` might look at the current
+   Canvas enrollment, and add records for any student not already in the
+   list of records.
+ - A :py:class:`~flow.flow_steps.FlowUpdateStep` **updates** records. It
+   takes in a current list of records, and updates the records based on
+   current information. For example, a
+   :py:class:`~flow.flow_steps.FlowUpdateStep` might look at each record,
+   and update it with the student's current submission to a Canvas quiz. 
+   A :py:class:`~flow.flow_steps.FlowUpdateStep` **DOES NOT** update any
+   external entity about the information in records. Instead, it should
+   check the gathered information, and generate any necessary exceptions
+   (although ideally, a :py:class:`~flow.flow_steps.FlowUpdateStep` would
+   handle any exceptions itself).
+ - A :py:class:`~flow.flow_steps.FlowPropagateStep` **propagates** the
+   data in records to external entities, such as Canvas and GitHub. For
+   example, a :py:class:`~flow.flow_steps.FlowPropagateStep`
    might see that a record indicates a missing submission from a student,
-   and would email the student about that submission. `FlowPropagateStep`s
-   should ideally never generate any exceptions; any faulty configurations
-   should be caught with `validate`, and any faulty data should be caught
-   by the `FlowUpdateStep` that added it. Like `FlowUpdateStep`s, 
-   `FlowPropagateStep`s are allowed to modify record data, primarily to
-   indicate that propagation to external entities has occurred.
- - A `RecordStorer` is used to store records; we'll cover them more with
-   flows.
+   and would email the student about that submission. A
+   :py:class:`~flow.flow_steps.FlowPropagateStep` should ideally never
+   generate any exceptions; any faulty configurations should be caught
+   with ``validate``, and any faulty data should be caught by the
+   :py:class:`~flow.flow_steps.FlowUpdateStep` that added it. Like
+   :py:class:`~flow.flow_steps.FlowUpdateStep`, 
+   a :py:class:`~flow.flow_steps.FlowPropagateStep` is allowed to modify
+   record data, primarily to indicate that propagation to external
+   entities has occurred.
+ - A :py:class:`~flow.record_storer.RecordStorer` is used to store
+   records; we'll cover them more with flows.
 
-```{admonition} Update vs. Propagate
-A key note is the difference between `FlowUpdateStep`s and
-`FlowPropagateStep`s; the former should add and check any incoming data,
-whereas the latter uses said data to update other external entities, such
-as Canvas and GitHub. These are separated such that all `FlowUpdateStep`s
-occur before any `FlowPropagateStep`s, ensuring that any exceptions are
-caught before external state is modified (similar to a processor's commit
-point). While this somewhat limits expressibility, we haven't found this
-to be a practical issue, and workarounds can be implemented with
-multiple flows.
-```
+.. admonition:: Update vs. Propagate
+   :class: note
+
+   A key note is the difference between a
+   :py:class:`~flow.flow_steps.FlowUpdateStep` and a
+   :py:class:`~flow.flow_steps.FlowPropagateStep`; the former should add
+   and check any incoming data, whereas the latter uses said data to
+   update other external entities, such as Canvas and GitHub. These are
+   separated such that all :py:class:`~flow.flow_steps.FlowUpdateStep`
+   instances occur before any
+   :py:class:`~flow.flow_steps.FlowPropagateStep` instances, ensuring that
+   any exceptions are caught before external state is modified (similar to
+   a processor's commit point). While this somewhat limits expressibility,
+   we haven't found this to be a practical issue, and workarounds can be
+   implemented with multiple flows.
 
 These steps each additionall require child classes to implement either
-`new_records`, `update_records`, or `propagate_records`, respectively.
+:py:meth:`~flow.flow_steps.FlowRecordStep.new_records`,
+:py:meth:`~flow.flow_steps.FlowUpdateStep.update_records`, or
+:py:meth:`~flow.flow_steps.FlowPropagateStep.propagate_records`, respectively.
 Consult the class reference for more details. Extensions of the framework
 should inherit from these three classes, in order to be integrated into a
-`Flow`
+:py:class:`~flow.flow.Flow`
+```
 
 ## Flows
 

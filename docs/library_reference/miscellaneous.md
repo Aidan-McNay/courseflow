@@ -36,6 +36,53 @@ flow library, but for completeness/reference.
 ## Classes
 
 ```{eval-rst}
+.. autoclass:: flow.flow_steps.ValidConfigTypes
+```
+
+```{eval-rst}
+.. py:class:: FlowStep()
+   :module: flow.flow_steps
+   
+   A base class representing an abstract step in our flow.
+
+   .. py:property:: description
+      :abstractmethod:
+      :classmethod:
+      :type: str
+
+      A high-level description of the step
+
+   .. py:property:: config_types
+      :abstractmethod:
+      :classmethod:
+      :type: list[tuple[str, Type[ValidConfigTypes], str]]
+
+      The types of the configurations for the step. Each tuple in the list
+      should include the name, type, and description of a configuration
+      (respectively).
+
+   Based on the ``config_types``, an instance of the class will have an
+   attribute ``configs`` with each described configuration. For example,
+   if ``config_types`` is defined as
+
+   .. code-block:: python
+
+      config_types = [
+        ("test", int, "A test configuration")
+      ]
+
+   then instances of the class will have an attribute ``configs.test`` of
+   type ``int``
+
+   .. automethod:: validate
+
+      This function should inspect the object's ``configs`` attribute, and
+      perform any static validation possible. :py:func:`validate` is
+      always called on object initialization to ensure that configurations
+      are always valid
+```
+
+```{eval-rst}
 .. autoclass:: records.tag_record.TagRecord
 
    .. automethod:: tagged

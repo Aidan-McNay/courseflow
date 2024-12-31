@@ -77,7 +77,7 @@ FlowConfigs = TypedDict(
 
 
 class Flow(Generic[RecordType]):
-    """An administrative flow that manages and runs different sections."""
+    """An administrative flow that manages and runs different steps."""
 
     def __init__(
         self: "Flow[RecordType]",

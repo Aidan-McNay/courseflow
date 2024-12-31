@@ -24,23 +24,13 @@ class FlowStep(ABC):
     """A base class representing an abstract step in our flow.
 
     Attributes:
-     - description: (str) A high-level description of the step
-     - config_types (list[tuple[str, str, Type]]): A list of (name, type,
-         description) tuples describing the intended configurations for the
-         step.
-     - config_type: (Type) The type for our configurations. The type will be
-         such that if the FlowStep is defined with
-
-         config_types = [
-           ("x", int,  "An integer"),
-           ("y", bool, "A boolean" )
-         ]
-
-         then
-
-         config_type.x : int
-         config_type.y : bool
-     - configs: (Optional[config_type]) The configurations for our step.
+     - description (str): A high-level description of the step
+     - config_types (list[tuple[str, Type[ValidConfigTypes], str]]):
+         The types for our configurations. Instances of the object will
+         have an attribute ``configs`` that has each listed attribute of
+         the defined name and type
+     - configs (See ``config_types``): The configurations for our step.
+         See ``config_types``
     """
 
     # Base classes must define their description and configuration types
@@ -205,7 +195,7 @@ class FlowPropagateStep(FlowStep, Generic[RecordType]):
         set_metadata: Callable[[str, Any], None],
         debug: bool = False,
     ) -> None:
-        """Update our records with any new information.
+        """Propagate our records to update any external entities.
 
         Args:
             records (list[RecordType]): The list of records to manipulate

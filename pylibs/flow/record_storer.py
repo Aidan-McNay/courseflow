@@ -34,7 +34,7 @@ class RecordStorer(FlowStep, Generic[RecordType]):
             debug (bool): Whether to run in debug mode. Defaults to False
 
         Returns:
-            list[T]: The retrieved records
+            list[RecordType]: The retrieved records
         """
         return []
 
@@ -45,10 +45,10 @@ class RecordStorer(FlowStep, Generic[RecordType]):
         logger: Callable[[str], None],
         debug: bool = False,
     ) -> None:
-        """Store the updated records.
+        """Store the updated records wherever they're stored.
 
         Args:
-            rec_list (list[T]): The records to store
+            rec_list (list[RecordType]): The records to store
             logger (Callable[[str], None]): A logger for recording notable
               events
             debug (bool): Whether to run in debug mode. Defaults to False
