@@ -2,7 +2,7 @@
  * =======================================================================
  * py_xref.css
  * =======================================================================
- * A basic CSS file to color cross-references to Python documentation
+ * A basic CSS file to color cross-references in code format
  */
 
-.rst-content code.xref { color: rebeccapurple !important; }
+.rst-content a code { color: rebeccapurple !important; }

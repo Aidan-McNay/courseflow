@@ -28,7 +28,7 @@ also be useful later to reference when building your own steps!
    Let's start our flow by importing the different steps we'll need. For
    this tutorial, we'll be using:
 
-   * A few steps from `utils.basic_steps`
+   * A few steps from ``utils.basic_steps```
    * The main :py:class:`~flow.flow.Flow` class
    * A helper function :py:func:`~flow.run_flow.run_flow`, which runs our
      flow as a program, and provides argument parsing to interact with the
@@ -53,21 +53,21 @@ also be useful later to reference when building your own steps!
 
 ```{eval-rst}
 The first thing to do is to construct a :py:class:`~flow.flow.Flow`. Each
-flow needs a ``RecordStorer``; for this tutorial, we'll use
-:py:class:`~utils.basic_steps.BasicRecordStorer`, which stores integers in
-a file
+flow needs a :py:class:`~flow.record_storer.RecordStorer`; for this
+tutorial, we'll use :py:class:`~utils.basic_steps.BasicRecordStorer`,
+which stores integers in a file
 
 .. admonition:: Instantiating a Flow
    :class: tip
    
-   Let's create a flow! In `basic_flow.py`, instantiate a flow as
+   Let's create a flow! In ``basic_flow.py``, instantiate a flow as
    ``basic_flow`` like the following:
 
    .. code-block:: python
 
       basic_flow = Flow(
           name="basic-flow",
-          description=("A basic flow to access and manipulate integer records"),
+          description="A basic flow to access and manipulate integer records",
           record_storer_type=BasicRecordStorer,
           record_storer_name="basic-storer",
       )
@@ -91,7 +91,7 @@ a file
 
       basic_flow = Flow[int](
           name="basic-flow",
-          description=("A basic flow to access and manipulate integer records"),
+          description="A basic flow to access and manipulate integer records",
           record_storer_type=BasicRecordStorer,
           record_storer_name="basic-storer",
       )
@@ -100,6 +100,7 @@ a file
 ### Adding a Record Step
 
 ```{eval-rst}
+The first step in a flow is a :py:class:`~flow.flow_steps.FlowRecordStep`.
 For this tutorial, we'll use
 :py:class:`~utils.basic_steps.BasicRecordStep` to supply records. This
 record step always appends a new integer record (random between 0 and 10)
@@ -129,6 +130,7 @@ to the list of records.
 ### Adding an Update Step
 
 ```{eval-rst}
+Next, we can add a :py:class:`~flow.flow_steps.FlowUpdateStep`.
 For this tutorial, we'll use
 :py:class:`~utils.basic_steps.BasicUpdateStep` to update records. This
 update step increments each record by a configurable amount.
@@ -170,7 +172,8 @@ on have completed
 ### Adding a Propagate Step
 
 ```{eval-rst}
-Lastly, we can add a propagate step to the flow. For this tutorial, we'll
+Lastly, we can add a :py:class:`~flow.flow_steps.FlowPropagateStep`
+to the flow. For this tutorial, we'll
 use :py:class:`~utils.basic_steps.BasicPropagateStep`, which logs the sum
 of all of the records.
 
@@ -231,7 +234,7 @@ The easiest way to determine what configurations a flow needs, it's
 easiest to have the flow describe its expected configurations with the
 :py:meth:`~flow.flow.Flow.describe_config` method.
 :py:func:`~flow.run_flow.run_flow` allows us to dump these in a YAML
-format with the `--dump` flag.
+format with the ``--dump`` flag.
 
 .. admonition:: Dumping expected configurations
    :class: tip
@@ -475,9 +478,9 @@ implement their own steps for their own needs. This involves:
 
    * A description of the step
    * Any configurations the step needs
-   * A :py:meth:`~flow_flow_steps.FlowPropagateStep.validate` method to
+   * A :py:meth:`~flow.flow_steps.FlowPropagateStep.validate` method to
      check the step's configurations
-   * A :py:meth:`~flow_flow_steps.FlowPropagateStep.propagate_records`
+   * A :py:meth:`~flow.flow_steps.FlowPropagateStep.propagate_records`
      method to perform the step
 ```
 
@@ -529,12 +532,45 @@ does them.
       ...
 
       class MyPropagateStep(FlowPropagateStep[int]):
-          # The rest of your implementation
+          """A flow propagate step to log an ASCII representation of records."""
+
+          # Define the description of the step
+
+          # Define the config_types of the step
+
+          def validate(self: "MyPropagateStep") -> None:
+              """Validate the configurations for the step."""
+              # Implement the `validate` function
+
+          def propagate_records(
+              self: "MyPropagateStep",
+              records: list[tuple[int, Lock]],
+              logger: Callable[[str], None],
+              get_metadata: Callable[[str], Any],
+              set_metadata: Callable[[str, Any], None],
+              debug: bool = False,
+          ) -> None:
+              """Log the ASCII representation of records.
+      
+              Args:
+                  curr_records (list[tuple[int, Lock]]): The current list of records
+                  logger (Callable[[str], None]): A function to log data
+                  get_metadata (Callable[[str], Any]): A function to get flow
+                    metadata
+                  set_metadata (Callable[[str, Any], None]): A function to get
+                    flow metadata
+                  debug (bool, optional): Whether to run in debug. Defaults to
+                    False.
+      
+              Returns:
+                  list[int]: The new list of records
+              """
+              # Implement the `propagate_records` function
 
    The trickiest portion will likely be ``propagate_records``; this is
    where the main functionality comes in. Recall that the step should
    iterate over the record list, and acquire the lock for any particular
-   record before using this. A common programming pattern for this is
+   record before accessing it. A common programming pattern for this is
    shown below:
 
    .. code-block:: python
@@ -543,17 +579,7 @@ does them.
           with lock:
               # Perform functionality
 
-   However, for our implementation, since we aren't modifying any records,
-   there's no need to acquire the lock, so your implementation would
-   instead look more like the following (disregarding the lock in each
-   entry):
-
-   .. code-block:: python
-      
-      for record, _ in records:
-          # Perform functionality
-
-   With these in mind, update ``basic_flow.py`` with an implementation of
+   With this in mind, update ``basic_flow.py`` with an implementation of
    ``MyPropagateStep``. Once you're done, you can also check it against
    the reference implementation below. If you're familiar with type
    annotations in Python, feel free to include them as well, although they
@@ -599,11 +625,12 @@ does them.
                   list[int]: The new list of records
               """
               ascii_repr = ""
-              for record, _ in records:
-                  record_char = chr((record % self.configs.modulus) + 33)
-                  if debug:
-                      logger(f"DEBUG: Adding {record} -> {record_char}...")
-                  ascii_repr += record_char
+              for record, lock in records:
+                  with lock:
+                      record_char = chr((record % self.configs.modulus) + 33)
+                      if debug:
+                          logger(f"DEBUG: Adding {record} -> {record_char}...")
+                      ascii_repr += record_char
               logger(f"ASCII Representation: {ascii_repr}")
 ```
 

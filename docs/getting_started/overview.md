@@ -144,35 +144,45 @@ should inherit from these three classes, in order to be integrated into a
 
 ## Flows
 
-A `Flow` is a sequence of `FlowStep`s to be executed in order to achieve a
-high-level goal. `FlowRecordStep`s, `FlowUpdateStep`s, and
-`FlowPropagateStep`s can all be added to a `Flow`; the relevant class is
-provided (as configurations aren't available to instantiate with), as well
-as a name for the particular step. A particular step can be added multiple
+```{eval-rst}
+A :py:class:`~flow.flow.Flow` is a sequence of
+:py:class:`~flow.flow_steps.FlowStep`\ s to be executed in order to achieve
+a high-level goal. :py:class:`~flow.flow_steps.FlowRecordStep`\ s,
+:py:class:`~flow.flow_steps.FlowUpdateStep`\ s, and
+:py:class:`~flow.flow_steps.FlowPropagateStep`\ s can all be added to a
+:py:class:`~flow.flow.Flow`; the relevant class is provided (as
+configurations aren't available to instantiate with), as well as a name
+for the particular step. A particular step can be added multiple
 times to a flow, such that each named instance can be configured
 differently.
 
-A `Flow` runs its steps as follows:
+A :py:class:`~flow.flow.Flow` runs its steps as follows:
 
- 1. All `FlowRecordStep`s are run sequentially (to ensure that all updates
+ 1. All :py:class:`~flow.flow_steps.FlowRecordStep`\ s are run
+    sequentially (to ensure that all updates
     from a given step are known to subsequent step, in the case that two
-    `FlowRecordStep`s may want to add the same record)
- 2. All `FlowUpdateStep`s are run in parallel; the degree of parallelism
-    can be specified by flow's `num_threads` configuration. Lock striping
-    is used to ensure safety; records are provided as a list of tuples
-    containing a record and a lock, and each step should acquire the lock
-    before acting on/updating the respective record
- 3. All `FlowPropagateStep`s are run in parallel, similar to
-    `FlowUpdateStep`s
+    :py:class:`~flow.flow_steps.FlowRecordStep`\ s may want to add the
+    same record)
+ 2. All :py:class:`~flow.flow_steps.FlowUpdateStep`\ s are run in
+    parallel; the degree of parallelism can be specified by flow's
+    ``num_threads`` configuration. Lock striping is used to ensure safety;
+    records are provided as a list of tuples containing a record and a
+    lock, and each step should acquire the lock before acting on/updating
+    the respective record
+ 3. All :py:class:`~flow.flow_steps.FlowPropagateStep`\ s are run in
+    parallel, similar to :py:class:`~flow.flow_steps.FlowUpdateStep`\ s
 
 Depending on the semantics, a user may wish to specify additional
-dependencies/orderings between `FlowUpdateStep`s or `FlowPropagateStep`s.
-`Flow`s allow this by allowing a list of dependency step names to be
-specified when adding one of these steps to a flow, such that a step will
-not be allowed to run until all of the dependency steps have completed.
-`Flow`s will check that dependency steps have already been added to the
-flow, preventing deadlock by forcing the dependency tree to be a directed
-acyclic graph (DAG).
+dependencies/orderings between
+:py:class:`~flow.flow_steps.FlowUpdateStep`\ s or 
+:py:class:`~flow.flow_steps.FlowPropagateStep`\ s.
+:py:class:`~flow.flow.Flow`\ s allow this by allowing a list of dependency
+step names to be specified when adding one of these steps to a flow, such
+that a step will not be allowed to run until all of the dependency steps
+have completed. :py:class:`~flow.flow.Flow`\ s will check that dependency
+steps have already been added to the flow, preventing deadlock by forcing
+the dependency tree to be a directed acyclic graph (DAG).
+```
 
 ```{image} imgs/example-flow-execution.jpg
 :alt: An example execution timeline of a flow
@@ -182,18 +192,24 @@ acyclic graph (DAG).
 
 ## Record Storers
 
+```{eval-rst}
 Aside from adding to, updating, and propagating lists of records, a flow
 also needs to be able to store records. This is abstracted away with a
-`RecordStorer`, an abstract class that inherits from `FlowStep`. In
-addition to the required attributes for a `FlowStep`, a `RecordStorer`
-must implement the following two methods:
+:py:class:`~flow.record_storer.RecordStorer`, an abstract class that
+inherits from :py:class:`~flow.flow_steps.FlowStep`. In addition to the
+required attributes for a :py:class:`~flow.flow_steps.FlowStep`, a
+:py:class:`~flow.record_storer.RecordStorer` must implement the following
+two methods:
 
- - `get_records`: This is used to access the list of records from
-     wherever/however they're stored, and is used at the start of a
-     `Flow` to get the pre-existing list of records
- - `set_records`: This is used to store the (new) list of records at
-     the end of a `Flow`, after they have been processed by the other
-     steps
+ * :py:meth:`~flow.record_storer.RecordStorer.get_records`: This is used
+   to access the list of records from wherever/however they're stored,
+   and is used at the start of a :py:class:`~flow.flow.Flow` to get the
+   existing list of records
+ * :py:meth:`~flow.record_storer.RecordStorer.set_records`: This is used
+   to store the (new) list of records at the end of a
+   :py:class:`~flow.flow.Flow`, after they have been processed by the
+   other steps
+```
 
 ```python
 class MyRecordStorer(RecordStorer):
@@ -217,12 +233,15 @@ class MyRecordStorer(RecordStorer):
 
 ### Metadata
 
+```{eval-rst}
 Data is primarily passed between steps through records. However, steps
 may also want to communicate data that isn't reflected in a record, such
 as events that have already occurred in a flow. This data is referred to
-as _metadata_. `Flow`s provide mechanisms for `FlowStep`s to access
+as *metadata*. :py:class:`~flow.flow.Flow`\ s provide mechanisms for
+:py:class:`~flow.flow_steps.FlowStep`\ s to access
 metadata from the flow. When called to perform their specific action,
-`FlowStep`s are provided with:
+:py:class:`~flow.flow_steps.FlowStep`\ s are provided with:
+```
 
  - `set_metadata` (`typing.Callable[[str, typing.Any], None]`): A function
    to associate any object with a particular name for the overall flow
@@ -238,69 +257,84 @@ set_metadata("course_number", 2300)
 num = get_metadata("course_number") # num holds 2300
 ```
 
-This allows `FlowStep`s to comunicate arbitrary data between each other.
-However, this introduces a number of other considerations:
+```{eval-rst}
+This allows :py:class:`~flow.flow_steps.FlowStep`\ s to comunicate
+arbitrary data between each other. However, this introduces a number of
+other considerations:
 
- - To support arbitrary data, `get_metadata` returns an object of type
-   `typing.Any`. To be type-safe, each `FlowStep` must dynamically type
-   check the returned data (or use `typing.cast`, although this isn't
+ * To support arbitrary data, ``get_metadata`` returns an object of type
+   ``typing.Any``. To be type-safe, each
+   :py:class:`~flow.flow_steps.FlowStep` must dynamically type
+   check the returned data (or use ``typing.cast``, although this isn't
    preferred and may lead to bugs from non-rigorous type checking)
- - Whether a data exists or not depends on the ordering of steps. If this
-   dependency exists between two `FlowUpdateStep`s or two
-   `FlowPropagateStep`s, the dependency must be specified in the flow to
-   ensure reproducible ordering in the DAG (requiring appropriate
-   documentation)
- - Steps accessing a particular piece of data must be sure to use the same
+ * Whether a data exists or not depends on the ordering of steps. If this
+   dependency exists between two
+   :py:class:`~flow.flow_steps.FlowUpdateStep`\ s or two
+   :py:class:`~flow.flow_steps.FlowPropagateStep`\ s, the dependency must
+   be specified in the flow using ``depends_on`` to ensure reproducible
+   ordering in the DAG (requiring appropriate documentation for users
+   using the steps)
+ * Steps accessing a particular piece of data must be sure to use the same
    name as the step that set the data
+```
 
 ## Configuring Flows
 
+```{eval-rst}
 Once we have a flow, we need to be able to configure it for our specific
-needs. All `Flow`s have a `config` method that takes in a dictionary
+needs. All :py:class:`~flow.flow.Flow`\ s have a
+:py:meth:`~flow.flow.Flow.config` method that takes in a dictionary
 configuratioin for the flow, and configures each step appropriately. Each
 step should have a different entry in the configuration dictionary with
 all of its configurations. The flow will check that all necessary
 configurations are present (of the correct type), and will instantiate all
 steps with their configurations. Once configured, a flow can be run using
-the `run` method.
+the :py:meth:`~flow.flow.Flow.run` method.
 
 While it is possible to ascertain the necessary configurations from the
-flow and its construction, `Flow`s additionally provide a
-`describe_config` method to make this process easier. For a constructed
-`Flow`, this method will produce a dictionary of identical structure to
-the expected configuration, where each entry is a description of what is
-expected in the configuration. See the
-[tutorial](tutorial.md) for more details.
+flow and its construction, :py:class:`~flow.flow.Flow`\ s additionally
+provide a :py:meth:`~flow.flow.Flow.describe_config` method to make this
+process easier. For a constructed :py:class:`~flow.flow.Flow`, this method
+will produce a dictionary of identical structure to the expected
+configuration, where each entry is a description of what is expected in
+the configuration. See the :doc:`tutorial <tutorial>` for an example.
+```
 
 ### Step Modes
 
-In addition to each `FlowStep`'s configurations, a _mode_ is expected for
-each step. Each step can be configured in one of three modes:
+```{eval-rst}
+In addition to each :py:class:`~flow.flow_steps.FlowStep`\ s
+configurations, a *mode* is expected for each step. Each step can be
+configured in one of three modes:
 
- - `include`: This should be the default mode, and runs the step
-     "normally"
- - `debug`: When a step is run in debug mode, its operation may differ
-     slightly. This is up to each individual step, but may include
-     providing sample data and/or more verbose output
+ * ``include``: This should be the default mode, and runs the step
+   "normally"
+ * ``debug``: When a step is run in debug mode, its operation may differ
+   slightly. This is up to each individual step, but may include
+   providing sample data and/or more verbose output
 
-     ```{admonition} Propagate Steps in debug
-     :class: caution
+   .. admonition:: Propagate Steps in debug
+      :class: caution
 
-     When run in debug, `FlowPropagateStep`s should __never__ actually
-     modify external state (as doing so on debug data may be incorrect,
-     as well as because we may not wish to perform updates when debugging
-     a script). Instead, such steps should use their `logger` to indicate
-     their intent to modify state, but not actually do so
-     ```
+      When run in debug,
+      :py:class:`~flow.flow_steps.FlowPropagateStep`\ s should **never**
+      actually modify external state (as doing so on debug data may be
+      incorrect, as well as because we may not wish to perform updates
+      when debugging a script). Instead, such steps should use their
+      ``logger`` to indicate their intent to modify state, but not
+      actually do so
 
-  - `exclude`: The step is excluded, and will not be run. Dependencies on
-      excluded steps are removed from DAGs
+ * ``exclude``: The step is excluded, and will not be run. Dependencies on
+   excluded steps are removed from DAGs
 
-      ```{admonition} Record Storing
+   .. admonition:: Record Storing
+      :class: note
 
-     Because of their central role in a flow, a `Flow`'s `RecordStorer`
-     cannot be excluded
-     ```
+      Because of their central role in a flow, a :py:class:`~flow.flow.Flow`\ 's
+      :py:class:`~flow.record_storer.RecordStorer` cannot be excluded
+
+See the :doc:`tutorial <tutorial>` for an example.
+```
 
 ## Flow Managers
 

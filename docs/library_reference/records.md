@@ -13,7 +13,7 @@ class.
    Child classes must accordingly identify the headers that should be used
    in a spreadsheet that contains them:
 
-   .. autoattribute:: headers
+   .. autoproperty:: headers
 
    Additionally, child classes must implement the following two methods to
    enable translation to and from a spreadsheet representation:

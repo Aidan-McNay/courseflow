@@ -366,9 +366,10 @@ class Flow(Generic[RecordType]):
         """Provide a dictionary describing the flow and all steps.
 
         Returns:
-            dict[str, str | dict[str, str]]: A mapping of configurations to
-              descriptions, such that they could be taken in as a YAML file if
-              used with the indicated types.
+            dict[str, str | dict[str, str]]:
+              A mapping of configurations to descriptions, such that they
+              could be taken in as a YAML file if used with the indicated
+              types.
         """
         config_descriptions: dict[str, str | dict[str, str]] = {
             x[0]: f"({x[1].__name__}) {x[2]}" for x in flow_config_types

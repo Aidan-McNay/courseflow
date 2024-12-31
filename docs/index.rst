@@ -31,3 +31,10 @@ prerequisites, usage, and a reference of implemented steps/flows.
    library_reference/flow.md
    library_reference/miscellaneous.md
 
+.. figure:: _static/img/cats.jpg
+   :alt: An example execution timeline of a flow
+   :width: 70%
+   :align: center
+
+   *(My family was looking at this homepage, and commented that it was
+   slightly boring, and could use a picture of our cats)*
