@@ -36,6 +36,8 @@ to provide access to API keys, as well as identify the relevant course:
  - `GITHUB_API_KEY`: Your [(classic) GitHub personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens),
      to gain access to GitHub endpoints. Note that many of the endpoints
      require you to have administrator access to the relevant organization
+ - `GITHUB_ORG`: The name of the GitHub organization to use for
+     GitHub-based steps
  - `GMAIL_API_KEY`: Your [Google app password](https://support.google.com/mail/answer/185833?hl=en),
      to gain access to your GMail account.
  - `GOOGLE_API_JSON`: The (absolute) path to your
