@@ -1,6 +1,6 @@
 # Overview
 
-`cornell-canvas` is a framework for managing Cornell classes across a
+`courseflow` is a framework for managing Cornell classes across a
 variety of platforms, including Google Sheets and GitHub. It implements
 several wrappers around API calls, and integrates different pieces of
 functionality together to autonomously manage a course. Finally, it also
@@ -18,7 +18,7 @@ and lab section.
 
 ## Steps
 
-`cornell-canvas`'s functionality is centered around __flow steps__. A
+`courseflow`'s functionality is centered around __flow steps__. A
 flow step performs a single operation on course data, in the form of a
 record. Examples include emailing a student based on their course
 standing, or adding a student to a GitHub repo based on their Canvas group.

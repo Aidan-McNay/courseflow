@@ -1,6 +1,6 @@
 # Installation
 
-`cornell-canvas` isn't currently available as a package through PyPI.
+`courseflow` isn't currently available as a package through PyPI.
 Instead, users should locally clone the repository to set up the
 framework. It is encouraged that developers make in-place extensions,
 such that they could later be merged upstream for others to use
@@ -11,8 +11,8 @@ To set up locally, all that's required is to have a local clone of the
 repository, with the `pylibs` directory in the `PYTHONPATH` variable:
 
 ```bash
-git clone git@github.com:Aidan-McNay/cornell-canvas.git
-cd cornell-canvas
+git clone git@github.com:Aidan-McNay/courseflow.git
+cd courseflow
 
 # Include `pylibs` in our Python path
 export PYTHONPATH="$PWD/pylibs:$PYTHONPATH"
@@ -23,7 +23,7 @@ or equivalent (making the prepended directory absolute).
 
 ## Environment Variables
 
-`cornell-canvas` assumes that the following environment variables are used
+`courseflow` assumes that the following environment variables are used
 to provide access to API keys, as well as identify the relevant course:
 
  - `CANVAS_API_KEY`: Your [Canvas developer key](https://canvas.instructure.com/doc/api/file.developer_keys.html),

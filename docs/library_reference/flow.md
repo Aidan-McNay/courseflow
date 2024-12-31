@@ -1,6 +1,6 @@
 # Flow
 
-`cornell-canvas` has one `Flow` class. Steps are added to particular
+`courseflow` has one `Flow` class. Steps are added to particular
 instances of `Flow`s to construct different flows with different
 functionalities.
 

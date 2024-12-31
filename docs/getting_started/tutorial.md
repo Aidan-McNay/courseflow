@@ -16,7 +16,7 @@ The tutorial assumes that you have already completed all of the
 
 ## Building a Flow
 
-We'll get started by building a basic flow. `cornell-canvas` has
+We'll get started by building a basic flow. `courseflow` has
 implemented "basic" steps (in `utils.basic_steps`) for this purpose,
 to serve as minimal examples as to what each step needs to do. These may
 also be useful later to reference when building your own steps!

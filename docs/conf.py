@@ -15,7 +15,7 @@ os.environ["AUTODOC_GEN"] = ""
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "cornell-canvas"
+project = "courseflow"
 copyright = "2024, Aidan McNay"
 author = "Aidan McNay"
 
@@ -65,7 +65,7 @@ def setup(app):
 html_context = {
     "display_github": True,  # Integrate GitHub
     "github_user": "Aidan-McNay",  # Username/Organization
-    "github_repo": "cornell-canvas",  # Repo name
+    "github_repo": "courseflow",  # Repo name
     "github_version": "main",  # Version
     "conf_py_path": "/docs/",  # Path in the checkout to the docs root
 }

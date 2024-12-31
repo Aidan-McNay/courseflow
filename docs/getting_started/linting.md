@@ -1,6 +1,6 @@
 # Linting
 
-`cornell-canvas` is often run on sensitive student data; as such, we want
+`courseflow` is often run on sensitive student data; as such, we want
 to perform as many checks on our code ahead of time as we can to have
 confidence in its correctness. This includes running steps initially in
 debug mode, but also having support for static-time analysis of our code,

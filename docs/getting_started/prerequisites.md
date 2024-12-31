@@ -1,10 +1,10 @@
 # Prerequisites
 
-`cornell-canvas` is written in Python, and was developed using
+`courseflow` is written in Python, and was developed using
 Python 3.11.9. Earlier versions may be supported, but are not
 guaranteed.
 
-`cornell-canvas` requires the following Python prerequisites at a
+`courseflow` requires the following Python prerequisites at a
 baseline:
 
  - [`canvasapi`](https://pypi.org/project/canvasapi/) for accessing the
@@ -20,7 +20,7 @@ Additional prerequisites may be considered to access different APIs. In
 general, Python wrappers around APIs are preferred over direct HTTP
 requests, as bearer tokens would need to be managed/wrapped anyway.
 
-In addition to the above, `cornell-canvas` uses the following packages
+In addition to the above, `courseflow` uses the following packages
 for static linting:
 
  - [`black`](https://pypi.org/project/black/) for formatting
@@ -42,7 +42,7 @@ To install these prerequisites, users can use the provided
 `requirements.txt` file:
 
 ```bash
-git clone git@github.com:Aidan-McNay/cornell-canvas.git
-cd cornell-canvas
+git clone git@github.com:Aidan-McNay/courseflow.git
+cd courseflow
 pip install -r requirements.txt
 ```
