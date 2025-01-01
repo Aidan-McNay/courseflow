@@ -289,7 +289,7 @@ class Flow(Generic[RecordType]):
         """Add an update step to the flow.
 
         Args:
-            name (str): The name of the record step
+            name (str): The name of the update step
             step (Type[FlowUpdateStep[RecordType]]):
               The type of the update step to add
             depends_on (list[str]):
@@ -326,7 +326,7 @@ class Flow(Generic[RecordType]):
         """Add a propagate step to the flow.
 
         Args:
-            name (str): The name of the record step
+            name (str): The name of the propagate step
             step (Type[FlowPropagateStep[RecordType]]):
               The type of the propagate step to add
             depends_on (list[str]):

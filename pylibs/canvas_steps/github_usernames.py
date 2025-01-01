@@ -40,11 +40,7 @@ def valid_username(username: str) -> bool:
 
 
 class GitHubUsernames(FlowUpdateStep[StudentRecord]):
-    """An update step for getting student's GitHub usernames from Canvas.
-
-    This relies on having a quiz where they previously submitted their
-    usernames.
-    """
+    """An update step for getting student's GitHub usernames from Canvas."""
 
     description = (
         "Get usernames from a 'Fill in the Blank' " "question on a Canvas Quiz"
@@ -69,11 +65,7 @@ class GitHubUsernames(FlowUpdateStep[StudentRecord]):
     ]
 
     def validate(self: Self) -> None:
-        """Validate the configurations for the step.
-
-        Args:
-            self (Self): The step to validate
-        """
+        """Validate the configurations for the step."""
         # Make sure that the quiz exists with the given question
         try:
             github_quiz = _course.get_quiz(self.configs.quiz_id)
@@ -81,13 +73,21 @@ class GitHubUsernames(FlowUpdateStep[StudentRecord]):
             raise Exception(f"No quiz with ID '{self.configs.quiz_id}'")
 
         questions = github_quiz.get_questions()
-        if self.configs.question_id not in [
-            question.id for question in questions
-        ]:
+        github_question: Optional[canvasapi.quiz.QuizQuestion] = None
+        for question in questions:
+            if question.id == self.configs.question_id:
+                github_question = question
+        if github_question is None:
             error = f"No question with ID '{self.configs.question_id}'"
             for question in questions:
                 error += f"\n - {question.question_name}: {question.id}"
             raise Exception(error)
+        else:
+            if github_question.question_type != "short_answer_question":
+                raise Exception(
+                    "Specified quiz question isn't a "
+                    "'Fill in the Blank' question"
+                )
 
     def username_from_submission(
         self: Self, quiz_submission: canvasapi.quiz.QuizSubmission

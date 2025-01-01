@@ -1,4 +1,4 @@
-"""Create any repositories needed for individual users.
+"""Create any repositories needed for lab groups.
 
 Author: Aidan McNay
 Date: September 17th, 2024
@@ -13,14 +13,14 @@ from flow.flow_steps import FlowPropagateStep
 from records.student_record import StudentRecord
 
 # -----------------------------------------------------------------------------
-# CreatePersonalRepos
+# CreateGroupRepos
 # -----------------------------------------------------------------------------
 
 
 class CreateGroupRepos(FlowPropagateStep[StudentRecord]):
-    """A propagate step to create any needed personal repos."""
+    """A propagate step to create any needed group repos."""
 
-    description = "Create personal repositories for students."
+    description = "Create group repositories for students."
 
     config_types = [
         (
@@ -28,7 +28,7 @@ class CreateGroupRepos(FlowPropagateStep[StudentRecord]):
             str,
             (
                 "The naming convention. "
-                "'<num>' will be replaced appropriately."
+                "'<num>' will be replaced with the group number."
             ),
         ),
         (

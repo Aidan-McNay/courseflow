@@ -193,8 +193,16 @@ of all of the records.
    Note that :py:meth:`~flow.flow.Flow.add_propagate_step` also supports
    an optional ``depends_on`` parameter, although we don't use it here.
 
-With this, our flow is complete! While the flow is just an object, we can
-use the :py:func:`~flow.run_flow.run_flow` helper function as a wrapper
+With this, our flow is complete! The diagram below visualizes the
+dependencies in our flow, indicating how it might execute over time:
+
+.. image:: imgs/basic_flow.jpg
+   :alt: An example dependency diagram of our basic flow
+   :width: 50%
+   :align: center
+
+While the flow is just an object, we can use the
+:py:func:`~flow.run_flow.run_flow` helper function as a wrapper
 to run the flow.
 
 .. admonition:: Making a flow a program

@@ -18,11 +18,7 @@ from utils.mailer import Mailer
 
 
 class AddEnrollment(FlowRecordStep[StudentRecord]):
-    """A record step that adds new student records for new enrollment.
-
-    We also set the global metadata 'new_netids' to a list of NetIDs that
-    just enrolled.
-    """
+    """A record step that adds new student records for new enrollment."""
 
     description = "Add newly enrolled students from Canvas"
     config_types = []
@@ -88,13 +84,9 @@ class AddEnrollment(FlowRecordStep[StudentRecord]):
 
 
 class UpdateEnrollment(FlowUpdateStep[StudentRecord]):
-    """An update step that updates enrollment for based on Canvas.
+    """An update step that updates enrollment based on Canvas."""
 
-    We also set the global metadata 'unenrolled_netids' to a list of NetIDs
-    that dropped the course.
-    """
-
-    description = "Add newly enrolled students from Canvas"
+    description = "Update enrolled students based on Canvas"
     config_types = []
 
     def validate(self: Self) -> None:

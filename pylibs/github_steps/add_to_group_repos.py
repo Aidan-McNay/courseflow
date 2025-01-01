@@ -13,12 +13,12 @@ from flow.flow_steps import FlowPropagateStep, ValidConfigTypes
 from records.student_record import StudentRecord
 
 # -----------------------------------------------------------------------------
-# AddToPersonalRepos
+# AddToGroupRepos
 # -----------------------------------------------------------------------------
 
 
 class AddToGroupRepos(FlowPropagateStep[StudentRecord]):
-    """A propagate step to give students permission to their personal repos."""
+    """A propagate step to give students permission to their group repos."""
 
     description = "Give students access to their group repos"
 

@@ -33,11 +33,7 @@ class MarkAccepted(FlowUpdateStep[StudentRecord]):
     ]
 
     def validate(self: Self) -> None:
-        """Validate the configurations for the step.
-
-        Args:
-            self (Self): The step to validate
-        """
+        """Validate the configurations for the step."""
         # Make sure that the staff team exists
         try:
             _org.get_team_by_slug(self.configs.staff_team)

@@ -15,8 +15,8 @@ from canvas_steps.github_usernames import GitHubUsernames
 from canvas_steps.ping_join_group import PingJoinGroup
 from flow.flow import Flow
 from flow.run_flow import run_flow
-from github_steps.add_to_personal_repo import AddToPersonalRepos
-from github_steps.add_to_group_repo import AddToGroupRepos
+from github_steps.add_to_personal_repos import AddToPersonalRepos
+from github_steps.add_to_group_repos import AddToGroupRepos
 from github_steps.create_personal_repos import CreatePersonalRepos
 from github_steps.create_group_repos import CreateGroupRepos
 from github_steps.invite_students import InviteStudents

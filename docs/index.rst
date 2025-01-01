@@ -30,6 +30,7 @@ prerequisites, usage, and a reference of implemented steps/flows.
    library_reference/propagate_steps.md
    library_reference/flow.md
    library_reference/miscellaneous.md
+   library_reference/metadata.md
 
 .. figure:: _static/img/cats.jpg
    :alt: An example execution timeline of a flow

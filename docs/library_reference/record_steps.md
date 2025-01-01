@@ -38,6 +38,51 @@ All record steps must inherit from/implement the following base class
 ## Implementations
 
 ```{eval-rst}
+.. autoclass:: canvas_steps.enrollment.AddEnrollment()
+
+   This step gets the current enrollment from Canvas, and creates a new
+   record for any student that there isn't a record for already.
+
+   Supported record types: :py:class:`~records.student_record.StudentRecord`
+
+   Sets metadata: :py:attr:`new_netids`
+```
+
+```{eval-rst}
+.. autoclass:: google_steps.get_tag_records.GetTagRecords()
+
+   This step assumes that a spreadsheet contains
+   :py:class:`~records.student_record.StudentRecord`\ s (such as those
+   made by :py:class:`~google_steps.spreadsheet_storer.SpreadsheetStorer`),
+   and translates them to :py:class:`~records.tag_record.TagRecords`\ s
+   (adding a non-tagged :py:class:`~records.tag_record.TagRecords` for 
+   each non-empty personal and group repo entry).
+
+   Supported record types: :py:class:`~records.tag_record.TagRecords`
+
+   .. py:attribute:: configs.sheet_id
+      :type: str
+
+      The ID of the Google Sheet to access
+
+   .. admonition:: Service Account access
+      :class: note
+
+      Make sure that your service account has access to the Google Sheet
+      with this ID!
+
+   .. py:attribute:: configs.tag
+      :type: str
+
+      The Google Sheet tab to access for records
+
+   .. automethod:: validate
+
+      Specifically, we make sure that the service account can access the
+      specified Google Sheet
+```
+
+```{eval-rst}
 .. autoclass:: utils.basic_steps.BasicRecordStep()
 
    The record is chosen at random between 0 and 10 (inclusive).
