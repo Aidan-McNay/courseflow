@@ -502,7 +502,7 @@ list):
  - Use `chr()` to convert the record into a character
  - Log the string of characters for all records in-order
 
-Furthermore, to restric the amount of characters we use, the modulus
+Furthermore, to restrict the characters we use, the modulus
 should be configurable. `MyPropagationStep` should take in a configuration
 `modulus` (an `int`) that is the modulus we take for each record above.
 `MyPropagationStep.validate()` should check that this value is positive
