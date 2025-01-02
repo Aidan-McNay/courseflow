@@ -1,7 +1,6 @@
 Record:
 
 Update:
- - canvas_steps.enrollment.UpdateEnrollment
 
 Propagate:
  - canvas_steps.assign_groups.AssignGroups

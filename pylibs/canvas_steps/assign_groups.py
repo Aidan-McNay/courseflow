@@ -273,22 +273,22 @@ class AssignGroups(FlowPropagateStep[StudentRecord]):
             logger(f"Disabling self-signup for {curr_category.name}")
 
         # Remove any solo students
-        # groups = curr_category.get_groups()
-        # for group in groups:
-        #     students = list(group.get_users())
-        #     if len(students) < 2:
-        #         for student in students:
-        #             if debug:
-        #                 logger(
-        #                     "DEBUG: Not removing solo student "
-        #                     f"{student.login_id} from {group.name}"
-        #                 )
-        #             else:
-        #                 group.remove_user(student)
-        #                 logger(
-        #                     "Removed solo student "
-        #                     f"{student.login_id} from {group.name}"
-        #                 )
+        groups = curr_category.get_groups()
+        for group in groups:
+            students = list(group.get_users())
+            if len(students) < 2:
+                for student in students:
+                    if debug:
+                        logger(
+                            "DEBUG: Not removing solo student "
+                            f"{student.login_id} from {group.name}"
+                        )
+                    else:
+                        group.remove_user(student)
+                        logger(
+                            "Removed solo student "
+                            f"{student.login_id} from {group.name}"
+                        )
 
         # Get section mapping
         section_students_mapping = self.get_section_mapping()

@@ -17,6 +17,13 @@ name of metadata.
 
 ```{eval-rst}
 .. py:attribute:: old_groups
+   :type: dict[str, int]
+
+   A mapping of NetIDs to previously-assigned (but overriden) lab groups.
+   This is used to know which groups have changed, to re-assign groups on
+   GitHub appropriately
+
+   Set by: :py:class:`~canvas_steps.assign_groups.AssignGroups`
 ```
 
 ```{eval-rst}
