@@ -36,7 +36,9 @@ parser.add_argument(
 parser.add_argument(
     "-r",
     "--reset",
-    help="The tab on the Google Sheet to get grades from",
+    help=(
+        "Reset the Canvas course, deleting all previously-created attributes"
+    ),
     action="store_true",
 )
 parser.add_argument(

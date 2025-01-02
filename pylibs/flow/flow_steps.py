@@ -163,7 +163,8 @@ class FlowUpdateStep(FlowStep, Generic[RecordType]):
         """Update our records with any new information.
 
         Args:
-            records (list[RecordType]): The list of records to manipulate
+            records (list[tuple[RecordType, Lock]]): The list of records
+              to manipulate
             logger (Callable[[str], None]): A function to log any notable
               events
             get_metadata (Callable[[str], Any],): A function to retrieve global
@@ -198,7 +199,8 @@ class FlowPropagateStep(FlowStep, Generic[RecordType]):
         """Propagate our records to update any external entities.
 
         Args:
-            records (list[RecordType]): The list of records to manipulate
+            records (list[tuple[RecordType, Lock]]): The list of records
+              to manipulate
             logger (Callable[[str], None]): A function to log any notable
               events
             get_metadata (Callable[[str], Any],): A function to retrieve global

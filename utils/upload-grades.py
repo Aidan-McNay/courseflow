@@ -86,6 +86,8 @@ Arguments:
  - `sheet-id`: The ID of the Google Sheet to access (see the URL)
  - `tab`: The tab/worksheet of the Google Sheet to get the grades from
  - `assignment`: The assignment to populate on Canvas
+ - `delete_comments`: Whether to delete pre-existing comments on
+   assignment submissions
 
 Assumptions:
 

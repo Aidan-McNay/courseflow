@@ -12,7 +12,7 @@ a reference for steps/flows, can be found [here](https://aidan-mcnay.github.io/c
 Contained in this directory are:
 
  - `pylibs`: The Python libraries/utilities used by the scripts
- - `scripts`: The main scripts for managing the course
+ - `classes`: A history of flows used for various classes
  - `utils`: Smaller scripts for one-off runs
 
 ## Linting

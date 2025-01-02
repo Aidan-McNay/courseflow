@@ -10,6 +10,7 @@ Date: September 21st, 2024
 
 import argparse
 import github
+import pydoc
 import sys
 from typing import Optional
 
@@ -22,6 +23,8 @@ from records.tag_record import TagRecords, get_tag_headers
 # Arguments
 # ------------------------------------------------------------------------
 
+info_present = "-i" in sys.argv or "--info" in sys.argv
+
 parser = argparse.ArgumentParser(
     description=(
         "A simple script to check that lab tags haven't been manipulated"
@@ -32,16 +35,19 @@ parser.add_argument(
     "--sheet-id",
     help="The ID of the Google Sheet where tag records are stored",
     metavar="SHEET_ID",
-    required=True,
+    required=not info_present,
 )
 parser.add_argument(
     "--tab",
     help="The tab on the Google Sheet to get tag records from",
     metavar="TAB",
-    required=True,
+    required=not info_present,
 )
 parser.add_argument(
-    "--lab", help="The lab to check the tags for", metavar="LAB", required=True
+    "--lab",
+    help="The lab to check the tags for",
+    metavar="LAB",
+    required=not info_present,
 )
 parser.add_argument(
     "-n",
@@ -49,9 +55,44 @@ parser.add_argument(
     help="Don't print in color (use for file logging)",
     action="store_true",
 )
+parser.add_argument(
+    "-i",
+    "--info",
+    help="Print out verbose information about the program and exit",
+    action="store_true",
+)
 
 # Parse the arguments
 args = parser.parse_args()
+
+# ------------------------------------------------------------------------
+# Info
+# ------------------------------------------------------------------------
+
+info = f"""
+{parser.format_usage()}
+
+`tag-integrity-check` is used to check that all staff-tagged repos are
+intact. The repo tags are checked against stored checksums to ensure that
+no manipulation has occurred since the course staff tagged them.
+
+Arguments:
+ - `sheet-id`: The ID of the Google Sheet where tag records are stored
+ - `tab`: The tab on the Google Sheet to get tag records from
+ - `lab`: The lab to check the tags for
+
+Assumptions:
+
+`tag-integrity-check` takes the expected tags from a Google Sheet, and
+assumes that the sheet represents a collection of `TagRecords` as stored
+by a `SpreadsheetStorer`. Using those records, the script will check not
+only that the tags are present, but that the hashes of the tag and the
+commit that it points to are as expected.
+"""
+
+if args.info:
+    pydoc.pager(info)
+    exit(0)
 
 # ------------------------------------------------------------------------
 # Printing functions
