@@ -4,7 +4,7 @@ Author: Aidan McNay
 Date: January 6th, 2025
 """
 
-from typing import Any, ParamSpec, TypeVar
+from typing import Any
 import yaml
 
 from flow.flow import Flow
@@ -16,9 +16,6 @@ from flow.schedule import Schedule
 # Run flows in different processes if dill is available
 #
 # Reference: https://stackoverflow.com/a/72776044
-
-P = ParamSpec("P")
-T = TypeVar("T")
 
 try:
     import pathos
