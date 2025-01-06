@@ -151,7 +151,7 @@ class Assignment:
     submission_types: list[str] = field(default_factory=lambda: ["none"])
     allowed_extensions: list[str] = field(default_factory=lambda: ["pdf"])
     grading_type: str = "points"
-    points_possible: int = 5.25
+    points_possible: float = 5.25
     group_category: Optional[str] = None
     published: bool = False
     due_at: Optional[datetime.datetime] = None
