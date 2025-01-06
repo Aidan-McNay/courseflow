@@ -417,6 +417,10 @@ class Flow(Generic[RecordType]):
               can be called for a variety of reasons; the exception
               message will describe why
         """
+        self.concrete_record_steps = []
+        self.concrete_update_steps = []
+        self.concrete_propagate_steps = []
+
         # First, check the type of the dictionary
         for value in config_dict.values():
             if isinstance(value, dict):

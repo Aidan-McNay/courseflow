@@ -24,13 +24,15 @@ prerequisites, usage, and a reference of implemented steps/flows.
    :caption: Library Reference
 
    library_reference/records.md
-   library_reference/record_storers.md
    library_reference/record_steps.md
    library_reference/update_steps.md
    library_reference/propagate_steps.md
+   library_reference/record_storers.md
    library_reference/flow.md
-   library_reference/miscellaneous.md
    library_reference/metadata.md
+   library_reference/schedules.md
+   library_reference/flow_manager.md
+   library_reference/miscellaneous.md
    library_reference/utilities.md
 
 .. figure:: _static/img/cats.jpg

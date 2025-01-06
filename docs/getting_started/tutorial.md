@@ -656,3 +656,79 @@ Once `MyPropagateStep` has been implemented, we can use it in our flow!
    ``modulus`` configuration to the ``print-ascii`` step, then validate
    and run the flow as before. What output do you get?
 ```
+
+## Adding a Flow to a Flow Manager
+
+```{eval-rst}
+The last thing you may wish to do is to add our newly-created
+:py:class:`~flow.flow.Flow` to a :py:class:`~flow.flow_manager.FlowManager`,
+to run it on a pre-determined schedule. We can re-use our implementation of
+``basic-flow``, and start our new :py:class:`~flow.flow_manager.FlowManager`
+in another file
+
+.. admonition:: Starting ``basic_flow_manager``
+   :class: tip
+
+   Using your preferred code editor, open a new Python file named
+   ``basic_flow_manager.py`` in the same directory as ``basic_flow.py``,
+   and add the following imports to start our file:
+
+   .. code-block:: python
+
+      from basic_flow import basic_flow         # Our flow from before
+      from flow.flow_manager import FlowManager # The flow manager
+      from flow.schedule import Always          # A schedule to run our flow
+
+   From here, we can create a :py:class:`~flow.flow_manager.FlowManager`,
+   naming it ``basic_flow_manager``, by adding the following line (noting
+   that 4 processes should be used to run flows in parallel):
+
+   .. code-block:: python
+
+      basic_flow_manager = FlowManager(num_processes=4)
+
+:py:class:`~flow.flow.Flow`\ s can be added either already configured (with
+:py:meth:`~flow.flow_manager.FlowManager.add_conf_flow`) or without
+configurations (with :py:meth:`~flow.flow_manager.FlowManager.add_unconf_flow`).
+For this tutorial, we'll add ``basic_flow`` as *unconfigured* (since we haven't
+called :py:meth:`~flow.flow.Flow.config` yet)
+
+.. admonition:: Adding ``basic_flow``
+   :class: tip
+
+   We can add ``basic_flow`` to ``basic_flow_manager`` with the following
+   line (using the :py:class:`~flow.schedule.Always` schedule to indicate
+   that ``basic_flow`` should be run whenever ``basic_flow_manager`` is run).
+
+   This additionally tells ``basic_flow_manager`` which configuration file
+   to use to configure ``basic_flow``, as well as that we want to have the
+   terminal show the output of ``basic_flow`` when it runs.
+
+   .. code-block:: python
+
+      basic_flow_manager.add_unconf_flow(
+          basic_flow, Always(), "./configs/basic-flow-configs.yaml", silent=False
+      )
+
+The last step is to run the :py:class:`~flow.flow_manager.FlowManager` with the
+:py:meth:`~flow.flow_manager.FlowManager.run` method
+
+.. admonition:: Running ``basic_flow_manager``
+   :class: tip
+
+   Finish ``basic_flow_manager.py`` by adding the following line to run
+   ``basic_flow_manager``:
+
+   .. code-block:: python
+
+      basic_flow_manager.run()
+
+   From here, we can run the flow as a normal Python file:
+
+   .. code-block:: bash
+
+      python basic_flow_manager.py
+
+   This should run ``basic_flow`` according to the ``Always`` schedule, and
+   should produce very similar output to ``basic_flow.py``
+```

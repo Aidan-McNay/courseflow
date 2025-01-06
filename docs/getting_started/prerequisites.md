@@ -15,6 +15,9 @@ baseline:
    GitHub API
  - [`PyYAML`](https://pypi.org/project/PyYAML/) to parse YAML
    configuration files
+ - [`pathos`](https://pypi.org/project/pathos/) _(Optional)_ to run flows
+   across multiple processes in a flow manager. If not present, flows will
+   be run serially
 
 Additional prerequisites may be considered to access different APIs. In
 general, Python wrappers around APIs are preferred over direct HTTP

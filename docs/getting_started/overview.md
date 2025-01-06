@@ -338,7 +338,14 @@ See the :doc:`tutorial <tutorial>` for an example.
 
 ## Flow Managers
 
-```{admonition} _Under construction!_
-:class: warning
-Flow Managers are currently being implemented, and will be ready shortly
+```{eval-rst}
+Finally, users may often wish to run multiple flows from one script in
+parallel. ``courseflow`` supports this through the use of
+:py:class:`~flow.flow_manager.FlowManager`\ s. A
+:py:class:`~flow.flow_manager.FlowManager` keeps track of multiple
+:py:class:`~flow.flow.Flow`\ s, as well as an associated
+:py:class:`~flow.schedule.Schedule` for each. When a
+:py:class:`~flow.flow_manager.FlowManager` is run, it checks the
+:py:class:`~flow.schedule.Schedule` of each :py:class:`~flow.flow.Flow` and,
+if appropriate, runs the :py:class:`~flow.flow.Flow`.
 ```
