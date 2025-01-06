@@ -1,0 +1,286 @@
+# ========================================================================
+# The initial setup for the ECE 6745 Canvas course
+# ========================================================================
+# Author: Aidan McNay
+# Date: January 6th, 2025
+
+# ------------------------------------------------------------------------
+# Assignment Groups
+# ------------------------------------------------------------------------
+
+assignment_groups:
+ - name: "Lab 1"
+   weight: 10
+ - name: "Lab 2"
+   weight: 15
+ - name: "Midterm"
+   weight: 30
+ - name: "Design Project Milestones"
+   weight: 10
+ - name: "Design Project Demonstration"
+   weight: 10
+ - name: "Design Project Report"
+   weight: 25
+ - name: "Logistics"
+   weight: 0
+
+# ------------------------------------------------------------------------
+# Group Categories
+# ------------------------------------------------------------------------
+
+group_categories:
+ - name: "Lab 1 Groups"
+   self_signup: "enabled"
+
+# ------------------------------------------------------------------------
+# Assignments
+# ------------------------------------------------------------------------
+
+assignments:
+ - name: "Lab 1: ASIC Integer Multiplier"
+   description: >-
+     Please push the <b>final lab code</b> to GitHub as described in the
+     <i>Lab Assignment Logistics</i> handout. The instructors will take
+     care of assessing your progress on the code and uploading grades in
+     Canvas. Please submit the <b>lab report</b> using this Canvas
+     assignment. Please make sure you review the
+     <i>Lab Assignment Logistics</i> handout and the lab handout to
+     understand our expectations for report formatting and content.
+   assignment_group: "Lab 1"
+   submission_types: "online_upload"
+   allowed_extensions:
+    - "pdf"
+   grading_type: "points"
+   group_category: "Lab 1 Groups"
+   published: True
+
+ - name: "Lab 2: ASIC Sorting Accelerator"
+   description: >-
+     Please push the <b>final lab code</b> to GitHub as described in the
+     <i>Lab Assignment Logistics</i> handout. The instructors will take
+     care of assessing your progress on the code and uploading grades in
+     Canvas. Please submit the <b>lab report</b> using this Canvas
+     assignment. Please make sure you review the
+     <i>Lab Assignment Logistics</i> handout and the lab handout to
+     understand our expectations for report formatting and content.
+   assignment_group: "Lab 2"
+   submission_types: "online_upload"
+   allowed_extensions:
+    - "pdf"
+   grading_type: "points"
+   published: True
+
+ - name: "Midterm"
+   description: >-
+     The exam is closed book, closed notes. You may use a calculator if you
+     wish. An appendix at the end of the exam will include a list of the
+     technology parameters and logical effort equations.
+   assignment_group: "Midterm"
+   submission_types: "none"
+   grading_type: "points"
+   published: True
+
+ - name: "Project Pre-Proposal"
+   description: >-
+     The goal of the preproposal is to get you think about project ideas
+     and to start some preliminary literature search. You can find project
+     ideas and more information about the literature search in the 
+     <i>Project Ideas</i> handout linked off the Canvas handouts page.
+
+
+     The project preproposal should be a 1-2 page PDF submitted via this
+     assignment. The preproposal should describe who will be in your group
+     and what you want to explore in your project. If you are trying to
+     decide between two projects you can include a description of both.
+     This is relatively informal, but I really want to start the discussion
+     about projects early in the semester. Please feel free to talk with me
+     after lecture or in office hours about project ideas -- or post on Ed
+     (public or private is fine). The preproposal is not binding. You can
+     change your mind after the proposal once we have more time to discuss.
+   assignment_group: "Logistics"
+   submission_types: "online_upload"
+   allowed_extensions:
+    - "pdf"
+   grading_type: "pass_fail"
+   published: True
+
+ - name: "Project Proposal"
+   description: >-
+     The proposal should be maybe 2-3 pages. It should be a step towards
+     the introduction for the final project report. So you should include
+     a paragraph or two about the motivation for the project, a paragraph
+     or two that describes your plan for the baseline and alternative
+     design, a paragraph or two that describes how you plan to test and
+     evaluate your design, and a few paragraphs for the literature review.
+     Your annotated bibliography should go at the end. Note -- you must
+     annotate at least three scholarly references, but you do not need
+     to annotate every reference. Feel free to include as many references
+     as you like. You can find project ideas and more information about
+     the literature search in the <i>Project Ideas</i> handout on the
+     Canvas handouts page.
+   assignment_group: "Logistics"
+   submission_types: "online_upload"
+   allowed_extensions:
+    - "pdf"
+   grading_type: "pass_fail"
+   published: True
+
+ - name: "Milestone 1: Baseline Design and Testing Strategy Document"
+   description: >-
+     You should submit a PDF of your project final report which includes
+     an introduction based on your proposal (including the literature
+     search) along with the baseline design section and the testing strategy
+     section.
+
+
+     Please see the Project Report Assessment Rubric for more information
+     about report formatting and the various sections that are required in
+     the final report.
+   assignment_group: "Design Project Milestones"
+   submission_types: "online_upload"
+   allowed_extensions:
+    - "pdf"
+   grading_type: "points"
+   published: True
+
+ - name: "Milestone 2: Alternative Design Document"
+   description: >-
+     You should submit a PDF of your project final report which includes
+     everything you have written so far. So this includes an introduction
+     based on your proposal (including the literature search), the baseline
+     design section and the testing strategy section from the first
+     milestone, and the alternative design section.
+
+
+     Please see the Project Report Assessment Rubric for more information
+     about report formatting and the various sections that are required in
+     the final report.
+   assignment_group: "Design Project Milestones"
+   submission_types: "online_upload"
+   allowed_extensions:
+    - "pdf"
+   grading_type: "points"
+   published: True
+
+ - name: "Milestone 3: Evaluation Document"
+   description: >-
+     You should submit a PDF of your project final report which includes
+     everything you have written so far. So this includes an introduction
+     based on your proposal (including the literature search), the baseline
+     design section and the testing strategy section from the first
+     milestone, the alternative design section from the second milestone,
+     and the evaluation document. You should now have a relatively complete
+     first draft of your design project final report.
+
+
+     Please see the Project Report Assessment Rubric for more information
+     about report formatting and the various sections that are required in
+     the final report.
+   assignment_group: "Design Project Milestones"
+   submission_types: "online_upload"
+   allowed_extensions:
+    - "pdf"
+   grading_type: "points"
+   published: True
+
+ - name: "Design Project Demonstrations"
+   description: >-
+     The demo is very important. The demo will last about 30 minutes and we
+     will schedule the time slots a week or so before the demo. You are in
+     charge of driving the demo, but I imagine it will look like this:
+
+     <ol>
+       <li>Walk me through your code using GitHub [this is how I will assess
+       code quality]. It can really help if you have block diagrams, datapath
+       diagrams, and/or FSM diagrams printed out so you can use these diagrams
+       to help explain the code.</li>
+
+       <li>Show me something interesting in the code, maybe a particularly
+       clever way you coded something, or some particularly well written code.</li>
+
+       <li>I will then clone your repo and run all of your unit tests -- you
+       should be ready to briefly explain your testing strategy so I can
+       understand what the tests are testing, do not have broken tests in your
+       repo for the demo -- make sure "py.test .." works! Even better, you
+       can show me all of the tests passing on GitHub Actions.</li>
+
+       <li>Then you should run some kind of simulator for your baseline design
+       so I can see your baseline design working. Then you should run some kind
+       of simulator for your alternative design so I can see your alternative
+       design working. Make sure the simulators work!</li>
+
+       <li>For the demo you really must have some kind of slick line tracing,
+       and then you should be able to enable this line tracing so that I can
+       truly visualize the alternative design really working. So you would
+       point to parts of the line trace on the monitor in my office and talk
+       me through how the transactions move through your design, how an FSM
+       moves through the stats, where parts of the design are stalling, etc.
+       You should think very carefully what is the best test or dataset to use
+       for the demo and what is the best way to put together a nice line trace
+       to really show off how things are working.</li>
+     </ol>
+
+     Note that a key aspect of the demo is that I should be able to run the
+     tests and the simulator from a clean clone of the GitHub repo on the ecelinux
+     servers. This means no magic versions of the code that only work on your laptop,
+     (hopefully) no special tools that only you have access to, and no extremely
+     complicated command line sequences to try out your project. Everything should
+     be clean and simple to do from a clean git clone, and everything should work
+     on the ecelinux servers. There may be some exceptions but that should be
+     discussed ahead of time.
+
+     The demos are usually quite a bit of fun and a good way to really demonstrate
+     all you have learned over the past 9 months. My intention is that students get
+     the code working in time for the demo day, and then focus on the final report
+     for the last few days before the report is due. While you can still hack on
+     the code after the demo day, if the project is not working on the demo day
+     then I consider the project to not work. So usually students make sure everything
+     is working for the demo day and at least some kind of evaluation is ready. Then
+     sometimes they do a bit more hacking after the demo day to add some more
+     evaluations or to really dive deeper into the results.
+   assignment_group: "Design Project Demonstration"
+   submission_types: "none"
+   grading_type: "points"
+   published: True
+
+ - name: "Design Project Report"
+   description: >-
+     Please see the Project Report Assessment Rubric for more information
+     about report formatting and the various sections that are required in
+     the final report.
+   assignment_group: "Design Project Report"
+   submission_types: "online_upload"
+   allowed_extensions:
+    - "pdf"
+   grading_type: "points"
+   published: True
+
+# ------------------------------------------------------------------------
+# Quizzes
+# ------------------------------------------------------------------------
+
+quizzes:
+ - title: "GitHub Username Form"
+   description: >-
+     We will be using GitHub to distribute and grade the lab assignments. 
+     Students will also be using GitHub to collaborate with their lab
+     partner on lab assignments. In order to invite students to the
+     course's GitHub organization we need to know your NetID and your
+     GitHub username.
+
+
+     <b>NOTE</b>: We do NOT use the Cornell GitHub. We use the public
+     github.com system which means you need to explicitly have an account
+     on github.com. If you do not already have a GitHub account, go to
+     https://github.com/join. Make sure you use your netid@cornell.edu
+     email address if you are creating a new account. Your NetID makes a
+     good GitHub username.
+   quiz_type: "graded_survey"
+   assignment_group: "Quizzes"
+   published: True
+   allowed_attempts: -1
+   questions:
+    - name: "GitHub Username"
+      text: "GitHub Username:"
+      type: "short_answer_question"
+      points_possible: 0
