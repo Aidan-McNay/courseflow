@@ -151,6 +151,7 @@ class Assignment:
     submission_types: list[str] = field(default_factory=lambda: ["none"])
     allowed_extensions: list[str] = field(default_factory=lambda: ["pdf"])
     grading_type: str = "points"
+    points_possible: int = 5.25
     group_category: Optional[str] = None
     published: bool = False
     due_at: Optional[datetime.datetime] = None
@@ -166,7 +167,11 @@ class Assignment:
         """
         assignment_args = {
             "name": self.name,
-            "description": self.description,
+            "description": "<p>"
+            + self.description.strip(" \n")
+            .replace("\n\n", "<br><br>")
+            .replace("\n", "")
+            + "</p>",
             "submission_types": self.submission_types,
             "grading_type": self.grading_type,
             "published": self.published,
@@ -174,6 +179,8 @@ class Assignment:
 
         if "online_upload" in self.submission_types:
             assignment_args["allowed_extensions"] = self.allowed_extensions
+        if self.grading_type == "points":
+            assignment_args["points_possible"] = self.points_possible
         if self.due_at:
             assignment_args["due_at"] = self.due_at
         if self.lock_at:
@@ -332,7 +339,9 @@ class Quiz:
         quiz_args = {
             "title": self.title,
             "description": "<p>"
-            + self.description.replace("\n", "<br>")
+            + self.description.strip(" \n")
+            .replace("\n\n", "<br><br>")
+            .replace("\n", "")
             + "</p>",
             "quiz_type": self.quiz_type,
             "published": False,
@@ -442,8 +451,8 @@ if args.reset:
     confirm_msg = f"I want to erase {_course.name}"
     warning(
         always_print=True,
-        msg="WARNING: You are about to erase all data (except for students "
-        f"and student sections) from the course '{_course.name}'. Are "
+        msg="WARNING: You are about to erase all previous "
+        f"attributes from the course '{_course.name}'. Are "
         "you sure to wish to proceed?\n\n"
         f"To confirm, type '{confirm_msg}':",
     )

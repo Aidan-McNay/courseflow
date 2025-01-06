@@ -118,6 +118,7 @@ An example configuration file is shown below as a syntax reference:
        - "docx"
        - "pdf"
       grading_type: "points"
+      points_possible: 5.25
       group_category: "Lab 1 Report Groups"
       published: True
    
@@ -128,6 +129,7 @@ An example configuration file is shown below as a syntax reference:
       allowed_extensions:
        - "pdf"
       grading_type: "points"
+      points_possible: 5.25
       group_category: "Lab 2 Report Groups"
       published: False
       due_at: 2024-12-24 11:59:00

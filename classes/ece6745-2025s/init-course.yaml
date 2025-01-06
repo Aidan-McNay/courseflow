@@ -51,6 +51,7 @@ assignments:
    allowed_extensions:
     - "pdf"
    grading_type: "points"
+   points_possible: 5.25
    group_category: "Lab 1 Groups"
    published: True
 
@@ -68,6 +69,7 @@ assignments:
    allowed_extensions:
     - "pdf"
    grading_type: "points"
+   points_possible: 5.25
    published: True
 
  - name: "Midterm"
@@ -78,6 +80,7 @@ assignments:
    assignment_group: "Midterm"
    submission_types: "none"
    grading_type: "points"
+   points_possible: 5.25
    published: True
 
  - name: "Project Pre-Proposal"
@@ -141,6 +144,7 @@ assignments:
    allowed_extensions:
     - "pdf"
    grading_type: "points"
+   points_possible: 5.25
    published: True
 
  - name: "Milestone 2: Alternative Design Document"
@@ -160,6 +164,7 @@ assignments:
    allowed_extensions:
     - "pdf"
    grading_type: "points"
+   points_possible: 5.25
    published: True
 
  - name: "Milestone 3: Evaluation Document"
@@ -181,6 +186,7 @@ assignments:
    allowed_extensions:
     - "pdf"
    grading_type: "points"
+   points_possible: 5.25
    published: True
 
  - name: "Design Project Demonstrations"
@@ -194,21 +200,17 @@ assignments:
        code quality]. It can really help if you have block diagrams, datapath
        diagrams, and/or FSM diagrams printed out so you can use these diagrams
        to help explain the code.</li>
-
        <li>Show me something interesting in the code, maybe a particularly
        clever way you coded something, or some particularly well written code.</li>
-
        <li>I will then clone your repo and run all of your unit tests -- you
        should be ready to briefly explain your testing strategy so I can
        understand what the tests are testing, do not have broken tests in your
        repo for the demo -- make sure "py.test .." works! Even better, you
        can show me all of the tests passing on GitHub Actions.</li>
-
        <li>Then you should run some kind of simulator for your baseline design
        so I can see your baseline design working. Then you should run some kind
        of simulator for your alternative design so I can see your alternative
        design working. Make sure the simulators work!</li>
-
        <li>For the demo you really must have some kind of slick line tracing,
        and then you should be able to enable this line tracing so that I can
        truly visualize the alternative design really working. So you would
@@ -229,6 +231,7 @@ assignments:
      on the ecelinux servers. There may be some exceptions but that should be
      discussed ahead of time.
 
+
      The demos are usually quite a bit of fun and a good way to really demonstrate
      all you have learned over the past 9 months. My intention is that students get
      the code working in time for the demo day, and then focus on the final report
@@ -241,6 +244,7 @@ assignments:
    assignment_group: "Design Project Demonstration"
    submission_types: "none"
    grading_type: "points"
+   points_possible: 5.25
    published: True
 
  - name: "Design Project Report"
@@ -253,6 +257,7 @@ assignments:
    allowed_extensions:
     - "pdf"
    grading_type: "points"
+   points_possible: 5.25
    published: True
 
 # ------------------------------------------------------------------------
@@ -276,7 +281,7 @@ quizzes:
      email address if you are creating a new account. Your NetID makes a
      good GitHub username.
    quiz_type: "graded_survey"
-   assignment_group: "Quizzes"
+   assignment_group: "Logistics"
    published: True
    allowed_attempts: -1
    questions:
