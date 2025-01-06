@@ -26,7 +26,10 @@ try:
     pathos_found = True
 
 except Exception:
-
+    print(
+        "--- You don't have 'pathos' installed; "
+        "flows will be run sequentially ---"
+    )
     pathos_found = False
 
 
