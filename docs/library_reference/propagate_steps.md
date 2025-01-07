@@ -282,6 +282,17 @@ All propagate steps must inherit from/implement the following base class
 ```
 
 ```{eval-rst}
+.. autoclass:: github_steps.update_group_repo_descr.UpdateGroupRepoDescr()
+
+   This step checks the current membership of each repository, and updates
+   the description if it doesn't match the current membership. This makes
+   sure that repositories always reflect the most up-to-date group
+   membership.
+
+   Supported record types: :py:class:`~records.student_record.StudentRecord`
+```
+
+```{eval-rst}
 .. autoclass:: utils.basic_steps.BasicPropagateStep()
 
    Supported record types: ``int``

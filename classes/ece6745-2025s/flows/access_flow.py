@@ -19,6 +19,7 @@ from github_steps.create_group_repos import CreateGroupRepos
 from github_steps.invite_students import InviteStudents
 from github_steps.mark_accepted import MarkAccepted
 from github_steps.remove_unenrolled import RemoveUnenrolled
+from github_steps.update_group_repo_descr import UpdateGroupRepoDescr
 from google_steps.spreadsheet_storer import SpreadsheetStorer
 from records.student_record import StudentRecord
 from utils.ping_invalid_username import PingInvalidUsername
@@ -66,6 +67,11 @@ access_flow.add_propagate_step(
     "group-repo-permissions",
     AddToGroupRepos,
     depends_on=["make-group-repos"],
+)
+access_flow.add_propagate_step(
+    "update-group-repo-descr",
+    UpdateGroupRepoDescr,
+    depends_on=["group-repo-permissions", "make-group-repos"],
 )
 access_flow.add_propagate_step("remove-dropped", RemoveUnenrolled)
 access_flow.add_propagate_step("invite-students", InviteStudents)
