@@ -28,7 +28,7 @@ class AddToGroupRepos(FlowPropagateStep[StudentRecord]):
             str,
             (
                 "The format to create new teams with. <num> will"
-                "be replaced with the team's number"
+                "be replaced with the group's number"
             ),
         ),
         (
@@ -61,7 +61,7 @@ class AddToGroupRepos(FlowPropagateStep[StudentRecord]):
         set_metadata: Callable[[str, Any], None],
         debug: bool = False,
     ) -> None:
-        """Add students to their personal repositories.
+        """Add students to their group repositories.
 
         We also look at the metadata 'old_groups' to remove users from
         previous groups.

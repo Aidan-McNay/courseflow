@@ -73,7 +73,7 @@ invite-students:
 make-group-repos:
   _description: Create personal repositories for students.
   create_upstream: true
-  naming: "group<num>"
+  name_format: "group<num>"
   num_places: 2
   readme_commit_msg: Initial import
   readme_path: /home/acm289/ece2300-TA/ece2300-labs/admin/logistics/scripts/templates/group_repo_readme.md

@@ -13,7 +13,7 @@ from flow.schedule import Schedule
 # -----------------------------------------------------------------------------
 # ManagerProcess
 # -----------------------------------------------------------------------------
-# Run flows in different processes if dill is available
+# Run flows in different processes if pathos is available
 #
 # Reference: https://stackoverflow.com/a/72776044
 

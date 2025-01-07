@@ -24,7 +24,7 @@ class CreatePersonalRepos(FlowPropagateStep[StudentRecord]):
 
     config_types = [
         (
-            "naming",
+            "name_format",
             str,
             (
                 "The naming convention. "
@@ -76,7 +76,7 @@ class CreatePersonalRepos(FlowPropagateStep[StudentRecord]):
             )
 
         # Make sure that each repo will have a unique name
-        if "<netid>" not in self.configs.naming:
+        if "<netid>" not in self.configs.name_format:
             raise Exception(
                 "Whoops - make sure you have a unique name for each repo!"
             )
@@ -91,6 +91,19 @@ class CreatePersonalRepos(FlowPropagateStep[StudentRecord]):
             _org.get_team_by_slug(self.configs.staff_team)
         except Exception:
             raise Exception(f"No staff team '{self.configs.staff_team}'")
+
+        # Make sure that the permissions are a valid option
+        if self.configs.staff_permissions not in (
+            "pull",
+            "triage",
+            "push",
+            "maintain",
+            "admin",
+        ):
+            raise Exception(
+                "Invalid repo permissions for staff: "
+                f"'{self.configs.staff_permissions}'"
+            )
 
     def create_repo(
         self: Self, repo_name: str, student_name: str, readme_text: str
@@ -149,7 +162,9 @@ class CreatePersonalRepos(FlowPropagateStep[StudentRecord]):
 
         for record, lock in records:
             with lock:
-                repo_name = self.configs.naming.replace("<netid>", record.netid)
+                repo_name = self.configs.name_format.replace(
+                    "<netid>", record.netid
+                )
                 readme_text = readme_template.replace("<repo_name>", repo_name)
                 repo_exists = False
                 if repo_name not in all_repo_names:

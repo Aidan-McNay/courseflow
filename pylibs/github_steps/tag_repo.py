@@ -29,7 +29,7 @@ def get_tagger(
     repo_type: Literal["personal", "group"],
     tag_records_type: Type[RecordType],
 ) -> Type[FlowPropagateStep[RecordType]]:
-    """Return a class that tags a specific lab.
+    """Return a propagate step that tags a specific lab.
 
     Args:
         lab (str): The lab to tag for.
@@ -37,17 +37,17 @@ def get_tagger(
         tag_records_type: The type of TagRagords to operate on
 
     Returns:
-        Type[FlowPropagateStep[TagRecords]]: The generated class to tag the
-          lab
+        Type[FlowPropagateStep[RecordType]]:
+          The generated class to tag the lab
     """
 
     class RepoTagger(FlowPropagateStep[RecordType]):
-        """A class to tag a specific lab submission."""
+        """A propagate step to tag a specific lab submission."""
 
         lab_to_tag = lab
         type_to_tag = repo_type
 
-        description = f"A step to tag submissions for {lab}"
+        description = f"A propagate step to tag submissions for {lab}"
 
         config_types = [
             ("tag_name", str, "What to name the tag"),

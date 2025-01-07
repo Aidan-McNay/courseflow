@@ -150,7 +150,7 @@ class UpdateEnrollment(FlowUpdateStep[StudentRecord]):
 
 
 class PingNewEnrollment(FlowPropagateStep[StudentRecord]):
-    """A propagate step to pinga user when new enrollment is detected."""
+    """A propagate step to ping a user when new enrollment is detected."""
 
     description = "Send an email when new course enrollment is detected"
     config_types = [

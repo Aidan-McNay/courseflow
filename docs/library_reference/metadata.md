@@ -13,6 +13,8 @@ name of metadata.
    has no record of them before this iteration)
 
    Set by: :py:class:`~canvas_steps.enrollment.AddEnrollment`
+
+   Used by: :py:class:`~canvas_steps.enrollment.PingNewEnrollment`
 ```
 
 ```{eval-rst}
@@ -24,6 +26,8 @@ name of metadata.
    GitHub appropriately
 
    Set by: :py:class:`~canvas_steps.assign_groups.AssignGroups`
+
+   Used by: :py:class:`~github_steps.add_to_group_repos.AddToGroupRepos`
 ```
 
 ```{eval-rst}

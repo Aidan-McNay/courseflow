@@ -33,6 +33,23 @@ flow library, but for completeness/reference.
 .. autofunction:: records.tag_record.get_tag_headers
 ```
 
+```{eval-rst}
+.. autofunction:: github_steps.tag_repo.get_tagger
+
+   For example, to add a tagger to a :py:class:`~flow.flow.Flow` named
+   ``tag-lab1.1`` that tags all personal repos for the ``lab1.1`` submission,
+   one could do the following:
+
+   .. code-block:: python
+
+      flow.add_propagate_step(
+          "tag-lab1.1", get_tagger("lab1.1", "personal", LabTagRecords)
+      )
+
+   See :py:class:`~github_steps.tag_repo.RepoTagger` for information on
+   the generated/returned class type.
+```
+
 ## Classes
 
 ```{eval-rst}

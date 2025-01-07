@@ -85,6 +85,7 @@ class RemoveUnenrolled(FlowPropagateStep[StudentRecord]):
                     not record.enrolled
                     and (record.github_username is not None)
                     and (record.github_valid)
+                    and (record.sent_invite)
                 ):
                     if debug:
                         logger(

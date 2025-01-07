@@ -24,7 +24,7 @@ class CreateGroupRepos(FlowPropagateStep[StudentRecord]):
 
     config_types = [
         (
-            "naming",
+            "name_format",
             str,
             (
                 "The naming convention. "
@@ -84,7 +84,7 @@ class CreateGroupRepos(FlowPropagateStep[StudentRecord]):
             )
 
         # Make sure that each repo will have a unique name
-        if "<num>" not in self.configs.naming:
+        if "<num>" not in self.configs.name_format:
             raise Exception(
                 "Whoops - make sure you have a unique name for each repo!"
             )
@@ -99,6 +99,19 @@ class CreateGroupRepos(FlowPropagateStep[StudentRecord]):
             _org.get_team_by_slug(self.configs.staff_team)
         except Exception:
             raise Exception(f"No staff team '{self.configs.staff_team}'")
+
+        # Make sure that the permissions are a valid option
+        if self.configs.staff_permissions not in (
+            "pull",
+            "triage",
+            "push",
+            "maintain",
+            "admin",
+        ):
+            raise Exception(
+                "Invalid repo permissions for staff: "
+                f"'{self.configs.staff_permissions}'"
+            )
 
     def create_repo(
         self: Self, repo_name: str, student_names: str, readme_text: str
@@ -168,7 +181,7 @@ class CreateGroupRepos(FlowPropagateStep[StudentRecord]):
 
         # Create all the necessary repos
         for num, names in num_students_mapping.items():
-            repo_name = self.configs.naming.replace(
+            repo_name = self.configs.name_format.replace(
                 "<num>", str(num).zfill(self.configs.num_places)
             )
             readme_text = readme_template.replace("<repo_name>", repo_name)
