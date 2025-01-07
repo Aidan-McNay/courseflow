@@ -21,6 +21,7 @@ get-github-usernames-mode: exclude
 github-accepted-mode: exclude
 update-enrollment-mode: exclude
 
+assign-canvas-groups-mode: include
 group-repo-permissions-mode: include
 invite-students-mode: exclude
 make-group-repos-mode: include
@@ -69,6 +70,13 @@ update-enrollment:
 # Propagate Steps
 # ------------------------------------------------------------------------
 
+assign-canvas-groups:
+  _description: Assign remaining students to a group on Canvas randomly.
+  canvas_group_pattern: "ECE 6745: Lab Group <num>"
+  canvas_group_regex: 'ECE 6745: Lab Group (\d+)'
+  form_date: 2025-01-28 09:00:00
+  group_category: "ECE 6745: Lab 1 Groups"
+
 group-repo-permissions:
   _description: Give students access to their group repos
   name_format: group<num>
@@ -98,7 +106,7 @@ ping-group-join:
   _description: Email students who haven't joined a Canvas group
   email_gap: 2
   email_template: /home/acm289/cornell-canvas/classes/ece6745-2025s/templates/ping-join-group.txt
-  group_category: Lab 1 Groups
+  group_category: "ECE 6745: Lab 1 Groups"
   send_email: acm289@cornell.edu
   start_date: 2025-01-01 00:00:00
   subject: '[Courseflow Test] Ping Join Group'

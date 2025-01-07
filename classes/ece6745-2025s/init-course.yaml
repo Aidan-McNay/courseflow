@@ -29,8 +29,10 @@ assignment_groups:
 # ------------------------------------------------------------------------
 
 group_categories:
- - name: "Lab 1 Groups"
+ - name: "ECE 6745: Lab 1 Groups"
    self_signup: "enabled"
+ - name: "ECE 6745: Lab 2 Groups"
+ - name: "ECE 6745: Design Project Groups"
 
 # ------------------------------------------------------------------------
 # Assignments

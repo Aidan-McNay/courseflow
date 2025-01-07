@@ -5,6 +5,7 @@ Author: Aidan McNay
 Date: January 7th, 2025
 """
 
+from canvas_steps.assign_groups import AssignGroups
 from canvas_steps.enrollment import (
     AddEnrollment,
     UpdateEnrollment,
@@ -62,7 +63,10 @@ access_flow.add_update_step(
 # Propagate Steps
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-access_flow.add_propagate_step("make-group-repos", CreateGroupRepos)
+access_flow.add_propagate_step("assign-canvas-groups", AssignGroups)
+access_flow.add_propagate_step(
+    "make-group-repos", CreateGroupRepos, depends_on=["assign-canvas-groups"]
+)
 access_flow.add_propagate_step(
     "group-repo-permissions",
     AddToGroupRepos,
