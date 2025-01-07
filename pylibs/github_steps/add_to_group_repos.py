@@ -111,7 +111,7 @@ class AddToGroupRepos(FlowPropagateStep[StudentRecord]):
                             record.added_to_group = False
                             logger(
                                 f"Removed {record.netid} from "
-                                f"old team {old_group_name}"
+                                f"old group/team {old_group_name}"
                             )
 
         # Add users to their team
@@ -157,7 +157,7 @@ class AddToGroupRepos(FlowPropagateStep[StudentRecord]):
                             team_to_add_to.add_membership(user, role="member")
                             record.added_to_group = True
                             logger(
-                                f"{record.netid} added to group "
+                                f"{record.netid} added to group/team "
                                 f"{record.group_repo_name}"
                             )
                     except Exception:

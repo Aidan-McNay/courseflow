@@ -19,7 +19,7 @@ from records.student_record import StudentRecord
 class UpdateGroupRepoDescr(FlowPropagateStep[StudentRecord]):
     """A propagate step to update group repo descriptions."""
 
-    description = "Update the descriptions of group repos based on membership."
+    description = "Update the descriptions of group repos based on membership"
 
     config_types: list[tuple[str, Type[ValidConfigTypes], str]] = []
 

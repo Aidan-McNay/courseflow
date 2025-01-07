@@ -30,6 +30,7 @@ ping-invalid-username-mode: exclude
 ping-no-username-mode: exclude
 ping-unaccepted-invite-mode: exclude
 remove-dropped-mode: exclude
+update-group-repo-descr-mode: include
 
 # ------------------------------------------------------------------------
 # Record Storer
@@ -129,3 +130,6 @@ ping-unaccepted-invite:
 remove-dropped:
   _description: Remove dropped students from GitHub
   staff_team: staff
+
+update-group-repo-descr:
+  _description: Update the descriptions of group repos based on membership
