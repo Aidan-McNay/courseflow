@@ -1,0 +1,9 @@
+Hi <first_name>,
+
+It looks like you haven't signed up for a lab group on Canvas for ECE 6745. If you would like to be paired with a random partner from your section, then you can ignore this email. 
+
+If you'd like to select your group, please coordinate with your partner to join the same group on Canvas: https://canvas.cornell.edu/courses/65463/assignments/711740
+
+Thanks!
+
+ - The ECE 6745 Staff

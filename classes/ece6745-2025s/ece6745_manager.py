@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """A top-level flow runner to manage the ECE 6745 course.
 
 Author: Aidan McNay
@@ -18,11 +19,24 @@ sys.path.append(flow_dir)
 
 from flow.flow_manager import FlowManager
 
+from access_flow import access_flow
+from flow.schedule import Always
+
 # -----------------------------------------------------------------------------
 # Create the FlowManager, and add all necessary flows
 # -----------------------------------------------------------------------------
 
 ece6745_flow_manager = FlowManager(num_processes=4)
+
+ece6745_flow_manager.add_unconf_flow(
+    access_flow,
+    Always(),
+    (
+        "/home/acm289/cornell-canvas/classes/ece6745-2025s/configs"
+        "/access_flow_configs.yaml"
+    ),
+    silent=False,
+)
 
 # -----------------------------------------------------------------------------
 # Run the manager

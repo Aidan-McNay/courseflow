@@ -1,0 +1,131 @@
+# ========================================================================
+# Configurations for access_flow
+# ========================================================================
+
+# ------------------------------------------------------------------------
+# Overall Flow
+# ------------------------------------------------------------------------
+
+_description: A flow to update records and synchronize GitHub access based on Canvas
+num_threads: 4
+
+# ------------------------------------------------------------------------
+# Step Modes
+# ------------------------------------------------------------------------
+
+spreadsheet-storer-mode: include
+
+add-canvas-enrollment-mode: include
+
+get-github-usernames-mode: exclude
+github-accepted-mode: exclude
+update-enrollment-mode: exclude
+
+group-repo-permissions-mode: exclude
+invite-students-mode: exclude
+make-group-repos-mode: exclude
+ping-enrollment-mode: exclude
+ping-group-join-mode: exclude
+ping-invalid-username-mode: exclude
+ping-no-username-mode: exclude
+ping-unaccepted-invite-mode: exclude
+remove-dropped-mode: exclude
+
+# ------------------------------------------------------------------------
+# Record Storer
+# ------------------------------------------------------------------------
+
+spreadsheet-storer:
+  _description: A Python representation of a Google Sheet for getting and setting
+    records
+  sheet_id: 1RUuMDfs78v-qwfNJDvtx4pa0hFxzfFqKLlpFZqKZ1eo
+  tab: roster
+
+# ------------------------------------------------------------------------
+# Record Steps
+# ------------------------------------------------------------------------
+
+add-canvas-enrollment:
+  _description: Add newly enrolled students from Canvas
+
+# ------------------------------------------------------------------------
+# Update Steps
+# ------------------------------------------------------------------------
+
+get-github-usernames:
+  _description: Get usernames from a 'Fill in the Blank' question on a Canvas Quiz
+  question_id: 1629769
+  quiz_id: 161576
+
+github-accepted:
+  _description: Check and update students who have joined the GitHub org
+  staff_team: staff
+
+update-enrollment:
+  _description: Update enrolled students based on Canvas
+
+# ------------------------------------------------------------------------
+# Propagate Steps
+# ------------------------------------------------------------------------
+
+group-repo-permissions:
+  _description: Give students access to their group repos
+  name_format: group<num>
+  num_places: 2
+
+invite-students:
+  _description: Invite students to join the GitHub organization
+  student_team: students
+
+make-group-repos:
+  _description: Create group repositories for students.
+  create_upstream: True
+  name_format: group<num>
+  num_places: 2
+  readme_commit_msg: Initial commit
+  readme_path: /home/acm289/cornell-canvas/classes/ece6745-2025s/templates/group_repo_readme.md
+  staff_permissions: push
+  staff_team: staff
+
+ping-enrollment:
+  _description: Send an email when new course enrollment is detected
+  recv_email: acm289@cornell.edu
+  send_email: acm289@cornell.edu
+  subject: '[Courseflow Test] Enrollment Ping'
+
+ping-group-join:
+  _description: Email students who haven't joined a Canvas group
+  email_gap: 2
+  email_template: /home/acm289/cornell-canvas/classes/ece6745-2025s/templates/ping-join-group.txt
+  group_category: Lab 1 Groups
+  send_email: acm289@cornell.edu
+  start_date: 2025-01-01 00:00:00
+  subject: '[Courseflow Test] Ping Join Group'
+
+ping-invalid-username:
+  _description: Email students who've submitted an invalid username
+  email_gap: 2
+  email_template: /home/acm289/cornell-canvas/classes/ece6745-2025s/templates/ping-invalid-username.txt
+  send_email: acm289@cornell.edu
+  start_date: 2025-01-01 00:00:00
+  subject: '[Courseflow Test] Ping Invalid Username'
+
+ping-no-username:
+  _description: Email students who haven't submitted a GitHub username
+  email_gap: 2
+  email_template: /home/acm289/cornell-canvas/classes/ece6745-2025s/templates/ping-no-username.txt
+  send_email: acm289@cornell.edu
+  start_date: 2025-01-01 00:00:00
+  subject: '[Courseflow Test] Ping No Username'
+
+ping-unaccepted-invite:
+  _description: Email students who haven't accepted a GitHub org invite
+  email_gap: 2
+  email_template: /home/acm289/cornell-canvas/classes/ece6745-2025s/templates/ping-unaccepted-invite.txt
+  send_email: acm289@cornell.edu
+  start_date: 2025-01-01 00:00:00
+  subject: '[Courseflow Test] Ping Unaccepted Invite'
+
+remove-dropped:
+  _description: Remove dropped students from GitHub
+  staff_team: staff

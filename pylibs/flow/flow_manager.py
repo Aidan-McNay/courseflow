@@ -8,7 +8,24 @@ from typing import Any
 import yaml
 
 from flow.flow import Flow
+from flow.flow_logger import get_mngr_logger, MNGR
 from flow.schedule import Schedule
+
+# -----------------------------------------------------------------------------
+# Manager Logger
+# -----------------------------------------------------------------------------
+
+mngr_logger = get_mngr_logger()
+
+
+def mngr_print(msg: str) -> None:
+    """Print a message using the manager logger.
+
+    Args:
+        msg (str): The message to print
+    """
+    mngr_logger.log(MNGR, msg)
+
 
 # -----------------------------------------------------------------------------
 # ManagerProcess
@@ -23,8 +40,8 @@ try:
     pathos_found = True
 
 except Exception:
-    print(
-        "--- You don't have 'pathos' installed; "
+    mngr_print(
+        "WARNING: You don't have 'pathos' installed; "
         "flows will be run sequentially ---"
     )
     pathos_found = False
@@ -42,12 +59,12 @@ def _run_flow(flow: Flow[Any]) -> None:
         flow (Flow): The flow to run
     """
     if pathos_found:
-        print(
+        mngr_print(
             f"Running {flow.name} on "
             f"{pathos.helpers.mp.current_process().name}..."
         )
     else:
-        print(f"Running {flow.name}...")
+        mngr_print(f"Running {flow.name}...")
     flow.run()
 
 

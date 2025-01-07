@@ -14,14 +14,17 @@ logging.getLogger().setLevel(level=logging.CRITICAL)
 # ---------------------------------------------------------------------
 # Custom Log Levels: Flow and Step
 # ---------------------------------------------------------------------
-# Here, we define custom log levels for flow and step messages
+# Here, we define custom log levels for flow, step, and manager
+# messages
 
 SUCCESS = 25  # between WARNING and INFO
 FLOW = 26
 STEP = 27
+MNGR = 28
 logging.addLevelName(SUCCESS, "SUCCESS")
 logging.addLevelName(FLOW, "FLOW")
 logging.addLevelName(STEP, "STEP")
+logging.addLevelName(MNGR, "MNGR")
 
 # ---------------------------------------------------------------------
 # Define Formatters
@@ -31,6 +34,7 @@ logging.addLevelName(STEP, "STEP")
 class FlowFormatter(logging.Formatter):
     """A custom formatter to include color in the output."""
 
+    YELLOW = "\033[1;33m"
     BLUE = "\033[1;34m"
     GREEN = "\033[1;32m"
     PURPLE = "\033[1;35m"
@@ -38,6 +42,8 @@ class FlowFormatter(logging.Formatter):
 
     flow_fmt = f"{BLUE}[FLOW]{RESET}: %(msg)s"
     flow_fmt_nocolor = "[FLOW]: %(msg)s"
+    mngr_fmt = f"{YELLOW}[MNGR]{RESET}: %(msg)s"
+    mngr_fmt_nocolor = "[MNGR]: %(msg)s"
     success_fmt = f"{GREEN}[SUCCESS]{RESET}: %(msg)s"
     success_fmt_nocolor = "[SUCCESS]: %(msg)s"
     step_fmt = f"{PURPLE}[STEP]{RESET}: - %(msg)s"
@@ -64,10 +70,12 @@ class FlowFormatter(logging.Formatter):
             self.success = FlowFormatter.success_fmt
             self.flow = FlowFormatter.flow_fmt
             self.step = FlowFormatter.step_fmt
+            self.mngr = FlowFormatter.mngr_fmt
         else:
             self.success = FlowFormatter.success_fmt_nocolor
             self.flow = FlowFormatter.flow_fmt_nocolor
             self.step = FlowFormatter.step_fmt_nocolor
+            self.mngr = FlowFormatter.mngr_fmt_nocolor
 
     def format(self: Self, record: logging.LogRecord) -> str:
         """Format a message according to our configurations."""
@@ -82,6 +90,9 @@ class FlowFormatter(logging.Formatter):
 
         elif record.levelno == STEP:
             new_fmt = self.step
+
+        elif record.levelno == MNGR:
+            new_fmt = self.mngr
 
         # Call the original formatter class to do the grunt work
         result = logging.Formatter(new_fmt).format(record)
@@ -191,6 +202,20 @@ def get_logger(flow_name: str) -> logging.Logger:
     """
     logger = logging.getLogger(f"{flow_name} Logger")
     logger.addHandler(verbose_print)
+    logger.setLevel(logging.DEBUG)
+    return logger
+
+
+def get_mngr_logger() -> logging.Logger:
+    """Generate a logger for managers to log.
+
+    Returns:
+        logging.Logger: A logger for a manager
+    """
+    logger = logging.getLogger("Manager Logger")
+    mngr_handler = logging.StreamHandler(stream=sys.stdout)
+    mngr_handler.setFormatter(print_formatter)
+    logger.addHandler(mngr_handler)
     logger.setLevel(logging.DEBUG)
     return logger
 

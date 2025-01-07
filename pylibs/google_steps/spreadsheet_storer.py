@@ -88,7 +88,10 @@ class SpreadsheetStorer(RecordStorer[RecordType]):
                 return []
             headers = data[1]
         except Exception:
-            logger("Detecting blank worksheet {}; no records available")
+            logger(
+                f"Detecting blank worksheet {self.configs.tab}; "
+                "no records available"
+            )
             return []
 
         records = []

@@ -53,11 +53,12 @@ fi
 #      https://peps.python.org/pep-0008/#should-a-line-break-before-or-after-a-binary-operator
 #  - Ignore E203, to be PEP 8 compliant and so Black's output is good
 #      https://github.com/psf/black/issues/1701
+#  - Ignore E402, to allow for imports after appending local paths to Python's PYTHONPATH
 
 info "Checking style with Flake8..."
 python -m flake8 . --require-plugins flake8-pydocstyle,pydoclint,flake8-annotations \
                    --max-line-length 80 \
-                   --ignore DOC301,E731,W503,E203 \
+                   --ignore DOC301,E731,W503,E203,E402 \
                    --exclude docs
 if [ $? == 0 ]; then
     success "Style looks good!"
