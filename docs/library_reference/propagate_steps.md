@@ -90,10 +90,10 @@ All propagate steps must inherit from/implement the following base class
 ```{eval-rst}
 .. autoclass:: github_steps.add_to_group_repos.AddToGroupRepos()
 
-   This step uses a configured group name format to create a GitHub team for
-   the group. Access to the group repository is managed through access to
-   this team. As group membership changes, access to the GitHub teams is
-   updated as well.
+   This step manages access to group repos through team membership to the
+   corresponding GitHub team. Users are added to the team if they don't
+   already have access. Additionally, users are removed from their old
+   teams, to prevent them from having access to old groups.
 
    Supported record types: :py:class:`~records.student_record.StudentRecord`
 
@@ -127,7 +127,9 @@ All propagate steps must inherit from/implement the following base class
 .. autoclass:: github_steps.create_group_repos.CreateGroupRepos()
 
    This step checks for records that have a group number but no repo yet,
-   and creates the appropriate repos with a README file.
+   and creates the appropriate repos with a README file. Additionally, a
+   GitHub team is created with the same name, and is given access to the
+   repo. Students are not yet added to the team.
 
    Supported record types: :py:class:`~records.student_record.StudentRecord`
 

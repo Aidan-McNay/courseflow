@@ -79,5 +79,7 @@ access_flow.add_propagate_step("ping-unaccepted-invite", PingNoAccept)
 # Main Program
 # -----------------------------------------------------------------------------
 
+access_flow.set_metadata("old_groups", {"ec1": 6})
+
 if __name__ == "__main__":
     run_flow(access_flow)

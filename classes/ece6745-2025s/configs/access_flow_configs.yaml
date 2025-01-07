@@ -21,9 +21,9 @@ get-github-usernames-mode: exclude
 github-accepted-mode: exclude
 update-enrollment-mode: exclude
 
-group-repo-permissions-mode: exclude
+group-repo-permissions-mode: include
 invite-students-mode: exclude
-make-group-repos-mode: exclude
+make-group-repos-mode: include
 ping-enrollment-mode: exclude
 ping-group-join-mode: exclude
 ping-invalid-username-mode: exclude

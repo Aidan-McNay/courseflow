@@ -4,6 +4,7 @@ Author: Aidan McNay
 Date: September 17th, 2024
 """
 
+import github
 import os
 from threading import Lock
 from typing import Any, Callable, Self
@@ -27,7 +28,7 @@ class CreateGroupRepos(FlowPropagateStep[StudentRecord]):
             "name_format",
             str,
             (
-                "The naming convention. "
+                "The naming convention for repos/teams. "
                 "'<num>' will be replaced with the group number."
             ),
         ),
@@ -36,7 +37,7 @@ class CreateGroupRepos(FlowPropagateStep[StudentRecord]):
             int,
             (
                 "The number of places to represent the group number in "
-                "the name. Ex. 2 places -> 06"
+                "the repo/team name. Ex. 2 places -> 06"
             ),
         ),
         (
@@ -115,7 +116,7 @@ class CreateGroupRepos(FlowPropagateStep[StudentRecord]):
 
     def create_repo(
         self: Self, repo_name: str, student_names: str, readme_text: str
-    ) -> None:
+    ) -> github.Repository.Repository:
         """Create a group repository.
 
         Args:
@@ -124,6 +125,9 @@ class CreateGroupRepos(FlowPropagateStep[StudentRecord]):
             student_names (str): The name of the student who the repository is
               for
             readme_text (str): The text to have in the README file
+
+        Returns:
+            github.Repository.Repository: The new repository
         """
         new_repo = _org.create_repo(
             name=repo_name, description=student_names, private=True
@@ -143,6 +147,8 @@ class CreateGroupRepos(FlowPropagateStep[StudentRecord]):
         staff_team = _org.get_team_by_slug(self.configs.staff_team)
         staff_team.add_to_repos(new_repo)
         staff_team.set_repo_permission(new_repo, self.configs.staff_permissions)
+
+        return new_repo
 
     def propagate_records(
         self: Self,
@@ -179,7 +185,7 @@ class CreateGroupRepos(FlowPropagateStep[StudentRecord]):
                     else:
                         num_students_mapping[record.group_num] = [name]
 
-        # Create all the necessary repos
+        # Create all the necessary repos/teams
         for num, names in num_students_mapping.items():
             repo_name = self.configs.name_format.replace(
                 "<num>", str(num).zfill(self.configs.num_places)
@@ -192,12 +198,28 @@ class CreateGroupRepos(FlowPropagateStep[StudentRecord]):
                 else:
                     try:
                         student_names = ", ".join(names)
-                        self.create_repo(repo_name, student_names, readme_text)
-                        logger(f"Created group repo: '{repo_name}'")
+                        new_repo = self.create_repo(
+                            repo_name, student_names, readme_text
+                        )
+                        new_team = _org.create_team(
+                            name=repo_name,
+                            repo_names=[new_repo],
+                            privacy="secret",
+                            notification_setting="notifications_enabled",
+                            permission="push",
+                            maintainers=[],
+                        )
+                        # Remove yourself as the only existing member
+                        for member in new_team.get_members():
+                            new_team.remove_membership(member)
+                        logger(
+                            "Created group repo and associated "
+                            f"team: '{repo_name}'"
+                        )
                         repo_exists = True
                     except Exception:
                         logger(
-                            f"Issue creating group repo: '{repo_name}'"
+                            f"Issue creating group repo/team: '{repo_name}'"
                             " - repo not created"
                         )
             else:
