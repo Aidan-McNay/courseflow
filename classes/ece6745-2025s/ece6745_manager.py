@@ -20,6 +20,7 @@ sys.path.append(flow_dir)
 from flow.flow_manager import FlowManager
 
 from access_flow import access_flow
+from tag_flow import tag_flow
 from flow.schedule import Always
 
 # -----------------------------------------------------------------------------
@@ -34,6 +35,15 @@ ece6745_flow_manager.add_unconf_flow(
     (
         "/home/acm289/cornell-canvas/classes/ece6745-2025s/configs"
         "/access_flow_configs.yaml"
+    ),
+    silent=False,
+)
+ece6745_flow_manager.add_unconf_flow(
+    tag_flow,
+    Always(),
+    (
+        "/home/acm289/cornell-canvas/classes/ece6745-2025s/configs"
+        "/tag_flow_configs.yaml"
     ),
     silent=False,
 )

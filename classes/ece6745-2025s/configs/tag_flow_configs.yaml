@@ -1,0 +1,59 @@
+# ========================================================================
+# Configurations for tag_flow
+# ========================================================================
+
+# ------------------------------------------------------------------------
+# Overall Flow
+# ------------------------------------------------------------------------
+
+_description: A flow to tag repository submissions.
+num_threads: 4
+
+# ------------------------------------------------------------------------
+# Step Modes
+# ------------------------------------------------------------------------
+
+spreadsheet-storer-mode: include
+
+get-repos-mode: include
+
+tag-lab1-mode: exclude
+tag-lab2-mode: exclude
+
+# ------------------------------------------------------------------------
+# Record Storer
+# ------------------------------------------------------------------------
+
+spreadsheet-storer:
+  _description: A Python representation of a Google Sheet for getting and setting
+    records
+  sheet_id: 1RUuMDfs78v-qwfNJDvtx4pa0hFxzfFqKLlpFZqKZ1eo
+  tab: tags
+
+# ------------------------------------------------------------------------
+# Record Steps
+# ------------------------------------------------------------------------
+
+get-repos:
+  _description: Use a spreadsheet with StudentRecord representations to make TagRecords
+    for the repos
+  sheet_id: 1RUuMDfs78v-qwfNJDvtx4pa0hFxzfFqKLlpFZqKZ1eo
+  tab: roster
+
+# ------------------------------------------------------------------------
+# Update Steps
+# ------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------
+# Propagate Steps
+# ------------------------------------------------------------------------
+
+tag-lab1:
+  _description: A propagate step to tag submissions for lab1
+  deadline: 2025-03-01 01:00:00
+  tag_name: lab1-submission
+
+tag-lab2:
+  _description: A propagate step to tag submissions for lab2
+  deadline: 2025-03-01 01:00:00
+  tag_name: lab2-submission
