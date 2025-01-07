@@ -35,7 +35,7 @@ class MyFlowStep(FlowStep):
     "user", str, "The name of the user running the flow"
   ]
 
-  def validate(self: typing.Self) -> None:
+  def validate(self: "MyFlowStep") -> None:
     if self.configs.user != "Aidan":
       raise Exception("You aren't Aidan!")
 ```
