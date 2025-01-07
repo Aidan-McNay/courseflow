@@ -45,6 +45,12 @@ All propagate steps must inherit from/implement the following base class
    form lab groups. Groups are made to ensure that pairs are in the same
    lab section. Odd numbers are resolved by forming a group of three.
 
+   .. admonition:: Lab sections
+
+      Lab sections are identified by having the string ``LAB`` in the
+      name. Students will only be paired if they are in such a section;
+      if no lab sections exist, no new pairings will be done.
+
    Note that current groups are **NOT** checked to see whether they are
    groups of fewer than three; the Canvas group can be configured to
    restrict this. However, solo students in a group are removed and
@@ -59,6 +65,31 @@ All propagate steps must inherit from/implement the following base class
    Supported record types: :py:class:`~records.student_record.StudentRecord`
 
    Sets metadata: :py:attr:`old_groups`
+
+   .. py:attribute:: configs.group_category
+      :type: str
+
+      The category to reference/pair students in on Canvas
+
+   .. py:attribute:: configs.canvas_group_regex
+      :type: str
+
+      The regex to extract group numbers from Canvas group names.
+      The number will be the first matching group in the regex
+      (ex. ``ECE 2300: Lab Group (\d+)``). Use single-quotes in
+      the YAML file to specify
+
+   .. py:attribute:: configs.form_date
+      :type: datetime.datetime
+
+      When groups should be formed and logged. No groups will be
+      formed or logged before then
+   
+   .. py:attribute:: canvas_group_pattern
+
+      The format to make new Canvas groups with. Instances of ``<num>``
+      will be replaced with the group number. This should be complementary
+      with :py:attr:`~canvas_steps.assign_groups.AssignGroups.configs.canvas_group_regex`
 ```
 
 ```{eval-rst}
