@@ -10,6 +10,10 @@ run, given the current time:
 .. autoclass:: flow.schedule.Schedule()
 
    .. automethod:: __init__
+
+   .. automethod:: __add__
+
+   .. automethod:: __sub__
 ```
 
 In addition, helper children classes are implemented for common schedule
