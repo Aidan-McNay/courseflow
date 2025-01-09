@@ -59,6 +59,13 @@ All record storers must inherit from/implement the following base class
 ```{eval-rst}
 .. autoclass:: google_steps.spreadsheet_storer.SpreadsheetStorer()
 
+   If multiple flows are accessing the spreadsheet at the same time, there
+   is the possibility of data being miscommunicated if one flow reads at
+   the same time that another clears the spreadsheet while updating.
+   To address this, a global lock is implemented using POSIX file locks
+   and ``fcntl.lockf`` to ensure proper synchronization between flows
+   (running on the same system, which is assumed).
+
    Supported record types: :py:class:`~records.spreadsheet_record.SpreadsheetRecord`
 
    .. py:attribute:: configs.sheet_id
