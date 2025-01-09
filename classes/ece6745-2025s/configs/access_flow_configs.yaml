@@ -21,17 +21,17 @@ get-github-usernames-mode: exclude
 github-accepted-mode: exclude
 update-enrollment-mode: exclude
 
-assign-canvas-groups-mode: include
+assign-canvas-groups-mode: exclude
 group-repo-permissions-mode: include
 invite-students-mode: exclude
-make-group-repos-mode: include
+make-group-repos-mode: exclude
 ping-enrollment-mode: exclude
 ping-group-join-mode: exclude
 ping-invalid-username-mode: exclude
 ping-no-username-mode: exclude
 ping-unaccepted-invite-mode: exclude
 remove-dropped-mode: exclude
-update-group-repo-descr-mode: include
+update-group-repo-descr-mode: exclude
 
 # ------------------------------------------------------------------------
 # Record Storer

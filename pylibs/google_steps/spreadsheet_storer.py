@@ -5,9 +5,11 @@ Date: September 16th, 2024
 """
 
 from datetime import datetime
+import hashlib
 from typing import Callable, get_args, TypeVar
 
 from google_steps import _sheets
+from flow.global_lock import GLock
 from flow.record_storer import RecordStorer
 from records.spreadsheet_record import SpreadsheetRecord
 from utils.api_call import retry_call
@@ -44,6 +46,20 @@ class SpreadsheetStorer(RecordStorer[RecordType]):
                 "shared to the service account"
             )
 
+    def lock_id(self: "SpreadsheetStorer[RecordType]") -> str:
+        """Get the ID to use for a global lock.
+
+        Here, we use a hashed version of the spreadsheet ID and
+        tab we're accessing, mostly because these are technically
+        accessible as plaintext on the shared filesystem, and we
+        probably don't want others to know the ID of our course
+        database spreadsheet if possible?
+        """
+        hasher = hashlib.sha256()
+        hasher.update(str.encode(self.configs.sheet_id))
+        hasher.update(str.encode(self.configs.tab))
+        return hasher.hexdigest()
+
     def get_records(
         self: "SpreadsheetStorer[RecordType]",
         logger: Callable[[str], None],
@@ -62,25 +78,26 @@ class SpreadsheetStorer(RecordStorer[RecordType]):
         if debug:
             logger("Ignoring debug for SpreadsheetStorer")
         logger("Accessing spreadsheet...")
-        sheet = retry_call(_sheets.open_by_key, self.configs.sheet_id)
-        logger(f"Accessed spreadsheet '{sheet.title}'")
+        with GLock(self.lock_id(), "r") as _:
+            sheet = retry_call(_sheets.open_by_key, self.configs.sheet_id)
+            logger(f"Accessed spreadsheet '{sheet.title}'")
 
-        if self.configs.tab in [
-            worksheet.title for worksheet in retry_call(sheet.worksheets)
-        ]:
-            logger(f"Found worksheet '{self.configs.tab}'")
-            worksheet = retry_call(sheet.worksheet, self.configs.tab)
-        else:
-            logger(f"Creating worksheet '{self.configs.tab}'")
-            worksheet = retry_call(
-                sheet.add_worksheet, title=self.configs.tab, rows=1, cols=1
-            )
+            if self.configs.tab in [
+                worksheet.title for worksheet in retry_call(sheet.worksheets)
+            ]:
+                logger(f"Found worksheet '{self.configs.tab}'")
+                worksheet = retry_call(sheet.worksheet, self.configs.tab)
+            else:
+                logger(f"Creating worksheet '{self.configs.tab}'")
+                worksheet = retry_call(
+                    sheet.add_worksheet, title=self.configs.tab, rows=1, cols=1
+                )
 
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Get the records from the worksheet
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            # Get the records from the worksheet
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        data = retry_call(worksheet.get_all_values)
+            data = retry_call(worksheet.get_all_values)
 
         try:
             last_updated = data[0][0]
@@ -135,10 +152,11 @@ class SpreadsheetStorer(RecordStorer[RecordType]):
         if debug:
             logger("DEBUG: Avoiding storing records")
         else:
-            sheet = retry_call(_sheets.open_by_key, self.configs.sheet_id)
-            worksheet = retry_call(sheet.worksheet, self.configs.tab)
-            retry_call(worksheet.clear)
-            retry_call(worksheet.update, cells)
+            with GLock(self.lock_id(), "w") as _:
+                sheet = retry_call(_sheets.open_by_key, self.configs.sheet_id)
+                worksheet = retry_call(sheet.worksheet, self.configs.tab)
+                retry_call(worksheet.clear)
+                retry_call(worksheet.update, cells)
             logger(
                 f"Stored records in '{self.configs.tab}' tab of {sheet.title}"
             )
