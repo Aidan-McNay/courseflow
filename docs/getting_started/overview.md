@@ -267,7 +267,7 @@ other considerations:
    :py:class:`~flow.flow_steps.FlowStep` must dynamically type
    check the returned data (or use ``typing.cast``, although this isn't
    preferred and may lead to bugs from non-rigorous type checking)
- * Whether a data exists or not depends on the ordering of steps. If this
+ * Whether a datum exists or not depends on the ordering of steps. If this
    dependency exists between two
    :py:class:`~flow.flow_steps.FlowUpdateStep`\ s or two
    :py:class:`~flow.flow_steps.FlowPropagateStep`\ s, the dependency must
