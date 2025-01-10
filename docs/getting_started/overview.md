@@ -284,7 +284,7 @@ other considerations:
 Once we have a flow, we need to be able to configure it for our specific
 needs. All :py:class:`~flow.flow.Flow`\ s have a
 :py:meth:`~flow.flow.Flow.config` method that takes in a dictionary
-configuratioin for the flow, and configures each step appropriately. Each
+configuration for the flow, and configures each step appropriately. Each
 step should have a different entry in the configuration dictionary with
 all of its configurations. The flow will check that all necessary
 configurations are present (of the correct type), and will instantiate all
