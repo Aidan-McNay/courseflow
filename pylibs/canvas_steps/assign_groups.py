@@ -150,7 +150,7 @@ class AssignGroups(FlowPropagateStep[StudentRecord]):
 
         return users
 
-    def get_section_mapping(self: Self) -> dict[str, canvasapi.user.User]:
+    def get_section_mapping(self: Self) -> dict[str, list[canvasapi.user.User]]:
         """Get a mapping of sections to the students in the section.
 
         Args:
@@ -164,6 +164,10 @@ class AssignGroups(FlowPropagateStep[StudentRecord]):
             for section in _course.get_sections()
             if "LAB" in section.name
         ]
+
+        # Handle case of no lab sections
+        if len(lab_sections) == 0:
+            return {"ALL": list(_course.get_users(enrollment_type="student"))}
 
         section_students_mapping = {}
 
@@ -193,6 +197,10 @@ class AssignGroups(FlowPropagateStep[StudentRecord]):
             for section in _course.get_sections()
             if "LAB" in section.name
         ]
+
+        # Handle case of no lab sections
+        if len(lab_sections) == 0:
+            return "ALL"
 
         for section in lab_sections:
             student_objs = _canvas.get_section(
@@ -360,6 +368,9 @@ class AssignGroups(FlowPropagateStep[StudentRecord]):
                     for student in group[1]:
                         if self.get_section(student) == section:
                             same_section = True
+                            break
+                        if student in students_already_paired:
+                            # Avoid inserting into pre-existing group
                             break
                     if same_section:
                         group_mapping[group_name] = (
