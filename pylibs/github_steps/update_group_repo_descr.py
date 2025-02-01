@@ -4,6 +4,7 @@ Author: Aidan McNay
 Date: January 7th, 2025
 """
 
+import re
 from threading import Lock
 from typing import Any, Callable, Self, Type
 
@@ -21,11 +22,38 @@ class UpdateGroupRepoDescr(FlowPropagateStep[StudentRecord]):
 
     description = "Update the descriptions of group repos based on membership"
 
-    config_types: list[tuple[str, Type[ValidConfigTypes], str]] = []
+    config_types: list[tuple[str, Type[ValidConfigTypes], str]] = [
+        (
+            "repo_regex",
+            str,
+            (
+                "The regex to identify repos to modify. "
+                "Only repositories with names matching the regex "
+                "will be modified. "
+                "Use single quotes to specify"
+            ),
+        )
+    ]
 
     def validate(self: Self) -> None:
         """Validate the configurations for the step."""
+        # Make sure that we can parse the regex
+        re.compile(r"{}".format(self.configs.canvas_group_regex))
         return
+
+    def should_change_descr(self: Self, repo_name: str) -> bool:
+        """Determine whether to modify the repo's description.
+
+        Args:
+            repo_name (str): The name of the repo
+
+        Returns:
+            bool: Whether to modify the description
+        """
+        return (
+            re.match(r"{}".format(self.configs.canvas_group_regex), repo_name)
+            is not None
+        )
 
     def propagate_records(
         self: Self,
@@ -72,21 +100,23 @@ class UpdateGroupRepoDescr(FlowPropagateStep[StudentRecord]):
 
         # Update repo descriptions as needed:
         for repo in _org.get_repos():
-            if repo.name in repo_name_mapping:
-                repo_descr = ", ".join(repo_name_mapping[repo.name])
-            else:
-                repo_descr = "No current membership"
-            if repo_descr != repo.description:
-                if debug:
-                    logger(
-                        f"DEBUG: Avoiding updating description of '{repo.name}'"
-                    )
+            if self.should_change_descr(repo.name):
+                if repo.name in repo_name_mapping:
+                    repo_descr = ", ".join(repo_name_mapping[repo.name])
                 else:
-                    try:
-                        repo.edit(description=repo_descr)
+                    repo_descr = "No current membership"
+                if repo_descr != repo.description:
+                    if debug:
                         logger(
-                            f"Updated description of '{repo.name}' to "
-                            f"'{repo_descr}'"
+                            "DEBUG: Avoiding updating description of "
+                            f"'{repo.name}'"
                         )
-                    except Exception:
-                        logger(f"Error updating description of {repo.name}")
+                    else:
+                        try:
+                            repo.edit(description=repo_descr)
+                            logger(
+                                f"Updated description of '{repo.name}' to "
+                                f"'{repo_descr}'"
+                            )
+                        except Exception:
+                            logger(f"Error updating description of {repo.name}")
