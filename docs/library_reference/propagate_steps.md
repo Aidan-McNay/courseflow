@@ -363,6 +363,13 @@ All propagate steps must inherit from/implement the following base class
    membership.
 
    Supported record types: :py:class:`~records.student_record.StudentRecord`
+
+   .. py:attribute:: configs.canvas_group_regex
+      :type: str
+
+      The regex to identify repos to modify. Only repositories with names
+      matching the regex will be modified. Use single quotes in the YAML
+      configuration file to specify.
 ```
 
 ```{eval-rst}
