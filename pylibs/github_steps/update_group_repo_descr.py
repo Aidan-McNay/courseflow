@@ -38,7 +38,7 @@ class UpdateGroupRepoDescr(FlowPropagateStep[StudentRecord]):
     def validate(self: Self) -> None:
         """Validate the configurations for the step."""
         # Make sure that we can parse the regex
-        re.compile(r"{}".format(self.configs.canvas_group_regex))
+        re.compile(r"{}".format(self.configs.repo_regex))
         return
 
     def should_change_descr(self: Self, repo_name: str) -> bool:
@@ -51,7 +51,7 @@ class UpdateGroupRepoDescr(FlowPropagateStep[StudentRecord]):
             bool: Whether to modify the description
         """
         return (
-            re.match(r"{}".format(self.configs.canvas_group_regex), repo_name)
+            re.match(r"{}".format(self.configs.repo_regex), repo_name)
             is not None
         )
 

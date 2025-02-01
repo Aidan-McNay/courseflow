@@ -141,3 +141,4 @@ remove-dropped:
 
 update-group-repo-descr:
   _description: Update the descriptions of group repos based on membership
+  repo_regex: 'group(\d+)'

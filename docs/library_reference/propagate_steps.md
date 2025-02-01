@@ -366,7 +366,7 @@ All propagate steps must inherit from/implement the following base class
 
    Supported record types: :py:class:`~records.student_record.StudentRecord`
 
-   .. py:attribute:: configs.canvas_group_regex
+   .. py:attribute:: configs.repo_regex
       :type: str
 
       The regex to identify repos to modify. Only repositories with names
