@@ -322,7 +322,9 @@ All propagate steps must inherit from/implement the following base class
 ```
 
 ```{eval-rst}
-.. py:class:: github_steps.tag_repo.RepoTagger()
+.. py:currentmodule:: github_steps.tag_repo
+.. py:class:: RepoTagger()
+   :canonical: github_steps.tag_repo.RepoTagger()
 
    A propagate step to tag a specific lab submission.
 
