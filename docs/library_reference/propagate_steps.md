@@ -93,6 +93,48 @@ All propagate steps must inherit from/implement the following base class
 ```
 
 ```{eval-rst}
+.. autoclass:: canvas_steps.ping_join_group.PingJoinGroup()
+
+   This step uses Gmail to send an email to students who haven't yet joined
+   a configured group on Canvas
+
+   Supported record types: :py:class:`~records.student_record.StudentRecord`
+
+   .. py:attribute:: configs.start_date
+      :type: datetime.datetime
+
+      The date when email notifications should start (none will be sent
+      before this date)
+
+   .. py:attribute:: configs.email_gap
+      :type: int
+
+      The number of days to wait between notifications.
+
+   .. py:attribute:: configs.email_template
+      :type: str
+
+      The path to a template email (in the form of a text file).
+      Instances of ``<first_name>`` and ``<last_name>``
+      will be replaced appropriately for each notification.
+
+   .. py:attribute:: configs.group_category
+      :type: str
+
+      The category to check on Canvas
+   
+   .. py:attribute:: configs.send_email
+      :type: str
+
+      The email to send from (matching ``GMAIL_API_KEY``)
+
+   .. py:attribute:: configs.subject
+      :type: str
+
+      The subject that the notification email should have
+```
+
+```{eval-rst}
 .. autoclass:: canvas_steps.enrollment.PingNewEnrollment()
 
    This step uses Gmail to send an email to a configured recipient, informing
