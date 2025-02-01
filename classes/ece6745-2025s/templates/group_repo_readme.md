@@ -1,11 +1,12 @@
+
 ECE 6745 Lab Repository
 ==========================================================================
 
 ![Build Status](https://github.com/cornell-ece6745/<repo_name>/actions/workflows/run_tests.yml/badge.svg)
 
-This is the code repository for your ECE 6745 lab assignments. You
-will use this repository to develop your code, run continuous integration
-tests, and submit the remaining labs with your partner(s).
+This is the code repository for your ECE 6745 lab assignments. You will
+use this repository to develop your code, run continuous integration
+tests, and submit each lab.
 
 ### GitHub Actions Continuous Integration
 
@@ -40,3 +41,4 @@ penalty on their grade for this course. More information about the Code
 of Academic Integrity can be found here:
 
  * https://deanoffaculty.cornell.edu/faculty-and-academic-affairs/academic-integrity
+
