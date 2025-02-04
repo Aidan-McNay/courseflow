@@ -130,7 +130,7 @@ class PingNoAccept(FlowPropagateStep[StudentRecord]):
                 if (
                     record.enrolled
                     and (record.sent_invite)
-                    and (record.github_accepted is None)
+                    and (not record.github_accepted)
                     and self.should_ping(record)
                 ):
                     if debug:
