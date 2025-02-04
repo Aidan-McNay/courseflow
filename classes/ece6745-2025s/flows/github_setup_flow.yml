@@ -78,7 +78,7 @@ assign-canvas-groups:
   _description: Assign remaining students to a group on Canvas randomly.
   canvas_group_pattern: 'ECE 6745 Lab 1 Group <num>'
   canvas_group_regex: 'ECE 6745 Lab 1 Group (\d+)'
-  form_date: 2025-02-04 17:00:00
+  form_date: 2025-02-04 11:00:00
   group_category: ECE 6745 Lab 1 Groups
 assign-canvas-groups-mode: include
 
