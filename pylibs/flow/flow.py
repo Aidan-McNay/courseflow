@@ -683,7 +683,7 @@ class Flow(Generic[RecordType]):
         completed_steps_lock = Lock()
 
         def add_work(
-            new_work: Optional[tuple[str, FlowUpdateStep[RecordType]]]
+            new_work: Optional[tuple[str, FlowUpdateStep[RecordType]]],
         ) -> None:
             """Add new work to the work queue.
 
@@ -826,7 +826,7 @@ class Flow(Generic[RecordType]):
         completed_steps_lock = Lock()
 
         def add_work(
-            new_work: Optional[tuple[str, FlowPropagateStep[RecordType]]]
+            new_work: Optional[tuple[str, FlowPropagateStep[RecordType]]],
         ) -> None:
             """Add new work to the work queue.
 
