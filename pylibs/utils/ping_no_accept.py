@@ -157,7 +157,7 @@ class PingNoAccept(FlowPropagateStep[StudentRecord]):
                             subject=self.configs.subject,
                             body=email_body,
                         )
-                        record.last_no_username_ping = datetime.now()
+                        record.last_accepted_ping = datetime.now()
                         logger(
                             f"Emailed {record.netid} about their "
                             "unaccepted invite"
