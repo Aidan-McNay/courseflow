@@ -14,12 +14,23 @@ get-students:
 
 get-students-mode: include
 
+update-enrollment:
+  _description: Update enrolled students based on Canvas
+
+update-enrollment-mode: include
+
 get-github-usernames:
   _description: Get usernames from a 'Fill in the Blank' question on a Canvas Quiz
   question_id: 1653434
   quiz_id: 165285
 
 get-github-usernames-mode: include
+
+github-accepted-mode: include
+
+github-accepted:
+  _description: Check and update students who have joined the GitHub org
+  staff_team: staff
 
 ping-invalid-username:
   _description: Email students who've submitted an invalid username
@@ -56,6 +67,12 @@ ping-unaccepted-invite:
   subject: "ECE 6745: Please accept invitation to GitHub course organization"
 
 ping-unaccepted-invite-mode: include
+
+remove-dropped:
+  _description: Remove dropped students from GitHub
+  staff_team: staff
+
+remove-dropped-mode: include
 
 assign-canvas-groups:
   _description: Assign remaining students to a group on Canvas randomly.

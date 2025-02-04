@@ -22,6 +22,7 @@ from github_steps.mark_accepted import MarkAccepted
 from github_steps.remove_unenrolled import RemoveUnenrolled
 from github_steps.update_group_repo_descr import UpdateGroupRepoDescr
 from google_steps.spreadsheet_storer import SpreadsheetStorer
+from github_steps.mark_accepted import MarkAccepted
 from records.student_record import StudentRecord
 from utils.ping_invalid_username import PingInvalidUsername
 from utils.ping_no_accept import PingNoAccept
@@ -47,7 +48,11 @@ github_setup_flow.add_record_step( "get-students", AddEnrollment )
 
 # GitHubUsernames
 
+github_setup_flow.add_update_step( "update-enrollment", UpdateEnrollment )
 github_setup_flow.add_update_step( "get-github-usernames", GitHubUsernames )
+github_setup_flow.add_update_step(
+  "github-accepted", MarkAccepted, depends_on=["update-enrollment"]
+)
 
 # Ping steps
 
@@ -56,7 +61,12 @@ github_setup_flow.add_propagate_step( "ping-no-username", PingNoUsername )
 github_setup_flow.add_propagate_step( "invite-students", InviteStudents )
 github_setup_flow.add_propagate_step( "ping-unaccepted-invite", PingNoAccept )
 
-# Lab Groups
+# Propagate steps
+
+github_setup_flow.add_propagate_step(
+  "remove-dropped",
+  RemoveUnenrolled
+)
 
 github_setup_flow.add_propagate_step(
   "assign-canvas-groups",
