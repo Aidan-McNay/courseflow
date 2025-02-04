@@ -1,0 +1,102 @@
+_description: A flow to update records and synchronize GitHub access based on Canvas
+
+num_threads: 1
+
+spreadsheet-storer:
+  _description: A Python representation of a Google Sheet for getting and setting records
+  sheet_id: 1CyQ-GdaXzv1bYhwLQ1BHeAMPSF7U10HH1SsTp8T2Gzk
+  tab: data
+
+spreadsheet-storer-mode: include
+
+get-students:
+  _description: Add newly enrolled students from Canvas
+
+get-students-mode: include
+
+get-github-usernames:
+  _description: Get usernames from a 'Fill in the Blank' question on a Canvas Quiz
+  question_id: 1653434
+  quiz_id: 165285
+
+get-github-usernames-mode: include
+
+ping-invalid-username:
+  _description: Email students who've submitted an invalid username
+  email_gap: 1
+  email_template: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745-2025s/templates/ping-invalid-username.txt
+  send_email: cb535@cornell.edu
+  start_date: 2025-01-31 09:00:00
+  subject: "ECE 6745: Invalid GitHub username"
+
+ping-invalid-username-mode: include
+
+ping-no-username:
+  _description: Email students who haven't submitted a GitHub username
+  email_gap: 1
+  email_template: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745-2025s/templates/ping-no-username.txt
+  send_email: cb535@cornell.edu
+  start_date: 2025-02-02 09:00:00
+  subject: "ECE 6745: Please submit GitHub username"
+
+ping-no-username-mode: include
+
+invite-students:
+  _description: Invite students to join the GitHub organization
+  student_team: students
+
+invite-students-mode: include
+
+ping-unaccepted-invite:
+  _description: Email students who haven't accepted a GitHub org invite
+  email_gap: 1
+  email_template: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745-2025s/templates/ping-unaccepted-invite.txt
+  send_email: cb535@cornell.edu
+  start_date: 2025-01-31 09:00:00
+  subject: "ECE 6745: Please accept invitation to GitHub course organization"
+
+ping-unaccepted-invite-mode: include
+
+assign-canvas-groups:
+  _description: Assign remaining students to a group on Canvas randomly.
+  canvas_group_pattern: 'ECE 6745 Lab 1 Group <num>'
+  canvas_group_regex: 'ECE 6745 Lab 1 Group (\d+)'
+  form_date: 2025-02-04 17:00:00
+  group_category: ECE 6745 Lab 1 Groups
+assign-canvas-groups-mode: include
+
+make-group-repos:
+  _description: Create group repositories for students.
+  create_upstream: true
+  name_format: lab1-group<num>
+  num_places: 2
+  readme_commit_msg: "Initial import"
+  readme_path: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745-2025s/templates/group_repo_readme.md
+  staff_permissions: admin
+  staff_team: staff
+make-group-repos-mode: include
+
+group-repo-permissions:
+  _description: Give students access to their group repos
+  name_format: lab1-group<num>
+  num_places: 2
+
+group-repo-permissions-mode: include
+
+update-group-repo-descr:
+  _description: Update the descriptions of group repos based on membership
+  repo_regex: 'lab1-group(\d+)'
+
+update-group-repo-descr-mode: include
+
+ping-group-join:
+  _description: Email students who haven't joined a Canvas group
+  email_gap: 1
+  email_template: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745-2025s/templates/ping-join-group.txt
+  group_category: ECE 6745 Lab 1 Groups
+  send_email: cb535@cornell.edu
+  start_date: 2025-02-03 09:00:00
+  subject: "ECE 6745: Please sign-up for a lab group"
+
+ping-group-join-mode: include
+
