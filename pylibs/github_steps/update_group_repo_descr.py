@@ -91,11 +91,11 @@ class UpdateGroupRepoDescr(FlowPropagateStep[StudentRecord]):
                 ):
                     if record.group_repo_name in repo_name_mapping:
                         repo_name_mapping[record.group_repo_name].append(
-                            f"{record.first_name} {record.last_name}"
+                            f"{record.first_name} {record.last_name} ({record.netid})"
                         )
                     else:
                         repo_name_mapping[record.group_repo_name] = [
-                            f"{record.first_name} {record.last_name}"
+                            f"{record.first_name} {record.last_name} ({record.netid})"
                         ]
 
         # Update repo descriptions as needed:
