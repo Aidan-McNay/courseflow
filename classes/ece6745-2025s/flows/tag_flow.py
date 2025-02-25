@@ -22,7 +22,6 @@ class LabTagRecords(TagRecords):
 
     labs = [
         "lab1",
-        "lab2",
     ]
     headers = get_tag_headers(labs)
 
@@ -38,6 +37,8 @@ tag_flow = Flow(
 # Record Steps
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+# Need to make a tags sheet in the course database spreadsheet!
+
 tag_flow.add_record_step("get-repos", GetTagRecords[LabTagRecords])
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -52,9 +53,9 @@ tag_flow.add_record_step("get-repos", GetTagRecords[LabTagRecords])
 tag_flow.add_propagate_step(
     "tag-lab1", get_tagger("lab1", "group", LabTagRecords)
 )
-tag_flow.add_propagate_step(
-    "tag-lab2", get_tagger("lab2", "group", LabTagRecords)
-)
+# tag_flow.add_propagate_step(
+#     "tag-lab2", get_tagger("lab2", "group", LabTagRecords)
+# )
 
 # -----------------------------------------------------------------------------
 # Main Program
