@@ -145,7 +145,7 @@ class GitHubUsernames(FlowUpdateStep[StudentRecord]):
             for quiz_submission in submissions
         }
         netid_uid_mapping = {
-            user.login_id: user.id for user in _course.get_users()
+            user.login_id: user.id for user in _course.get_users(enrollment_type="student")
         }
 
         for record, lock in records:

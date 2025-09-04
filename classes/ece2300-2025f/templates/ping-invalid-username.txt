@@ -1,12 +1,14 @@
-Whoops - looks like the username you submitted for ECE 2300 (<username>) \
-isn't a valid GitHub username!
 
-As a reminder, you can find your GitHub username by going to your profile \
-on github.com; the URL will be in the format github.com/your_username.
+Hi <first_name>,
 
-Please confirm your GitHub username, and then resubmit the form with the \
-correct username here: https://canvas.cornell.edu/courses/65463/quizzes/153416
+It looks like the username you submitted for ECE 2300 (<username>) is not a valid GitHub username.
+
+As a reminder, you can find your GitHub username by going to your profile on github.com; the URL will be in the format github.com/your_username.
+
+Please confirm your GitHub username, and then resubmit the form with the correct username here:
+
+  https://canvas.cornell.edu/courses/65463/quizzes/153416
 
 Thanks!
+Prof. Batten
 
- - The ECE 2300 Staff

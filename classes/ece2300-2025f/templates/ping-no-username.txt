@@ -1,13 +1,14 @@
-Whoops - looks like you haven't yet submitted a GitHub username for ECE 2300!
 
-We will be using GitHub extensively throughout the semester, so please take \
-a moment to submit your username here: https://canvas.cornell.edu/courses/65463/quizzes/153416
+Hi <first_name>,
 
-If you haven't yet created a GitHub account, please do so as soon as \
-possible on github.com, and submit the username above. As a reminder, you \
-can find your username by going to your profile page, where the URL will \
-be in the format github.com/your_username.
+It looks like you haven't yet submitted a GitHub username for ECE 2300.
+
+We will be using GitHub extensively throughout the semester, so please take a moment to submit your username here:
+
+  https://canvas.cornell.edu/courses/65463/quizzes/153416
+
+If you haven't yet created a GitHub account, please do so as soon as possible on github.com, and submit the username above. As a reminder, you can find your username by going to your profile page, where the URL wil be in the format github.com/your_username.
 
 Thanks!
+Prof. Batten
 
- - The ECE 2300 Staff

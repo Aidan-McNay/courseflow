@@ -64,20 +64,20 @@ access_flow.add_update_step(
 # Propagate Steps
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-access_flow.add_propagate_step("assign-canvas-groups", AssignGroups)
-access_flow.add_propagate_step(
-    "make-group-repos", CreateGroupRepos, depends_on=["assign-canvas-groups"]
-)
-access_flow.add_propagate_step(
-    "group-repo-permissions",
-    AddToGroupRepos,
-    depends_on=["make-group-repos"],
-)
+# access_flow.add_propagate_step("assign-canvas-groups", AssignGroups)
+# access_flow.add_propagate_step(
+#     "make-group-repos", CreateGroupRepos, depends_on=["assign-canvas-groups"]
+# )
+# access_flow.add_propagate_step(
+#     "group-repo-permissions",
+#     AddToGroupRepos,
+#     depends_on=["make-group-repos"],
+# )
 access_flow.add_propagate_step("make-personal-repos", CreatePersonalRepos)
 access_flow.add_propagate_step("remove-dropped", RemoveUnenrolled)
 access_flow.add_propagate_step("invite-students", InviteStudents)
 
-access_flow.add_propagate_step("ping-group-join", PingJoinGroup)
+# access_flow.add_propagate_step("ping-group-join", PingJoinGroup)
 access_flow.add_propagate_step("ping-enrollment", PingNewEnrollment)
 access_flow.add_propagate_step("ping-invalid-username", PingInvalidUsername)
 access_flow.add_propagate_step("ping-no-username", PingNoUsername)
