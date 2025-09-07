@@ -406,6 +406,143 @@ class Flow(Generic[RecordType]):
 
         return config_descriptions
 
+    def emit_config(self: "Flow[RecordType]") -> str:
+        """Emit a sample template YAML configuration for the flow.
+
+        Entries will be populated with string descriptions, and will
+        have to be filled in. This improves upon the configuration
+        given by `describe_config` by manually writing entries, rather
+        than having them shuffled by a YAML emitter.
+
+        Returns:
+            str: The string representation to be written to a file
+        """
+        major_sep = (
+            "#===================================="
+            "====================================="
+        )
+        minor_sep = (
+            "#------------------------------------"
+            "-------------------------------------"
+        )
+
+        str_rep = ""
+
+        def newline() -> None:
+            """Add a newline to the representation."""
+            nonlocal str_rep
+            str_rep += "\n"
+
+        def text(text: str) -> None:
+            """Add text to the representation."""
+            nonlocal str_rep
+            str_rep += f"{text}\n"
+
+        def major_section(name: str) -> None:
+            """Add a major section."""
+            nonlocal str_rep
+            str_rep += f"{major_sep}\n# {name}\n{major_sep}\n"
+
+        def minor_section(name: str) -> None:
+            """Add a minor section."""
+            nonlocal str_rep
+            str_rep += f"{minor_sep}\n# {name}\n{minor_sep}\n"
+
+        # Start with overall data and one thread
+        major_section(self.name)
+        newline()
+        text(f"_description: {self.description}")
+        text("num_threads: 1")
+        newline()
+
+        # Start with step modes
+        minor_section("Step Modes")
+        newline()
+        text(
+            f"{self.record_storer_name}-mode: "
+            + (
+                f"(str) The mode to run {self.record_storer_name} in "
+                f"(either '{str(StepMode.INCLUDE)}' or "
+                f"'{str(StepMode.DEBUG)}')"
+            )
+        )
+        for step_name in self.step_names():
+            text(
+                f"{step_name}-mode: "
+                + (
+                    f"(str) The mode to run {step_name} in "
+                    f"(either '{str(StepMode.INCLUDE)}', "
+                    f"'{str(StepMode.EXCLUDE)}', or '{str(StepMode.DEBUG)}')"
+                )
+            )
+        newline()
+
+        # Record Storer
+        minor_section("Record Storer")
+        text(f"{self.record_storer_name}:")
+        for (
+            config_name,
+            config_description,
+        ) in sorted(
+            self.record_storer_type.describe_config().items(),
+            key=lambda item: item[0],
+        ):
+            text(f"  {config_name}: {config_description}")
+        newline()
+
+        # Record Steps
+        minor_section("Record Steps")
+        newline()
+        for name, record_step_type in sorted(
+            self.record_steps, key=lambda step: step[0]
+        ):
+            text(f"{name}:")
+            for (
+                config_name,
+                config_description,
+            ) in sorted(
+                record_step_type.describe_config().items(),
+                key=lambda item: item[0],
+            ):
+                text(f"  {config_name}: {config_description}")
+            newline()
+
+        # Update Steps
+        minor_section("Update Steps")
+        newline()
+        for name, update_step_type, _ in sorted(
+            self.update_steps, key=lambda step: step[0]
+        ):
+            text(f"{name}:")
+            for (
+                config_name,
+                config_description,
+            ) in sorted(
+                update_step_type.describe_config().items(),
+                key=lambda item: item[0],
+            ):
+                text(f"  {config_name}: {config_description}")
+            newline()
+
+        # Propagate Steps
+        minor_section("Propagate Steps")
+        newline()
+        for name, propagate_step_type, _ in sorted(
+            self.propagate_steps, key=lambda step: step[0]
+        ):
+            text(f"{name}:")
+            for (
+                config_name,
+                config_description,
+            ) in sorted(
+                propagate_step_type.describe_config().items(),
+                key=lambda item: item[0],
+            ):
+                text(f"  {config_name}: {config_description}")
+            newline()
+
+        return str_rep
+
     def config(self: "Flow[RecordType]", config_dict: dict[str, Any]) -> None:
         """Configure the flow and its steps.
 

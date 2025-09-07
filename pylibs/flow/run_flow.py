@@ -94,7 +94,7 @@ def run_flow(flow: Flow[RecordType]) -> None:
 
     if args.dump:
         with open(args.dump, "w") as f:
-            yaml.dump(flow.describe_config(), f)
+            f.write(flow.emit_config())
 
     elif args.validate:
         with open(args.validate, "r") as f:
@@ -109,4 +109,5 @@ def run_flow(flow: Flow[RecordType]) -> None:
         flow.run()
 
     else:
-        print("No jobs to run!")
+        print("Nothing to do!")
+        print("Try --help to see options")
