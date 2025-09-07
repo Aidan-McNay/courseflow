@@ -98,7 +98,6 @@ class FlowStep(ABC):
         config_descriptions = {
             x[0]: f"({x[1].__name__}) {x[2]}" for x in cls.config_types
         }
-        config_descriptions["_description"] = cls.description
         return config_descriptions
 
 

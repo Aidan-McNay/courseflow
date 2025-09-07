@@ -438,6 +438,11 @@ class Flow(Generic[RecordType]):
             nonlocal str_rep
             str_rep += f"{text}\n"
 
+        def comment(text: str) -> None:
+            """Add a comment to the representation."""
+            nonlocal str_rep
+            str_rep += f"# {text}\n"
+
         def major_section(name: str) -> None:
             """Add a major section."""
             nonlocal str_rep
@@ -450,8 +455,8 @@ class Flow(Generic[RecordType]):
 
         # Start with overall data and one thread
         major_section(self.name)
+        comment(self.description)
         newline()
-        text(f"_description: {self.description}")
         text("num_threads: 1")
         newline()
 
@@ -479,15 +484,21 @@ class Flow(Generic[RecordType]):
 
         # Record Storer
         minor_section("Record Storer")
-        text(f"{self.record_storer_name}:")
-        for (
-            config_name,
-            config_description,
-        ) in sorted(
-            self.record_storer_type.describe_config().items(),
-            key=lambda item: item[0],
-        ):
-            text(f"  {config_name}: {config_description}")
+        newline()
+        comment(self.record_storer_type.description)
+        configs = self.record_storer_type.describe_config()
+        if not configs:
+            text(f"{self.record_storer_name}: {{}}")
+        else:
+            text(f"{self.record_storer_name}:")
+            for (
+                config_name,
+                config_description,
+            ) in sorted(
+                configs.items(),
+                key=lambda item: item[0],
+            ):
+                text(f"  {config_name}: {config_description}")
         newline()
 
         # Record Steps
@@ -496,15 +507,20 @@ class Flow(Generic[RecordType]):
         for name, record_step_type in sorted(
             self.record_steps, key=lambda step: step[0]
         ):
-            text(f"{name}:")
-            for (
-                config_name,
-                config_description,
-            ) in sorted(
-                record_step_type.describe_config().items(),
-                key=lambda item: item[0],
-            ):
-                text(f"  {config_name}: {config_description}")
+            comment(record_step_type.description)
+            configs = record_step_type.describe_config()
+            if not configs:
+                text(f"{name}: {{}}")
+            else:
+                text(f"{name}:")
+                for (
+                    config_name,
+                    config_description,
+                ) in sorted(
+                    configs.items(),
+                    key=lambda item: item[0],
+                ):
+                    text(f"  {config_name}: {config_description}")
             newline()
 
         # Update Steps
@@ -513,15 +529,20 @@ class Flow(Generic[RecordType]):
         for name, update_step_type, _ in sorted(
             self.update_steps, key=lambda step: step[0]
         ):
-            text(f"{name}:")
-            for (
-                config_name,
-                config_description,
-            ) in sorted(
-                update_step_type.describe_config().items(),
-                key=lambda item: item[0],
-            ):
-                text(f"  {config_name}: {config_description}")
+            comment(update_step_type.description)
+            configs = update_step_type.describe_config()
+            if not configs:
+                text(f"{name}: {{}}")
+            else:
+                text(f"{name}:")
+                for (
+                    config_name,
+                    config_description,
+                ) in sorted(
+                    configs.items(),
+                    key=lambda item: item[0],
+                ):
+                    text(f"  {config_name}: {config_description}")
             newline()
 
         # Propagate Steps
@@ -530,15 +551,20 @@ class Flow(Generic[RecordType]):
         for name, propagate_step_type, _ in sorted(
             self.propagate_steps, key=lambda step: step[0]
         ):
-            text(f"{name}:")
-            for (
-                config_name,
-                config_description,
-            ) in sorted(
-                propagate_step_type.describe_config().items(),
-                key=lambda item: item[0],
-            ):
-                text(f"  {config_name}: {config_description}")
+            comment(propagate_step_type.description)
+            configs = propagate_step_type.describe_config()
+            if not configs:
+                text(f"{name}: {{}}")
+            else:
+                text(f"{name}:")
+                for (
+                    config_name,
+                    config_description,
+                ) in sorted(
+                    configs.items(),
+                    key=lambda item: item[0],
+                ):
+                    text(f"  {config_name}: {config_description}")
             newline()
 
         return str_rep
@@ -570,8 +596,8 @@ class Flow(Generic[RecordType]):
             else:
                 if not isinstance(value, ValidConfigTypes):
                     raise Exception(
-                        f"Illegal type {type(subvalue)} in "
-                        f"configurations ({subvalue})"
+                        f"Illegal type {type(value)} in "
+                        f"configurations ({value})"
                     )
 
         # We can now interpret the configuration dictionary as the correct type
