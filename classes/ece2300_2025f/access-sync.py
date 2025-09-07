@@ -5,20 +5,23 @@ Author: Aidan McNay
 Date: September 16th, 2024
 """
 
-from canvas_steps.assign_groups import AssignGroups
+# from canvas_steps.assign_groups import AssignGroups
 from canvas_steps.enrollment import (
     AddEnrollment,
     UpdateEnrollment,
     PingNewEnrollment,
 )
 from canvas_steps.github_usernames import GitHubUsernames
-from canvas_steps.ping_join_group import PingJoinGroup
+
+# from canvas_steps.ping_join_group import PingJoinGroup
 from flow.flow import Flow
 from flow.run_flow import run_flow
 from github_steps.add_to_personal_repos import AddToPersonalRepos
-from github_steps.add_to_group_repos import AddToGroupRepos
+
+# from github_steps.add_to_group_repos import AddToGroupRepos
 from github_steps.create_personal_repos import CreatePersonalRepos
-from github_steps.create_group_repos import CreateGroupRepos
+
+# from github_steps.create_group_repos import CreateGroupRepos
 from github_steps.invite_students import InviteStudents
 from github_steps.mark_accepted import MarkAccepted
 from github_steps.remove_unenrolled import RemoveUnenrolled
@@ -28,9 +31,9 @@ from utils.ping_invalid_username import PingInvalidUsername
 from utils.ping_no_accept import PingNoAccept
 from utils.ping_no_username import PingNoUsername
 
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 # Define our flow
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 
 access_flow = Flow(
     name="access-flow",
@@ -89,9 +92,9 @@ access_flow.add_propagate_step(
     depends_on=["make-personal-repos"],
 )
 
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 # Main Program
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 
 if __name__ == "__main__":
     run_flow(access_flow)

@@ -1,4 +1,4 @@
-# ece6745-2025s
+# ece6745_2025s
 
 A collection of `courseflow` utilities for the 2025 spring offering of ECE 6745.
 

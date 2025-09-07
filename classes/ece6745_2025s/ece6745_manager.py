@@ -10,8 +10,8 @@ import os
 import sys
 
 curr_dir = os.path.dirname(os.path.realpath(__file__))
-flow_dir = os.path.join(curr_dir, "flows")
-sys.path.append(flow_dir)
+classes_dir = os.path.dirname(curr_dir)
+sys.path.append(classes_dir)
 
 # -----------------------------------------------------------------------------
 # Import the FlowManager and all needed flows/schedules
@@ -19,8 +19,8 @@ sys.path.append(flow_dir)
 
 from flow.flow_manager import FlowManager
 
-from access_flow import access_flow
-from tag_flow import tag_flow
+from ece6745_2025s.flows.access_flow import access_flow
+from ece6745_2025s.flows.tag_flow import tag_flow
 from flow.schedule import Always
 
 # -----------------------------------------------------------------------------
@@ -33,7 +33,7 @@ ece6745_flow_manager.add_unconf_flow(
     access_flow,
     Always(),
     (
-        "/home/acm289/cornell-canvas/classes/ece6745-2025s/configs"
+        "/home/acm289/cornell-canvas/classes/ece6745_2025s/configs"
         "/access_flow_configs.yaml"
     ),
     silent=False,
@@ -42,7 +42,7 @@ ece6745_flow_manager.add_unconf_flow(
     tag_flow,
     Always(),
     (
-        "/home/acm289/cornell-canvas/classes/ece6745-2025s/configs"
+        "/home/acm289/cornell-canvas/classes/ece6745_2025s/configs"
         "/tag_flow_configs.yaml"
     ),
     silent=False,

@@ -92,7 +92,7 @@ make-group-repos:
   name_format: group<num>
   num_places: 2
   readme_commit_msg: Initial commit
-  readme_path: /home/acm289/cornell-canvas/classes/ece6745-2025s/templates/group_repo_readme.md
+  readme_path: /home/acm289/cornell-canvas/classes/ece6745_2025s/templates/group_repo_readme.md
   staff_permissions: push
   staff_team: staff
 
@@ -105,7 +105,7 @@ ping-enrollment:
 ping-group-join:
   _description: Email students who haven't joined a Canvas group
   email_gap: 2
-  email_template: /home/acm289/cornell-canvas/classes/ece6745-2025s/templates/ping-join-group.txt
+  email_template: /home/acm289/cornell-canvas/classes/ece6745_2025s/templates/ping-join-group.txt
   group_category: "ECE 6745: Lab 1 Groups"
   send_email: acm289@cornell.edu
   start_date: 2025-01-01 00:00:00
@@ -114,7 +114,7 @@ ping-group-join:
 ping-invalid-username:
   _description: Email students who've submitted an invalid username
   email_gap: 2
-  email_template: /home/acm289/cornell-canvas/classes/ece6745-2025s/templates/ping-invalid-username.txt
+  email_template: /home/acm289/cornell-canvas/classes/ece6745_2025s/templates/ping-invalid-username.txt
   send_email: acm289@cornell.edu
   start_date: 2025-01-01 00:00:00
   subject: '[Courseflow Test] Ping Invalid Username'
@@ -122,7 +122,7 @@ ping-invalid-username:
 ping-no-username:
   _description: Email students who haven't submitted a GitHub username
   email_gap: 2
-  email_template: /home/acm289/cornell-canvas/classes/ece6745-2025s/templates/ping-no-username.txt
+  email_template: /home/acm289/cornell-canvas/classes/ece6745_2025s/templates/ping-no-username.txt
   send_email: acm289@cornell.edu
   start_date: 2025-01-01 00:00:00
   subject: '[Courseflow Test] Ping No Username'
@@ -130,7 +130,7 @@ ping-no-username:
 ping-unaccepted-invite:
   _description: Email students who haven't accepted a GitHub org invite
   email_gap: 2
-  email_template: /home/acm289/cornell-canvas/classes/ece6745-2025s/templates/ping-unaccepted-invite.txt
+  email_template: /home/acm289/cornell-canvas/classes/ece6745_2025s/templates/ping-unaccepted-invite.txt
   send_email: acm289@cornell.edu
   start_date: 2025-01-01 00:00:00
   subject: '[Courseflow Test] Ping Unaccepted Invite'

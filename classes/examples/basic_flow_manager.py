@@ -5,7 +5,15 @@ Author: Aidan McNay
 Date: January 6th, 2024
 """
 
-from basic_flow import basic_flow
+# Include the implemented flows in our path
+import os
+import sys
+
+curr_dir = os.path.dirname(os.path.realpath(__file__))
+classes_dir = os.path.dirname(curr_dir)
+sys.path.append(classes_dir)
+
+from examples.basic_flow import basic_flow
 from flow.flow_manager import FlowManager
 from flow.schedule import Always
 

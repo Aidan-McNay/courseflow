@@ -5,6 +5,7 @@
 # A Bash script for linting all of ECE 2300's Python scripts/libraries
 
 TOP_DIR=$(dirname "$0")
+export PYTHONPATH=$PWD/pylibs
 
 RED='\033[1;31m'
 GREEN='\033[1;32m'

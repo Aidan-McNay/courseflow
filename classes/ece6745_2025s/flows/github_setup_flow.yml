@@ -35,7 +35,7 @@ github-accepted:
 ping-invalid-username:
   _description: Email students who've submitted an invalid username
   email_gap: 1
-  email_template: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745-2025s/templates/ping-invalid-username.txt
+  email_template: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745_2025s/templates/ping-invalid-username.txt
   send_email: cb535@cornell.edu
   start_date: 2025-01-31 09:00:00
   subject: "ECE 6745: Invalid GitHub username"
@@ -45,7 +45,7 @@ ping-invalid-username-mode: include
 ping-no-username:
   _description: Email students who haven't submitted a GitHub username
   email_gap: 1
-  email_template: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745-2025s/templates/ping-no-username.txt
+  email_template: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745_2025s/templates/ping-no-username.txt
   send_email: cb535@cornell.edu
   start_date: 2025-02-02 09:00:00
   subject: "ECE 6745: Please submit GitHub username"
@@ -61,7 +61,7 @@ invite-students-mode: include
 ping-unaccepted-invite:
   _description: Email students who haven't accepted a GitHub org invite
   email_gap: 1
-  email_template: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745-2025s/templates/ping-unaccepted-invite.txt
+  email_template: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745_2025s/templates/ping-unaccepted-invite.txt
   send_email: cb535@cornell.edu
   start_date: 2025-01-31 09:00:00
   subject: "ECE 6745: Please accept invitation to GitHub course organization"
@@ -88,7 +88,7 @@ make-group-repos:
   name_format: lab1-group<num>
   num_places: 2
   readme_commit_msg: "Initial import"
-  readme_path: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745-2025s/templates/group_repo_readme.md
+  readme_path: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745_2025s/templates/group_repo_readme.md
   staff_permissions: admin
   staff_team: staff
 make-group-repos-mode: include
@@ -109,7 +109,7 @@ update-group-repo-descr-mode: include
 ping-group-join:
   _description: Email students who haven't joined a Canvas group
   email_gap: 1
-  email_template: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745-2025s/templates/ping-join-group.txt
+  email_template: /home/cb535/vc/git-hub/aidan-mcnay/courseflow/classes/ece6745_2025s/templates/ping-join-group.txt
   group_category: ECE 6745 Lab 1 Groups
   send_email: cb535@cornell.edu
   start_date: 2025-02-03 09:00:00
