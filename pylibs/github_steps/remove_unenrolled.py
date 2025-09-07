@@ -119,7 +119,7 @@ class RemoveUnenrolled(FlowPropagateStep[StudentRecord]):
                         if user in outside_collaborators:
                             _org.remove_outside_collaborator(user)
                             removed = True
-                        if user in invitations:
+                        if user in list(invitations):
                             _org.cancel_invitation(user)
                             removed = True
                         record.sent_invite = False
