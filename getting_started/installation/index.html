@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; courseflow 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/code_link.css?v=b5f1985d" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=51fd25b1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Tutorial" href="../tutorial/" />
+    <link rel="prev" title="Prerequisites" href="../prerequisites/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            courseflow
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview/">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../prerequisites/">Prerequisites</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#local-setup">Local Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linting/">Linting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/records/">Records</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/record_steps/">Record Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/update_steps/">Update Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/propagate_steps/">Propagate Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/record_storers/">Record Storers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/flow/">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/metadata/">Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/schedules/">Schedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/flow_manager/">Flow Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/miscellaneous/">Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/utilities/">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">courseflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Aidan-McNay/courseflow/blob/main/docs/getting_started/installation.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">courseflow</span></code> isn’t currently available as a package through PyPI.
+Instead, users should locally clone the repository to set up the
+framework. It is encouraged that developers make in-place extensions,
+such that they could later be merged upstream for others to use</p>
+<section id="local-setup">
+<h2>Local Setup<a class="headerlink" href="#local-setup" title="Link to this heading"></a></h2>
+<p>To set up locally, all that’s required is to have a local clone of the
+repository, with the <code class="docutils literal notranslate"><span class="pre">pylibs</span></code> directory in the <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> variable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:Aidan-McNay/courseflow.git
+<span class="nb">cd</span><span class="w"> </span>courseflow
+
+<span class="c1"># Include `pylibs` in our Python path</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/pylibs:</span><span class="nv">$PYTHONPATH</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>For repeated use, users may wish to add the last line to their <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>
+or equivalent (making the prepended directory absolute).</p>
+</section>
+<section id="environment-variables">
+<h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">courseflow</span></code> assumes that the following environment variables are used
+to provide access to API keys, as well as identify the relevant course:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CANVAS_API_KEY</span></code>: Your <a class="reference external" href="https://canvas.instructure.com/doc/api/file.developer_keys.html">Canvas developer key</a>,
+to gain access to Canvas endpoints. For Cornell, these can be
+requested through CTI by going to <em>Account</em> on the left-hand panel,
+the navigating to <em>Settings -&gt; New Access Token</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CANVAS_API_COURSEID</span></code>: The ID of the relevant Canvas course (usually a
+five-digit number). If you go to the webpage of your Canvas course,
+the URL should end with <code class="docutils literal notranslate"><span class="pre">.../courses/&lt;COURSEID&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GITHUB_API_KEY</span></code>: Your <a class="reference external" href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">(classic) GitHub personal access token</a>,
+to gain access to GitHub endpoints. Note that many of the endpoints
+require you to have administrator access to the relevant organization</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GITHUB_ORG</span></code>: The name of the GitHub organization to use for
+GitHub-based steps</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GMAIL_API_KEY</span></code>: Your <a class="reference external" href="https://support.google.com/mail/answer/185833?hl=en">Google app password</a>,
+to gain access to your GMail account.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GOOGLE_API_JSON</span></code>: The (absolute) path to your
+<a class="reference external" href="https://cloud.google.com/iam/docs/keys-create-delete#creating">Google service account JSON credentials</a>,
+allowing access to your service account. See the link for more
+details on how to create a service account and obtain the JSON key.
+This is used currently to access spreadsheets through <code class="docutils literal notranslate"><span class="pre">gspread</span></code>; you
+will accordingly need to share any Google Sheets you want to access
+with the service account</p></li>
+</ul>
+<p>Future improvements will migrate GMail access to OAuth2.0, likely through
+a wrapper like <a class="reference external" href="https://github.com/dermasmid/google-workspace"><code class="docutils literal notranslate"><span class="pre">google-workspace</span></code></a>,
+additionally unifying the access mechanism with spreadsheets through
+<code class="docutils literal notranslate"><span class="pre">gspread</span></code>.</p>
+<div class="note admonition">
+<p class="admonition-title">Key Usage</p>
+<p>It is not necessary to have all of the above keys to use the framework;
+keys will be checked for as necessary on import, and a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> will
+be thrown if the variable isn’t present.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../prerequisites/" class="btn btn-neutral float-left" title="Prerequisites" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tutorial/" class="btn btn-neutral float-right" title="Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Aidan McNay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

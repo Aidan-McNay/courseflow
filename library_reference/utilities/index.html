@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utilities &mdash; courseflow 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/code_link.css?v=b5f1985d" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=51fd25b1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="prev" title="Miscellaneous" href="../miscellaneous/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            courseflow
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/overview/">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/prerequisites/">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/tutorial/">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/linting/">Linting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../records/">Records</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../record_steps/">Record Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update_steps/">Update Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../propagate_steps/">Propagate Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../record_storers/">Record Storers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow/">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metadata/">Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../schedules/">Schedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_manager/">Flow Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/">Miscellaneous</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#group-section-check"><code class="docutils literal notranslate"><span class="pre">group-section-check</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#init-course"><code class="docutils literal notranslate"><span class="pre">init-course</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tag-integrity-check"><code class="docutils literal notranslate"><span class="pre">tag-integrity-check</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upload-grades"><code class="docutils literal notranslate"><span class="pre">upload-grades</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">courseflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Utilities</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Aidan-McNay/courseflow/blob/main/docs/library_reference/utilities.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utilities">
+<h1>Utilities<a class="headerlink" href="#utilities" title="Link to this heading"></a></h1>
+<p>In addition to the flow framework, <code class="docutils literal notranslate"><span class="pre">courseflow</span></code> includes one-off scripts
+for performing actions with the available APIs that may be useful to
+course instructors. These scripts can be found in the <code class="docutils literal notranslate"><span class="pre">utils</span></code> directory.</p>
+<p>All of these scripts will show their usage when run with the <code class="docutils literal notranslate"><span class="pre">-h</span></code> flag.
+In addition, to print more verbose instructions detailing the script and
+how it should be used, users could use the <code class="docutils literal notranslate"><span class="pre">-i</span></code> flag.</p>
+<hr style="border:2px solid #2980b9">
+<section id="group-section-check">
+<h2><code class="docutils literal notranslate"><span class="pre">group-section-check</span></code><a class="headerlink" href="#group-section-check" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">group-section-check</span></code> is used to ensure that, for a given group category,
+all groups consist only of students in the same lab section. This is to
+ensure that students haven’t accidentally signed up to be in a lab group
+with someone from a different lab (and can also be used to verify
+lab groupings).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">category</span></span></dt>
+<dd><p>The group category on Canvas to check for lab section homogeneity</p>
+</dd></dl>
+
+<p><code class="docutils literal notranslate"><span class="pre">group-section-check</span></code> uses the Canvas sections to check for section
+homogeneity, and assumes that a section corresponds to a lab section if
+and only if the section name contains ‘LAB’ (as is the case at time of
+writing for sections populated by Cornell). If this ever becomes not the
+case, please modify the assignment to <code class="docutils literal notranslate"><span class="pre">lab_sections</span></code>. Future versions of
+the script might take in a regex to identify lab sections, if needed.</p>
+<hr style="border:2px solid #2980b9">
+</section>
+<section id="init-course">
+<h2><code class="docutils literal notranslate"><span class="pre">init-course</span></code><a class="headerlink" href="#init-course" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">init-course</span></code> is used to initialize a Canvas course with various
+components, including assignments, quizzes, and student groups. This
+allows instructors to expedite the setup of recurring offerings, as well
+as to configure the course in a text-based, reproducible format.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">attributes</span></span></dt>
+<dd><p>The YAML file specifying the attributes/components to initialize the
+Canvas course with</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">reset</span></span></dt>
+<dd><p>Whether to reset/wipe the current course attributes before adding the
+specified attributes</p>
+</dd></dl>
+
+<p><code class="docutils literal notranslate"><span class="pre">init-course</span></code> takes in a YAML file with specifications of the various
+course components to initialize the course from. See the documentation
+and the example attribute file for examples.</p>
+<p>Note that additional configurations may be necessary (such as the
+creation of rubrics and their mapping to assignments). This is not
+included, due to the difficulty of representation in a YAML file;
+instead, other utilities should be used for their creation.</p>
+<p>In addition, <code class="docutils literal notranslate"><span class="pre">init-course</span></code> allows a user to reset the course,
+specifically any previously-made attributes (assignments, assignment
+groups, group categories, and quizzes). This can be used to wipe any
+pre-existing content (in order to start from a blank slate). Resetting
+the course, along with providing an initialization file, will result in
+a course with the same attributes. However, wiped content cannot be
+(easily) retrieved, and should therefore be used cautiously.
+<code class="docutils literal notranslate"><span class="pre">init-course</span></code> will prompt for confirmation whenever using this feature,
+even if run silently.</p>
+<p>An example configuration file is shown below as a syntax reference:</p>
+<div class="toggle highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># ========================================================================</span>
+<span class="c1"># An example attribute file to initialize a course with</span>
+<span class="c1"># ========================================================================</span>
+<span class="c1"># Author: Aidan McNay</span>
+<span class="c1"># Date: December 29th, 2024</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># Assignment Groups</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">assignment_groups</span><span class="p">:</span>
+<span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Quizzes&quot;</span>
+<span class="w">   </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Labs&quot;</span>
+<span class="w">   </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># Group Categories</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">group_categories</span><span class="p">:</span>
+<span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lab</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">Report</span><span class="nv"> </span><span class="s">Groups&quot;</span>
+<span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lab</span><span class="nv"> </span><span class="s">2</span><span class="nv"> </span><span class="s">Report</span><span class="nv"> </span><span class="s">Groups&quot;</span>
+<span class="w">   </span><span class="nt">self_signup</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enabled&quot;</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># Assignments</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">assignments</span><span class="p">:</span>
+<span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lab</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">Report&quot;</span>
+<span class="w">   </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">Canvas</span><span class="nv"> </span><span class="s">Assignment</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">Lab</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">Report&quot;</span>
+<span class="w">   </span><span class="nt">assignment_group</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Labs&quot;</span>
+<span class="w">   </span><span class="nt">submission_types</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;online_upload&quot;</span>
+<span class="w">   </span><span class="nt">allowed_extensions</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;docx&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;pdf&quot;</span>
+<span class="w">   </span><span class="nt">grading_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;points&quot;</span>
+<span class="w">   </span><span class="nt">points_possible</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.25</span>
+<span class="w">   </span><span class="nt">group_category</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lab</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">Report</span><span class="nv"> </span><span class="s">Groups&quot;</span>
+<span class="w">   </span><span class="nt">published</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+
+<span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lab</span><span class="nv"> </span><span class="s">2</span><span class="nv"> </span><span class="s">Report&quot;</span>
+<span class="w">   </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">Canvas</span><span class="nv"> </span><span class="s">Assignment</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">Lab</span><span class="nv"> </span><span class="s">2</span><span class="nv"> </span><span class="s">Report&quot;</span>
+<span class="w">   </span><span class="nt">assignment_group</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Labs&quot;</span>
+<span class="w">   </span><span class="nt">submission_types</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;online_upload&quot;</span>
+<span class="w">   </span><span class="nt">allowed_extensions</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;pdf&quot;</span>
+<span class="w">   </span><span class="nt">grading_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;points&quot;</span>
+<span class="w">   </span><span class="nt">points_possible</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.25</span>
+<span class="w">   </span><span class="nt">group_category</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lab</span><span class="nv"> </span><span class="s">2</span><span class="nv"> </span><span class="s">Report</span><span class="nv"> </span><span class="s">Groups&quot;</span>
+<span class="w">   </span><span class="nt">published</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="w">   </span><span class="nt">due_at</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024-12-24 11:59:00</span>
+<span class="w">   </span><span class="nt">unlock_at</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024-12-09 11:59:00</span>
+<span class="w">   </span><span class="nt">lock_at</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024-12-26 11:59:00</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># Quizzes</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">quizzes</span><span class="p">:</span>
+<span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GitHub</span><span class="nv"> </span><span class="s">Username</span><span class="nv"> </span><span class="s">Form&quot;</span>
+<span class="w">   </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;-</span>
+<span class="w">     </span><span class="no">We will be using GitHub to distribute and grade the lab assignments.</span>
+<span class="w">     </span><span class="no">Students will also be using GitHub to collaborate with their lab</span>
+<span class="w">     </span><span class="no">partner on lab assignments. In order to invite students to the</span>
+<span class="w">     </span><span class="no">course&#39;s GitHub organization we need to know your NetID and your</span>
+<span class="w">     </span><span class="no">GitHub username.</span>
+
+
+<span class="w">     </span><span class="no">&lt;b&gt;NOTE&lt;/b&gt;: We do NOT use the Cornell GitHub. We use the public</span>
+<span class="w">     </span><span class="no">github.com system which means you need to explicitly have an account</span>
+<span class="w">     </span><span class="no">on github.com. If you do not already have a GitHub account, go to</span>
+<span class="w">     </span><span class="no">https://github.com/join. Make sure you use your netid@cornell.edu</span>
+<span class="w">     </span><span class="no">email address if you are creating a new account. Your NetID makes a</span>
+<span class="w">     </span><span class="no">good GitHub username.</span>
+<span class="w">   </span><span class="nt">quiz_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;graded_survey&quot;</span>
+<span class="w">   </span><span class="nt">assignment_group</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Quizzes&quot;</span>
+<span class="w">   </span><span class="nt">published</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">   </span><span class="nt">allowed_attempts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span>
+<span class="w">   </span><span class="nt">questions</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GitHub</span><span class="nv"> </span><span class="s">Username&quot;</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GitHub</span><span class="nv"> </span><span class="s">Username:&quot;</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;short_answer_question&quot;</span>
+<span class="w">      </span><span class="nt">points_possible</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+<hr style="border:2px solid #2980b9">
+</section>
+<section id="tag-integrity-check">
+<h2><code class="docutils literal notranslate"><span class="pre">tag-integrity-check</span></code><a class="headerlink" href="#tag-integrity-check" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">tag-integrity-check</span></code> is used to check that all staff-tagged repos are
+intact. The repo tags are checked against stored checksums to ensure that
+no manipulation has occurred since the course staff tagged them.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">lab</span></span></dt>
+<dd><p>The lab submission to check for integrity (i.e. a name in the
+<a class="reference internal" href="../records/#records.tag_record.TagRecords" title="records.tag_record.TagRecords"><code class="xref py py-class docutils literal notranslate"><span class="pre">TagRecords</span></code></a>‘s <code class="docutils literal notranslate"><span class="pre">labs</span></code> attribute)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">sheet_id</span></span></dt>
+<dd><p>The ID of the Google Sheet where <a class="reference internal" href="../records/#records.tag_record.TagRecords" title="records.tag_record.TagRecords"><code class="xref py py-class docutils literal notranslate"><span class="pre">TagRecords</span></code></a>
+are stored</p>
+</dd></dl>
+
+<div class="note admonition">
+<p class="admonition-title">Service Account access</p>
+<p>Make sure that your service account has access to the Google Sheet
+with this ID!</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">tab</span></span></dt>
+<dd><p>The tab on the Google Sheet to get <a class="reference internal" href="../records/#records.tag_record.TagRecords" title="records.tag_record.TagRecords"><code class="xref py py-class docutils literal notranslate"><span class="pre">TagRecords</span></code></a>
+from</p>
+</dd></dl>
+
+<p><code class="docutils literal notranslate"><span class="pre">tag-integrity-check</span></code> takes the expected tags from a Google Sheet, and
+assumes that the sheet represents a collection of
+<a class="reference internal" href="../records/#records.tag_record.TagRecords" title="records.tag_record.TagRecords"><code class="xref py py-class docutils literal notranslate"><span class="pre">TagRecords</span></code></a> as stored by a
+<a class="reference internal" href="../record_storers/#google_steps.spreadsheet_storer.SpreadsheetStorer" title="google_steps.spreadsheet_storer.SpreadsheetStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpreadsheetStorer</span></code></a>. Using
+those records, the script will check not only that the tags are present,
+but that the hashes of the tag and the commit that it points to are as
+expected.</p>
+<hr style="border:2px solid #2980b9">
+</section>
+<section id="upload-grades">
+<h2><code class="docutils literal notranslate"><span class="pre">upload-grades</span></code><a class="headerlink" href="#upload-grades" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">upload-grades</span></code> is used to populate the grades for a Canvas assignment
+based on a Google Sheet. Any information that was already part of the
+Canvas assignment (including preexisting grades and/or comments) will be
+deleted; the Google Sheet should be the ground truth for grades.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">assignment</span></span></dt>
+<dd><p>The Canvas assignment to upload grades for</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">delete_comments</span></span></dt>
+<dd><p>If supplied, <code class="docutils literal notranslate"><span class="pre">upload-grades</span></code> will delete pre-existing comments on
+submissions for the assignment</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">sheet_id</span></span></dt>
+<dd><p>The ID of the Google Sheet to access</p>
+</dd></dl>
+
+<div class="note admonition">
+<p class="admonition-title">Service Account access</p>
+<p>Make sure that your service account has access to the Google Sheet
+with this ID!</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">tab</span></span></dt>
+<dd><p>The tab/worksheet of the Google Sheet to get the grades from</p>
+</dd></dl>
+
+<p><code class="docutils literal notranslate"><span class="pre">upload-grades</span></code> will iterate through the rows of the spreadsheet until
+it finds one containing <code class="docutils literal notranslate"><span class="pre">Grade</span></code>. It will assume that these are the
+appropriate column headers, and will interpret all further rows as grade
+submissions. Such headers can be hidden if desired for sheet aesthetics.</p>
+<p>The following headers should be present:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Grade</span></code>: The final grade for the assignment</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NetID</span></code>: The NetID of the student to be graded (individual assignment)
+<strong><em>OR</em></strong> the name of the group to be graded (group assignment)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Comment</span></code>: (Optional) A comment to attach with the submission</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;rubric-criterion-name&gt;</span></code>: For each criterion in the rubric attached
+to the assignment (if any), we expect a column with the exact
+criterion name, indicating the score for the criterion</p></li>
+</ul>
+<p>Lastly, <code class="docutils literal notranslate"><span class="pre">upload-grades</span></code> assumes that the grading scheme for the assignment
+on Canvas is either <code class="docutils literal notranslate"><span class="pre">Points</span></code> or <code class="docutils literal notranslate"><span class="pre">Letter</span> <span class="pre">Grade</span></code>, and will cast values under
+the <code class="docutils literal notranslate"><span class="pre">Grade</span></code> column as appropriate. Further grading schemes can be supported
+by modifying the <code class="docutils literal notranslate"><span class="pre">cast_to_grade</span></code> function as appropriate.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../miscellaneous/" class="btn btn-neutral float-left" title="Miscellaneous" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Aidan McNay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schedules &mdash; courseflow 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/code_link.css?v=b5f1985d" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=51fd25b1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Flow Manager" href="../flow_manager/" />
+    <link rel="prev" title="Metadata" href="../metadata/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            courseflow
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/overview/">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/prerequisites/">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/tutorial/">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/linting/">Linting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../records/">Records</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../record_steps/">Record Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update_steps/">Update Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../propagate_steps/">Propagate Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../record_storers/">Record Storers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow/">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metadata/">Metadata</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Schedules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#flow.schedule.Schedule"><code class="docutils literal notranslate"><span class="pre">Schedule</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flow.schedule.Schedule.__init__"><code class="docutils literal notranslate"><span class="pre">Schedule.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flow.schedule.Schedule.__add__"><code class="docutils literal notranslate"><span class="pre">Schedule.__add__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flow.schedule.Schedule.__sub__"><code class="docutils literal notranslate"><span class="pre">Schedule.__sub__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#flow.schedule.Always"><code class="docutils literal notranslate"><span class="pre">Always</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flow.schedule.Always.__init__"><code class="docutils literal notranslate"><span class="pre">Always.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#flow.schedule.Hourly"><code class="docutils literal notranslate"><span class="pre">Hourly</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flow.schedule.Hourly.__init__"><code class="docutils literal notranslate"><span class="pre">Hourly.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#flow.schedule.Daily"><code class="docutils literal notranslate"><span class="pre">Daily</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flow.schedule.Daily.__init__"><code class="docutils literal notranslate"><span class="pre">Daily.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#flow.schedule.Weekly"><code class="docutils literal notranslate"><span class="pre">Weekly</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flow.schedule.Weekly.__init__"><code class="docutils literal notranslate"><span class="pre">Weekly.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_manager/">Flow Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/">Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utilities/">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">courseflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Schedules</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Aidan-McNay/courseflow/blob/main/docs/library_reference/schedules.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="schedules">
+<h1>Schedules<a class="headerlink" href="#schedules" title="Link to this heading"></a></h1>
+<p>To schedule a flow with a flow manager, users must specify a
+<a class="reference internal" href="#flow.schedule.Schedule" title="flow.schedule.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a> that an associated flow should be run
+on. The base <a class="reference internal" href="#flow.schedule.Schedule" title="flow.schedule.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a> class allows users to
+specify this by providing a function to check whether the flow should be
+run, given the current time:</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="flow.schedule.Schedule">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flow.schedule.</span></span><span class="sig-name descname"><span class="pre">Schedule</span></span><a class="headerlink" href="#flow.schedule.Schedule" title="Link to this definition"></a></dt>
+<dd><p>A schedule that determines when an associated flow should run.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flow.schedule.Schedule.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">check_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#flow.schedule.Schedule.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the schedule with a member to check the time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>check_time</strong> (<em>Callable</em><em>[</em><em>[</em><em>datetime</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – A function that takes in the current time, and determines
+whether the flow should be run. This function can assume
+that the given time is rounded to the nearest minute</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flow.schedule.Schedule.__add__">
+<span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#flow.schedule.Schedule" title="flow.schedule.Schedule"><span class="pre">Schedule</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#flow.schedule.Schedule" title="flow.schedule.Schedule"><span class="pre">Schedule</span></a></span></span><a class="headerlink" href="#flow.schedule.Schedule.__add__" title="Link to this definition"></a></dt>
+<dd><p>Add two schedules to get the union of the two schedules.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#flow.schedule.Schedule" title="flow.schedule.Schedule"><em>Schedule</em></a>) – The other schedule to add to</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The union of the two schedules</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#flow.schedule.Schedule" title="flow.schedule.Schedule">Schedule</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flow.schedule.Schedule.__sub__">
+<span class="sig-name descname"><span class="pre">__sub__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#flow.schedule.Schedule" title="flow.schedule.Schedule"><span class="pre">Schedule</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#flow.schedule.Schedule" title="flow.schedule.Schedule"><span class="pre">Schedule</span></a></span></span><a class="headerlink" href="#flow.schedule.Schedule.__sub__" title="Link to this definition"></a></dt>
+<dd><p>Subtract two schedules to get the difference of the two schedules.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#flow.schedule.Schedule" title="flow.schedule.Schedule"><em>Schedule</em></a>) – The other schedule to subtract from the current</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The difference of the two schedules</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#flow.schedule.Schedule" title="flow.schedule.Schedule">Schedule</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>In addition, helper children classes are implemented for common schedule
+patterns:</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="flow.schedule.Always">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flow.schedule.</span></span><span class="sig-name descname"><span class="pre">Always</span></span><a class="headerlink" href="#flow.schedule.Always" title="Link to this definition"></a></dt>
+<dd><p>A schedule to always run a flow.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flow.schedule.Always.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#flow.schedule.Always.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the schedule to always run.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flow.schedule.Hourly">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flow.schedule.</span></span><span class="sig-name descname"><span class="pre">Hourly</span></span><a class="headerlink" href="#flow.schedule.Hourly" title="Link to this definition"></a></dt>
+<dd><p>A schedule to run a flow each hour.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flow.schedule.Hourly.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#flow.schedule.Hourly.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the hourly schedule.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flow.schedule.Daily">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flow.schedule.</span></span><span class="sig-name descname"><span class="pre">Daily</span></span><a class="headerlink" href="#flow.schedule.Daily" title="Link to this definition"></a></dt>
+<dd><p>A schedule to run a flow once a day.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flow.schedule.Daily.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#flow.schedule.Daily.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the daily schedule with the specified hour.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hour</strong> (<em>int</em>) – The hour to run on in 24-hour time (0-23)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flow.schedule.Weekly">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flow.schedule.</span></span><span class="sig-name descname"><span class="pre">Weekly</span></span><a class="headerlink" href="#flow.schedule.Weekly" title="Link to this definition"></a></dt>
+<dd><p>A schedule to run a flow once a week.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flow.schedule.Weekly.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#flow.schedule.Weekly.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the weekly schedule with the specified hour and day.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>day</strong> (<em>str</em>) – The day of the week to run on</p></li>
+<li><p><strong>hour</strong> (<em>int</em>) – The hour to run on in 24-hour time (0-23)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../metadata/" class="btn btn-neutral float-left" title="Metadata" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../flow_manager/" class="btn btn-neutral float-right" title="Flow Manager" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Aidan McNay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

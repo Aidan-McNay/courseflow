@@ -1,0 +1,272 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Record Steps &mdash; courseflow 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/code_link.css?v=b5f1985d" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=51fd25b1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Update Steps" href="../update_steps/" />
+    <link rel="prev" title="Records" href="../records/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            courseflow
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/overview/">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/prerequisites/">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/tutorial/">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/linting/">Linting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../records/">Records</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Record Steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#base-class">Base Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flow.flow_steps.FlowRecordStep"><code class="docutils literal notranslate"><span class="pre">FlowRecordStep</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#implementations">Implementations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#canvas_steps.enrollment.AddEnrollment"><code class="docutils literal notranslate"><span class="pre">AddEnrollment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#google_steps.get_tag_records.GetTagRecords"><code class="docutils literal notranslate"><span class="pre">GetTagRecords</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.basic_steps.BasicRecordStep"><code class="docutils literal notranslate"><span class="pre">BasicRecordStep</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../update_steps/">Update Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../propagate_steps/">Propagate Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../record_storers/">Record Storers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow/">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metadata/">Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../schedules/">Schedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_manager/">Flow Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/">Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utilities/">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">courseflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Record Steps</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Aidan-McNay/courseflow/blob/main/docs/library_reference/record_steps.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="record-steps">
+<h1>Record Steps<a class="headerlink" href="#record-steps" title="Link to this heading"></a></h1>
+<section id="base-class">
+<h2>Base Class<a class="headerlink" href="#base-class" title="Link to this heading"></a></h2>
+<p>All record steps must inherit from/implement the following base class
+(with some repeated from <a class="reference internal" href="../miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a>)</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowRecordStep">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flow.flow_steps.</span></span><span class="sig-name descname"><span class="pre">FlowRecordStep</span></span><span class="sig-paren">[</span><em class="sig-param"><span class="n"><span class="pre">RecordType</span></span></em><span class="sig-paren">]</span><a class="headerlink" href="#flow.flow_steps.FlowRecordStep" title="Link to this definition"></a></dt>
+<dd><p>A flow step to update the overall list of records.</p>
+<p>Parent Class: <a class="reference internal" href="../miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowRecordStep.description">
+<em class="property"><span class="k"><span class="pre">abstract</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#flow.flow_steps.FlowRecordStep.description" title="Link to this definition"></a></dt>
+<dd><p>A high-level description of the step</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowRecordStep.config_types">
+<em class="property"><span class="k"><span class="pre">abstract</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">ValidConfigTypes</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#flow.flow_steps.FlowRecordStep.config_types" title="Link to this definition"></a></dt>
+<dd><p>The types of the configurations for the step. Each tuple in the list
+should include the name, type, and description of a configuration
+(respectively). See <a class="reference internal" href="../miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowRecordStep.validate">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#flow.flow_steps.FlowRecordStep.validate" title="Link to this definition"></a></dt>
+<dd><p>This function should inspect the object’s <code class="docutils literal notranslate"><span class="pre">configs</span></code> attribute, and
+perform any static validation possible.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowRecordStep.new_records">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new_records</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">curr_records</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">RecordType</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">RecordType</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#flow.flow_steps.FlowRecordStep.new_records" title="Link to this definition"></a></dt>
+<dd><p>Add any new records to the list of records.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>curr_records</strong> (<em>list</em><em>[</em><em>RecordType</em><em>]</em>) – The current list of records</p></li>
+<li><p><strong>logger</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>None</em><em>]</em>) – A function to log any notable
+events</p></li>
+<li><p><strong>get_metadata</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>Any</em><em>]</em><em>,</em>) – A function to retrieve global
+metadata previously set in the flow</p></li>
+<li><p><strong>set_metadata</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>None</em><em>]</em>) – A function to set
+global metadata within the flow</p></li>
+<li><p><strong>debug</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether we are in “debug” mode. In debug
+mode, no external state should be modified, and we are free to
+inject dummy information. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The possibly augmented list of records</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[RecordType]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="implementations">
+<h2>Implementations<a class="headerlink" href="#implementations" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="canvas_steps.enrollment.AddEnrollment">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">canvas_steps.enrollment.</span></span><span class="sig-name descname"><span class="pre">AddEnrollment</span></span><a class="headerlink" href="#canvas_steps.enrollment.AddEnrollment" title="Link to this definition"></a></dt>
+<dd><p>A record step that adds new student records for new enrollment.</p>
+<p>This step gets the current enrollment from Canvas, and creates a new
+record for any student that there isn’t a record for already.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+<p>Sets metadata: <a class="reference internal" href="../metadata/#new_netids" title="new_netids"><code class="xref py py-attr docutils literal notranslate"><span class="pre">new_netids</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="google_steps.get_tag_records.GetTagRecords">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">google_steps.get_tag_records.</span></span><span class="sig-name descname"><span class="pre">GetTagRecords</span></span><a class="headerlink" href="#google_steps.get_tag_records.GetTagRecords" title="Link to this definition"></a></dt>
+<dd><p>Get TagRecords from a spreadsheet containing StudentRecords.</p>
+<p>This step assumes that a spreadsheet contains
+<a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a>s (such as those
+made by <a class="reference internal" href="../record_storers/#google_steps.spreadsheet_storer.SpreadsheetStorer" title="google_steps.spreadsheet_storer.SpreadsheetStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpreadsheetStorer</span></code></a>),
+and translates them to <a class="reference internal" href="../records/#records.tag_record.TagRecords" title="records.tag_record.TagRecords"><code class="xref py py-class docutils literal notranslate"><span class="pre">TagRecords</span></code></a>s
+(adding a non-tagged <a class="reference internal" href="../records/#records.tag_record.TagRecords" title="records.tag_record.TagRecords"><code class="xref py py-class docutils literal notranslate"><span class="pre">TagRecords</span></code></a> for
+each non-empty personal and group repo entry).</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.tag_record.TagRecords" title="records.tag_record.TagRecords"><code class="xref py py-class docutils literal notranslate"><span class="pre">TagRecords</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="google_steps.get_tag_records.GetTagRecords.configs.sheet_id">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">sheet_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#google_steps.get_tag_records.GetTagRecords.configs.sheet_id" title="Link to this definition"></a></dt>
+<dd><p>The ID of the Google Sheet to access</p>
+</dd></dl>
+
+<div class="note admonition">
+<p class="admonition-title">Service Account access</p>
+<p>Make sure that your service account has access to the Google Sheet
+with this ID!</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="google_steps.get_tag_records.GetTagRecords.configs.tag">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#google_steps.get_tag_records.GetTagRecords.configs.tag" title="Link to this definition"></a></dt>
+<dd><p>The Google Sheet tab to access for records</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="google_steps.get_tag_records.GetTagRecords.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#google_steps.get_tag_records.GetTagRecords.validate" title="Link to this definition"></a></dt>
+<dd><p>Validate the configurations for the spreadsheet storer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> (<em>Self</em>) – The step to validate</p>
+</dd>
+</dl>
+<p>Specifically, we make sure that the service account can access the
+specified Google Sheet</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.basic_steps.BasicRecordStep">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.basic_steps.</span></span><span class="sig-name descname"><span class="pre">BasicRecordStep</span></span><a class="headerlink" href="#utils.basic_steps.BasicRecordStep" title="Link to this definition"></a></dt>
+<dd><p>A basic flow record step to add a new record.</p>
+<p>The record is chosen at random between 0 and 10 (inclusive).</p>
+<p>Supported record types: <code class="docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../records/" class="btn btn-neutral float-left" title="Records" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../update_steps/" class="btn btn-neutral float-right" title="Update Steps" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Aidan McNay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Miscellaneous &mdash; courseflow 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/code_link.css?v=b5f1985d" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=51fd25b1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Utilities" href="../utilities/" />
+    <link rel="prev" title="Flow Manager" href="../flow_manager/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            courseflow
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/overview/">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/prerequisites/">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/tutorial/">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/linting/">Linting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../records/">Records</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../record_steps/">Record Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update_steps/">Update Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../propagate_steps/">Propagate Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../record_storers/">Record Storers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow/">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metadata/">Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../schedules/">Schedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_manager/">Flow Manager</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Miscellaneous</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flow.run_flow.run_flow"><code class="docutils literal notranslate"><span class="pre">run_flow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#records.tag_record.get_tag_headers"><code class="docutils literal notranslate"><span class="pre">get_tag_headers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github_steps.tag_repo.get_tagger"><code class="docutils literal notranslate"><span class="pre">get_tagger()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flow.flow_steps.ValidConfigTypes"><code class="docutils literal notranslate"><span class="pre">ValidConfigTypes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flow.flow_steps.FlowStep"><code class="docutils literal notranslate"><span class="pre">FlowStep</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#records.tag_record.TagRecord"><code class="docutils literal notranslate"><span class="pre">TagRecord</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utilities/">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">courseflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Miscellaneous</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Aidan-McNay/courseflow/blob/main/docs/library_reference/miscellaneous.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="miscellaneous">
+<h1>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Link to this heading"></a></h1>
+<p>The following functions and classes are documented not as part of the core
+flow library, but for completeness/reference.</p>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="flow.run_flow.run_flow">
+<span class="sig-prename descclassname"><span class="pre">flow.run_flow.</span></span><span class="sig-name descname"><span class="pre">run_flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../flow/#flow.flow.Flow" title="flow.flow.Flow"><span class="pre">Flow</span></a><span class="p"><span class="pre">[</span></span><span class="pre">RecordType</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#flow.run_flow.run_flow" title="Link to this definition"></a></dt>
+<dd><p>Run a flow as a main script.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>flow</strong> (<a class="reference internal" href="../flow/#flow.flow.Flow" title="flow.flow.Flow"><em>Flow</em></a>) – The flow to run</p>
+</dd>
+</dl>
+<p>When running the flow as a main program, the following flags are
+available:</p>
+<p><strong>Flow Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-d</span></code>, <code class="docutils literal notranslate"><span class="pre">--dump</span></code> <code class="docutils literal notranslate"><span class="pre">YAML_FILE</span></code>: Dump the configuration description
+to the specified file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-r</span></code>, <code class="docutils literal notranslate"><span class="pre">--run</span></code> <code class="docutils literal notranslate"><span class="pre">YAML_FILE</span></code>: Run the flow with the configurations
+in the given file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v</span></code>, <code class="docutils literal notranslate"><span class="pre">--validate</span></code> <code class="docutils literal notranslate"><span class="pre">YAML_FILE</span></code>: Validate (but do not run) the
+flow with the configurations in the given file</p></li>
+</ul>
+<p><strong>Other Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-l</span></code>, <code class="docutils literal notranslate"><span class="pre">--logfile</span></code> <code class="docutils literal notranslate"><span class="pre">LOGFILE</span></code>: Add a path to log the flow’s
+output to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-s</span></code>, <code class="docutils literal notranslate"><span class="pre">--silent</span></code>: Prevent the flow from outputting to the command
+line</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-h</span></code>, <code class="docutils literal notranslate"><span class="pre">--help</span></code>: Show the program’s usage and exit</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="records.tag_record.get_tag_headers">
+<span class="sig-prename descclassname"><span class="pre">records.tag_record.</span></span><span class="sig-name descname"><span class="pre">get_tag_headers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#records.tag_record.get_tag_headers" title="Link to this definition"></a></dt>
+<dd><p>Create the headers for a TagRecords, based on its labs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labs</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – The labs that a TagRecords hold.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The corresponding spreadsheet headers that should be used to
+represent the TagRecords</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="github_steps.tag_repo.get_tagger">
+<span class="sig-prename descclassname"><span class="pre">github_steps.tag_repo.</span></span><span class="sig-name descname"><span class="pre">get_tagger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repo_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'personal'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'group'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag_records_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">RecordType</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><span class="pre">FlowPropagateStep</span></a><span class="p"><span class="pre">[</span></span><span class="pre">RecordType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#github_steps.tag_repo.get_tagger" title="Link to this definition"></a></dt>
+<dd><p>Return a propagate step that tags a specific lab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lab</strong> (<em>str</em>) – The lab to tag for.</p></li>
+<li><p><strong>repo_type</strong> (<em>Literal</em><em>[</em><em>'personal'</em><em>, </em><em>'group'</em><em>]</em>) – The type of repo to tag</p></li>
+<li><p><strong>tag_records_type</strong> – The type of TagRagords to operate on</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated class to tag the lab</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Type[<a class="reference internal" href="../propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep">FlowPropagateStep</a>[RecordType]]</p>
+</dd>
+</dl>
+<p>For example, to add a tagger to a <a class="reference internal" href="../flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a> named
+<code class="docutils literal notranslate"><span class="pre">tag-lab1.1</span></code> that tags all personal repos for the <code class="docutils literal notranslate"><span class="pre">lab1.1</span></code> submission,
+one could do the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">flow</span><span class="o">.</span><span class="n">add_propagate_step</span><span class="p">(</span>
+    <span class="s2">&quot;tag-lab1.1&quot;</span><span class="p">,</span> <span class="n">get_tagger</span><span class="p">(</span><span class="s2">&quot;lab1.1&quot;</span><span class="p">,</span> <span class="s2">&quot;personal&quot;</span><span class="p">,</span> <span class="n">LabTagRecords</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../propagate_steps/#github_steps.tag_repo.RepoTagger" title="github_steps.tag_repo.RepoTagger"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepoTagger</span></code></a> for information on
+the generated/returned class type.</p>
+</dd></dl>
+
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flow.flow_steps.ValidConfigTypes">
+<span class="sig-prename descclassname"><span class="pre">flow.flow_steps.</span></span><span class="sig-name descname"><span class="pre">ValidConfigTypes</span></span><a class="headerlink" href="#flow.flow_steps.ValidConfigTypes" title="Link to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowStep">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flow.flow_steps.</span></span><span class="sig-name descname"><span class="pre">FlowStep</span></span><a class="headerlink" href="#flow.flow_steps.FlowStep" title="Link to this definition"></a></dt>
+<dd><p>A base class representing an abstract step in our flow.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowStep.description">
+<em class="property"><span class="k"><span class="pre">abstract</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#flow.flow_steps.FlowStep.description" title="Link to this definition"></a></dt>
+<dd><p>A high-level description of the step</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowStep.config_types">
+<em class="property"><span class="k"><span class="pre">abstract</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">ValidConfigTypes</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#flow.flow_steps.FlowStep.config_types" title="Link to this definition"></a></dt>
+<dd><p>The types of the configurations for the step. Each tuple in the list
+should include the name, type, and description of a configuration
+(respectively).</p>
+</dd></dl>
+
+<p>Based on the <code class="docutils literal notranslate"><span class="pre">config_types</span></code>, an instance of the class will have an
+attribute <code class="docutils literal notranslate"><span class="pre">configs</span></code> with each described configuration. For example,
+if <code class="docutils literal notranslate"><span class="pre">config_types</span></code> is defined as</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config_types</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="s2">&quot;A test configuration&quot;</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>then instances of the class will have an attribute <code class="docutils literal notranslate"><span class="pre">configs.test</span></code> of
+type <code class="docutils literal notranslate"><span class="pre">int</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowStep.validate">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#flow.flow_steps.FlowStep.validate" title="Link to this definition"></a></dt>
+<dd><p>Validate the configurations for the step.</p>
+<p>This function should inspect the object’s <code class="docutils literal notranslate"><span class="pre">configs</span></code> attribute, and
+perform any static validation possible. <a class="reference internal" href="#flow.flow_steps.FlowStep.validate" title="flow.flow_steps.FlowStep.validate"><code class="xref py py-func docutils literal notranslate"><span class="pre">validate()</span></code></a> is
+always called on object initialization to ensure that configurations
+are always valid</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="records.tag_record.TagRecord">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">records.tag_record.</span></span><span class="sig-name descname"><span class="pre">TagRecord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_sha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">commit_sha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#records.tag_record.TagRecord" title="Link to this definition"></a></dt>
+<dd><p>A (possible) representation of a tag on a repository.</p>
+<p>A TagRecord does not have to represent a current tag; it can also
+serve as a placeholder for a tag that hasn’t been created yet.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">name</span></span></dt>
+<dd><p>The name of the tag</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">time</span></span></dt>
+<dd><p>The time the tag was created</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[datetime]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">ref_sha</span></span></dt>
+<dd><p>The SHA-1 Hash of the Git Reference</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">commit_sha</span></span></dt>
+<dd><p>The SHA-1 Hash of the commit that the tag references</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="records.tag_record.TagRecord.tagged">
+<span class="sig-name descname"><span class="pre">tagged</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#records.tag_record.TagRecord.tagged" title="Link to this definition"></a></dt>
+<dd><p>Return whether the repo has already been tagged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether the record represents an actual tag</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../flow_manager/" class="btn btn-neutral float-left" title="Flow Manager" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../utilities/" class="btn btn-neutral float-right" title="Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Aidan McNay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

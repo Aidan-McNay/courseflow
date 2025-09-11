@@ -1,0 +1,783 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial &mdash; courseflow 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/code_link.css?v=b5f1985d" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=51fd25b1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Linting" href="../linting/" />
+    <link rel="prev" title="Installation" href="../installation/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            courseflow
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview/">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../prerequisites/">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#building-a-flow">Building a Flow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overall-flow-and-record-storer">Overall Flow and Record Storer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-record-step">Adding a Record Step</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-an-update-step">Adding an Update Step</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-propagate-step">Adding a Propagate Step</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-the-flow">Configuring the Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementing-new-steps">Implementing New Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-a-flow-to-a-flow-manager">Adding a Flow to a Flow Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../linting/">Linting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/records/">Records</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/record_steps/">Record Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/update_steps/">Update Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/propagate_steps/">Propagate Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/record_storers/">Record Storers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/flow/">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/metadata/">Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/schedules/">Schedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/flow_manager/">Flow Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/miscellaneous/">Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/utilities/">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">courseflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Aidan-McNay/courseflow/blob/main/docs/getting_started/tutorial.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Link to this heading"></a></h1>
+<p>This tutorial will walk you through using the framework. You’ll gain
+experience building a flow completely, configuring the flow, and then
+swapping out steps for ones of your own design!</p>
+<div class="tip admonition">
+<p class="admonition-title">Tutorial Actions</p>
+<p>You will see cards similar to this one throughout the tutorial. These
+indicate actions that you should take as part of the tutorial</p>
+</div>
+<p>The tutorial assumes that you have already completed all of the
+<a class="reference internal" href="../installation/"><span class="std std-doc">local setup</span></a>. No API key setup is required.</p>
+<section id="building-a-flow">
+<h2>Building a Flow<a class="headerlink" href="#building-a-flow" title="Link to this heading"></a></h2>
+<p>We’ll get started by building a basic flow. <code class="docutils literal notranslate"><span class="pre">courseflow</span></code> has
+implemented “basic” steps (in <code class="docutils literal notranslate"><span class="pre">utils.basic_steps</span></code>) for this purpose,
+to serve as minimal examples as to what each step needs to do. These may
+also be useful later to reference when building your own steps!</p>
+<div class="tip admonition">
+<p class="admonition-title">Starting our Python script</p>
+<p>Let’s start our flow by importing the different steps we’ll need. For
+this tutorial, we’ll be using:</p>
+<ul class="simple">
+<li><p>A few steps from <code class="docutils literal notranslate"><span class="pre">utils.basic_steps`</span></code></p></li>
+<li><p>The main <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a> class</p></li>
+<li><p>A helper function <a class="reference internal" href="../../library_reference/miscellaneous/#flow.run_flow.run_flow" title="flow.run_flow.run_flow"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_flow()</span></code></a>, which runs our
+flow as a program, and provides argument parsing to interact with the
+flow</p></li>
+</ul>
+<p>Open up a new Python file using your preferred code editor, named
+<code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code>, and put the following imports at the top:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">utils.basic_steps</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BasicRecordStorer</span><span class="p">,</span>
+    <span class="n">BasicRecordStep</span><span class="p">,</span>
+    <span class="n">BasicUpdateStep</span><span class="p">,</span>
+    <span class="n">BasicPropagateStep</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flow.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flow</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flow.run_flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_flow</span>
+</pre></div>
+</div>
+</div>
+<section id="overall-flow-and-record-storer">
+<h3>Overall Flow and Record Storer<a class="headerlink" href="#overall-flow-and-record-storer" title="Link to this heading"></a></h3>
+<p>The first thing to do is to construct a <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a>. Each
+flow needs a <a class="reference internal" href="../../library_reference/record_storers/#flow.record_storer.RecordStorer" title="flow.record_storer.RecordStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecordStorer</span></code></a>; for this
+tutorial, we’ll use <a class="reference internal" href="../../library_reference/record_storers/#utils.basic_steps.BasicRecordStorer" title="utils.basic_steps.BasicRecordStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicRecordStorer</span></code></a>,
+which stores integers in a file</p>
+<div class="tip admonition">
+<p class="admonition-title">Instantiating a Flow</p>
+<p>Let’s create a flow! In <code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code>, instantiate a flow as
+<code class="docutils literal notranslate"><span class="pre">basic_flow</span></code> like the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">basic_flow</span> <span class="o">=</span> <span class="n">Flow</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;basic-flow&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A basic flow to access and manipulate integer records&quot;</span><span class="p">,</span>
+    <span class="n">record_storer_type</span><span class="o">=</span><span class="n">BasicRecordStorer</span><span class="p">,</span>
+    <span class="n">record_storer_name</span><span class="o">=</span><span class="s2">&quot;basic-storer&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, we’re specifying:</p>
+<ul class="simple">
+<li><p>The new flow is named <code class="docutils literal notranslate"><span class="pre">basic-flow</span></code></p></li>
+<li><p>The flow’s high-level description is to access and manipulate integers</p></li>
+<li><p>The flow’s record storer is a <a class="reference internal" href="../../library_reference/record_storers/#utils.basic_steps.BasicRecordStorer" title="utils.basic_steps.BasicRecordStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicRecordStorer</span></code></a>,
+given the name <code class="docutils literal notranslate"><span class="pre">basic-storer</span></code></p></li>
+</ul>
+<p>Note that a <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a> needs to know what type of
+records it operates on; it’s generic across record types, seen in the
+documentation as <code class="docutils literal notranslate"><span class="pre">RecordType</span></code>. Here, the flow can figure out that it
+operates on integers based on that
+<a class="reference internal" href="../../library_reference/record_storers/#utils.basic_steps.BasicRecordStorer" title="utils.basic_steps.BasicRecordStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicRecordStorer</span></code></a>
+can only operate on integers, but explicitly specifying the type of
+records using the following syntax would also be valid:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">basic_flow</span> <span class="o">=</span> <span class="n">Flow</span><span class="p">[</span><span class="nb">int</span><span class="p">](</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;basic-flow&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A basic flow to access and manipulate integer records&quot;</span><span class="p">,</span>
+    <span class="n">record_storer_type</span><span class="o">=</span><span class="n">BasicRecordStorer</span><span class="p">,</span>
+    <span class="n">record_storer_name</span><span class="o">=</span><span class="s2">&quot;basic-storer&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="adding-a-record-step">
+<h3>Adding a Record Step<a class="headerlink" href="#adding-a-record-step" title="Link to this heading"></a></h3>
+<p>The first step in a flow is a <a class="reference internal" href="../../library_reference/record_steps/#flow.flow_steps.FlowRecordStep" title="flow.flow_steps.FlowRecordStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowRecordStep</span></code></a>.
+For this tutorial, we’ll use
+<a class="reference internal" href="../../library_reference/record_steps/#utils.basic_steps.BasicRecordStep" title="utils.basic_steps.BasicRecordStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicRecordStep</span></code></a> to supply records. This
+record step always appends a new integer record (random between 0 and 10)
+to the list of records.</p>
+<div class="tip admonition">
+<p class="admonition-title">Adding a <a class="reference internal" href="../../library_reference/record_steps/#utils.basic_steps.BasicRecordStep" title="utils.basic_steps.BasicRecordStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicRecordStep</span></code></a></p>
+<p>To add this step to your flow, use the
+<a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow.add_record_step" title="flow.flow.Flow.add_record_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_record_step()</span></code></a> method of the flow. Add the
+following to <code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code> to add an instance of this step named
+<code class="docutils literal notranslate"><span class="pre">new-integer</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">basic_flow</span><span class="o">.</span><span class="n">add_record_step</span><span class="p">(</span><span class="s2">&quot;new-integer&quot;</span><span class="p">,</span> <span class="n">BasicRecordStep</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Matching Record Types:</p>
+<p>Here, notice that <a class="reference internal" href="../../library_reference/record_steps/#utils.basic_steps.BasicRecordStep" title="utils.basic_steps.BasicRecordStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicRecordStep</span></code></a>
+operates on <code class="docutils literal notranslate"><span class="pre">int</span></code> records, the same as the overall flow. If these
+didn’t match, our linter would throw an error during type-checking.
+The same goes for all other steps that we add.</p>
+</div>
+</section>
+<section id="adding-an-update-step">
+<h3>Adding an Update Step<a class="headerlink" href="#adding-an-update-step" title="Link to this heading"></a></h3>
+<p>Next, we can add a <a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a>.
+For this tutorial, we’ll use
+<a class="reference internal" href="../../library_reference/update_steps/#utils.basic_steps.BasicUpdateStep" title="utils.basic_steps.BasicUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicUpdateStep</span></code></a> to update records. This
+update step increments each record by a configurable amount.</p>
+<div class="tip admonition">
+<p class="admonition-title">Adding two <a class="reference internal" href="../../library_reference/update_steps/#utils.basic_steps.BasicUpdateStep" title="utils.basic_steps.BasicUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicUpdateStep</span></code></a></p>
+<p>Let’s add two of these steps to the flow! We’ll do this using the
+<a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow.add_update_step" title="flow.flow.Flow.add_update_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_update_step()</span></code></a> method of the flow.
+Add the following to <code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code> to add two instances of
+<a class="reference internal" href="../../library_reference/update_steps/#utils.basic_steps.BasicUpdateStep" title="utils.basic_steps.BasicUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicUpdateStep</span></code></a>, named
+<code class="docutils literal notranslate"><span class="pre">increment-1</span></code> and <code class="docutils literal notranslate"><span class="pre">increment-2</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">basic_flow</span><span class="o">.</span><span class="n">add_update_step</span><span class="p">(</span><span class="s2">&quot;increment-1&quot;</span><span class="p">,</span> <span class="n">BasicUpdateStep</span><span class="p">)</span>
+<span class="n">basic_flow</span><span class="o">.</span><span class="n">add_update_step</span><span class="p">(</span><span class="s2">&quot;increment-2&quot;</span><span class="p">,</span> <span class="n">BasicUpdateStep</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>We can also use this opportunity to specify dependencies between steps.
+<a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow.add_update_step" title="flow.flow.Flow.add_update_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_update_step()</span></code></a> supports an additional
+parameter, <code class="docutils literal notranslate"><span class="pre">depends_on</span></code>, to specify the names of steps that the new
+step depends on. The new step will only be run after the steps it depends
+on have completed</p>
+<div class="tip admonition">
+<p class="admonition-title">Adding a dependent <a class="reference internal" href="../../library_reference/update_steps/#utils.basic_steps.BasicUpdateStep" title="utils.basic_steps.BasicUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicUpdateStep</span></code></a></p>
+<p>Let’s add another <a class="reference internal" href="../../library_reference/update_steps/#utils.basic_steps.BasicUpdateStep" title="utils.basic_steps.BasicUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicUpdateStep</span></code></a> to
+the flow (named <code class="docutils literal notranslate"><span class="pre">increment-3</span></code>), and have it depend on
+<code class="docutils literal notranslate"><span class="pre">increment-2</span></code>. Do this by adding the following to <code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">basic_flow</span><span class="o">.</span><span class="n">add_update_step</span><span class="p">(</span>
+    <span class="s2">&quot;increment-3&quot;</span><span class="p">,</span> <span class="n">BasicUpdateStep</span><span class="p">,</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;increment-2&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="adding-a-propagate-step">
+<h3>Adding a Propagate Step<a class="headerlink" href="#adding-a-propagate-step" title="Link to this heading"></a></h3>
+<p>Lastly, we can add a <a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a>
+to the flow. For this tutorial, we’ll
+use <a class="reference internal" href="../../library_reference/propagate_steps/#utils.basic_steps.BasicPropagateStep" title="utils.basic_steps.BasicPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicPropagateStep</span></code></a>, which logs the sum
+of all of the records.</p>
+<div class="tip admonition">
+<p class="admonition-title">Adding a <a class="reference internal" href="../../library_reference/propagate_steps/#utils.basic_steps.BasicPropagateStep" title="utils.basic_steps.BasicPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicPropagateStep</span></code></a></p>
+<p>To add this step to the flow, use the
+<a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow.add_propagate_step" title="flow.flow.Flow.add_propagate_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_propagate_step()</span></code></a> method of the flow.
+Add the following to <code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code> to add an instance of
+<a class="reference internal" href="../../library_reference/propagate_steps/#utils.basic_steps.BasicPropagateStep" title="utils.basic_steps.BasicPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicPropagateStep</span></code></a>, named
+<code class="docutils literal notranslate"><span class="pre">print-sum</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">basic_flow</span><span class="o">.</span><span class="n">add_propagate_step</span><span class="p">(</span><span class="s2">&quot;print-sum&quot;</span><span class="p">,</span> <span class="n">BasicPropagateStep</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow.add_propagate_step" title="flow.flow.Flow.add_propagate_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_propagate_step()</span></code></a> also supports
+an optional <code class="docutils literal notranslate"><span class="pre">depends_on</span></code> parameter, although we don’t use it here.</p>
+</div>
+<p>With this, our flow is complete! The diagram below visualizes the
+dependencies in our flow, indicating how it might execute over time:</p>
+<a class="reference internal image-reference" href="../../_images/basic_flow.jpg"><img alt="An example dependency diagram of our basic flow" class="align-center" src="../../_images/basic_flow.jpg" style="width: 50%;" />
+</a>
+<p>While the flow is just an object, we can use the
+<a class="reference internal" href="../../library_reference/miscellaneous/#flow.run_flow.run_flow" title="flow.run_flow.run_flow"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_flow()</span></code></a> helper function as a wrapper
+to run the flow.</p>
+<div class="tip admonition">
+<p class="admonition-title">Making a flow a program</p>
+<p>Add the following to use the <a class="reference internal" href="../../library_reference/miscellaneous/#flow.run_flow.run_flow" title="flow.run_flow.run_flow"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_flow()</span></code></a> helper
+function to run the flow when <code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code> is used as a main
+script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">run_flow</span><span class="p">(</span><span class="n">basic_flow</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code> is now complete; however, to be able to run, we still must
+specify configurations for the flow.</p>
+<div class="tip admonition">
+<p class="admonition-title">A main program with <a class="reference internal" href="../../library_reference/miscellaneous/#flow.run_flow.run_flow" title="flow.run_flow.run_flow"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_flow()</span></code></a></p>
+<p>Even though we can’t run the flow itself, we can still see the ways
+that <a class="reference internal" href="../../library_reference/miscellaneous/#flow.run_flow.run_flow" title="flow.run_flow.run_flow"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_flow()</span></code></a> allows us to interact with
+a flow. Run the following command from a terminal in the same directory
+as <code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code> to see the possible arguments:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>basic_flow.py<span class="w"> </span>-h
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="configuring-the-flow">
+<h2>Configuring the Flow<a class="headerlink" href="#configuring-the-flow" title="Link to this heading"></a></h2>
+<p>The easiest way to determine what configurations a flow needs, it’s
+easiest to have the flow describe its expected configurations with the
+<a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow.describe_config" title="flow.flow.Flow.describe_config"><code class="xref py py-meth docutils literal notranslate"><span class="pre">describe_config()</span></code></a> method.
+<a class="reference internal" href="../../library_reference/miscellaneous/#flow.run_flow.run_flow" title="flow.run_flow.run_flow"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_flow()</span></code></a> allows us to dump these in a YAML
+format with the <code class="docutils literal notranslate"><span class="pre">--dump</span></code> flag.</p>
+<div class="tip admonition">
+<p class="admonition-title">Dumping expected configurations</p>
+<p>Run the following command from a terminal in the same directory
+as <code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code> to dump the expected configurations to
+a file named <code class="docutils literal notranslate"><span class="pre">basic_flow_configs.yaml</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>basic_flow.py<span class="w"> </span>--dump<span class="w"> </span>basic_flow_configs.yaml
+</pre></div>
+</div>
+</div>
+<p>Opening the YAML file, you shoudl find configurations similar to those
+shown below. The only difference should be the formatting; the raw YAML
+output may not be grouped intuitively, unlike the example below. Grouping
+the configurations intuitively is often useful.</p>
+<div class="toggle docutils container">
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># ========================================================================</span>
+<span class="c1"># Basic Flow Configurations</span>
+<span class="c1"># ========================================================================</span>
+
+<span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic flow to access and manipulate integer records</span>
+<span class="nt">num_threads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(int) The number of threads to use when running update and propagate</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">steps</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># Step Modes</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">basic-storer-mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(str) The mode to run basic-storer in (either &#39;include&#39; or &#39;debug&#39;)</span>
+
+<span class="nt">new-integer-mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(str) The mode to run increment-1 in (either &#39;include&#39;, &#39;exclude&#39;,</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">or &#39;debug&#39;)</span>
+
+<span class="nt">increment-1-mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(str) The mode to run increment-1 in (either &#39;include&#39;, &#39;exclude&#39;,</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">or &#39;debug&#39;)</span>
+<span class="nt">increment-2-mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(str) The mode to run increment-1 in (either &#39;include&#39;, &#39;exclude&#39;,</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">or &#39;debug&#39;)</span>
+<span class="nt">increment-3-mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(str) The mode to run increment-1 in (either &#39;include&#39;, &#39;exclude&#39;,</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">or &#39;debug&#39;)</span>
+
+<span class="nt">print-sum-mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(str) The mode to run increment-1 in (either &#39;include&#39;, &#39;exclude&#39;,</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">or &#39;debug&#39;)</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># RecordStorer</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">basic-storer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic record storer that stores integers in a file.</span>
+<span class="w">  </span><span class="nt">file_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(str) The path to a file to store records</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># FlowRecordStep</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">new-integer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic flow record step to add a (changing) new record.</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># FlowUpdateStep</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">increment-1</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic flow update step to increment all records</span>
+<span class="w">  </span><span class="nt">increment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(int) The amount to increment by</span>
+<span class="nt">increment-2</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic flow update step to increment all records</span>
+<span class="w">  </span><span class="nt">increment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(int) The amount to increment by</span>
+<span class="nt">increment-3</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic flow update step to increment all records</span>
+<span class="w">  </span><span class="nt">increment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(int) The amount to increment by</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># FlowPropagateStep</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">print-sum</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic flow propagate step to log the sum of all records</span>
+</pre></div>
+</div>
+</div>
+<p>Here, we can see a few elements of the configurations:</p>
+<ul class="simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">num_threads</span></code> configuration, indicating how many threads to run
+update and propagate steps in parallel with</p></li>
+<li><p>An entry for each step that has been added to the flow, which includes
+any configurations that the steps need</p></li>
+</ul>
+<p>In addition to the above, you’ll see elements named <code class="docutils literal notranslate"><span class="pre">_description</span></code>; these
+are the high-level descriptions of the flow and each step. These are used
+as a workaround to provide comments in the YAML file. While it may be
+useful to keep these to describe the configuration, they aren’t necessary,
+and can be deleted as long as each step is still present and has at least
+one element in the configuration.</p>
+<p>Each configuration is pre-filled with a description of what should go
+in that entry. To configure the design, replace these entries with your
+desired configurations.</p>
+<div class="tip admonition">
+<p class="admonition-title">Configuring the flow</p>
+<p>Using your preferred code editor, replace the configurations in
+<code class="docutils literal notranslate"><span class="pre">basic_flow_configs.yaml</span></code> as appropriate to configure the flow. An
+example is provided below</p>
+<div class="toggle highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># ========================================================================</span>
+<span class="c1"># Basic Flow Configurations</span>
+<span class="c1"># ========================================================================</span>
+
+<span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic flow to access and manipulate integer records</span>
+<span class="nt">num_threads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># Step Modes</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">basic-storer-mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">include</span>
+
+<span class="nt">new-integer-mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">include</span>
+
+<span class="nt">increment-1-mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">include</span>
+<span class="nt">increment-2-mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">include</span>
+<span class="nt">increment-3-mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">include</span>
+
+<span class="nt">print-sum-mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">include</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># RecordStorer</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">basic-storer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic record storer that stores integers in a file.</span>
+<span class="w">  </span><span class="nt">file_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./basic-flow-records.txt</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># FlowRecordStep</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">new-integer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic flow record step to add a (changing) new record.</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># FlowUpdateStep</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">increment-1</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic flow record step to increment all records</span>
+<span class="w">  </span><span class="nt">increment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">increment-2</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic flow record step to increment all records</span>
+<span class="w">  </span><span class="nt">increment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="nt">increment-3</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic flow record step to increment all records</span>
+<span class="w">  </span><span class="nt">increment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+
+<span class="c1"># ------------------------------------------------------------------------</span>
+<span class="c1"># FlowPropagateStep</span>
+<span class="c1"># ------------------------------------------------------------------------</span>
+
+<span class="nt">print-sum</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A basic flow record step to log the sum of all records</span>
+</pre></div>
+</div>
+</div>
+<p>Once the flow has configurations, we can do one of two things:</p>
+<ul class="simple">
+<li><p>A flow can be <strong>validated</strong> with given configurations. This constructs
+the flow with the given configurations, and checks that all necessary
+configurations are present and of the correct type (but does not
+actually run the flow). If you’re ever curious whether your
+configurations will work, you can try validating the flow with them.</p></li>
+<li><p>A flow can be <strong>run</strong> with given configurations. This constructs and
+runs the flow with the configurations. In general, a flow should be
+validated with configurations before it is run with them (although
+running a flow will also first check that the configurations are
+valid)</p></li>
+</ul>
+<div class="tip admonition">
+<p class="admonition-title">Validating and running a flow</p>
+<p><a class="reference internal" href="../../library_reference/miscellaneous/#flow.run_flow.run_flow" title="flow.run_flow.run_flow"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_flow()</span></code></a> allows us to validate or run a
+flow with the <code class="docutils literal notranslate"><span class="pre">--validate</span></code> and <code class="docutils literal notranslate"><span class="pre">--run</span></code> flags, respectively. First,
+validate the flow with our new configurations by running the following
+command in a terminal in the same directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>basic_flow.py<span class="w"> </span>--validate<span class="w"> </span>basic_flow_configs.yaml
+</pre></div>
+</div>
+<p>This should display <code class="docutils literal notranslate"><span class="pre">Validated,</span> <span class="pre">ready</span> <span class="pre">to</span> <span class="pre">deploy!</span></code> if the
+configurations are valid; otherwise, it will tell you what the issues
+are. Try removing some configurations, or providing an invalid
+configuration (negative increment, incorrect type), and re-run the
+above command; what do you get?</p>
+<p>Once your configurations are validated, you can run the flow with the
+following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>basic_flow.py<span class="w"> </span>--run<span class="w"> </span>basic_flow_configs.yaml
+</pre></div>
+</div>
+<p>This should provide logging output of what the flow is doing, and
+create/update the configured file to store integer records. You’ve just
+run your first flow!</p>
+<p>Once you’ve run the flow, feel free to run the flow multiple times to
+see how the behavior changes, or experiment with the other flags that
+<a class="reference internal" href="../../library_reference/miscellaneous/#flow.run_flow.run_flow" title="flow.run_flow.run_flow"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_flow()</span></code></a> offers. You can also try modifying
+the flow configurations to see how they change the flow’s
+functionality, including the mode that each step is run in.</p>
+</div>
+</section>
+<section id="implementing-new-steps">
+<h2>Implementing New Steps<a class="headerlink" href="#implementing-new-steps" title="Link to this heading"></a></h2>
+<p>While the existing steps are a great start, users will often want to
+implement their own steps for their own needs. This involves:</p>
+<ul class="simple">
+<li><p>Consulting the documentation to see what a step needs to implement</p></li>
+<li><p>Implementing the step</p></li>
+<li><p><em>(Recommended)</em> Linting to ensure type safety. This likely requires
+in-place modifications to the library</p></li>
+</ul>
+<div class="tip admonition">
+<p class="admonition-title">Creating a new propagation step</p>
+<p>For this tutorial, we’ll be creating a new
+<a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a> class named
+<code class="docutils literal notranslate"><span class="pre">MyPropagateStep</span></code>. You can click on
+<a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a> to jump to its
+documentation. Take note that we’ll need to implement</p>
+<ul class="simple">
+<li><p>A description of the step</p></li>
+<li><p>Any configurations the step needs</p></li>
+<li><p>A <a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep.validate" title="flow.flow_steps.FlowPropagateStep.validate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">validate()</span></code></a> method to
+check the step’s configurations</p></li>
+<li><p>A <a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep.propagate_records" title="flow.flow_steps.FlowPropagateStep.propagate_records"><code class="xref py py-meth docutils literal notranslate"><span class="pre">propagate_records()</span></code></a>
+method to perform the step</p></li>
+</ul>
+</div>
+<p>For this tutorial, <code class="docutils literal notranslate"><span class="pre">MyPropagateStep</span></code> will log an ASCII representation of
+the records. Specifically, it will (without modifying the overall record
+list):</p>
+<ul class="simple">
+<li><p>Take the modulus of each record to have it be on the range 0 - 93, and
+then add 33 to get a number on the range 33 - 126 (the range of visible
+ASCII character values)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">chr()</span></code> to convert the record into a character</p></li>
+<li><p>Log the string of characters for all records in-order</p></li>
+</ul>
+<p>Furthermore, to restrict the characters we use, the modulus
+should be configurable. <code class="docutils literal notranslate"><span class="pre">MyPropagationStep</span></code> should take in a configuration
+<code class="docutils literal notranslate"><span class="pre">modulus</span></code> (an <code class="docutils literal notranslate"><span class="pre">int</span></code>) that is the modulus we take for each record above.
+<code class="docutils literal notranslate"><span class="pre">MyPropagationStep.validate()</span></code> should check that this value is positive
+and less than 95, so that we don’t run into issues with conversion.</p>
+<p>Lastly, in the main <code class="docutils literal notranslate"><span class="pre">propagate_records</span></code> function, <code class="docutils literal notranslate"><span class="pre">MyPropagateStep</span></code> should
+use the provided <code class="docutils literal notranslate"><span class="pre">logger</span></code> to log the resulting string. If <code class="docutils literal notranslate"><span class="pre">debug</span></code> is true,
+the step should also log the conversion it performs on each record as it
+does them.</p>
+<div class="tip admonition">
+<p class="admonition-title">Implementing <code class="docutils literal notranslate"><span class="pre">MyPropagateStep</span></code></p>
+<p>Using the information above, as well as referencing the
+<a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a> documentation, see if
+you can implement <code class="docutils literal notranslate"><span class="pre">MyPropagateStep</span></code>!</p>
+<p>A key part is getting the syntax right when declaring the class; this
+may be tricky for programmers who haven’t used generic classes before.
+<code class="docutils literal notranslate"><span class="pre">MyPropagateStep</span></code> implements/inherits from a
+<a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a> that operates on <code class="docutils literal notranslate"><span class="pre">int</span></code>
+records; since <a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a> is
+generic across the record type, we specify this using brackets. Add
+the following at the top of <code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code> to import the
+<a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a> class (as well as other
+necessary classes), and start your definition of <code class="docutils literal notranslate"><span class="pre">MyPropagateStep</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">flow.flow_steps</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlowPropagateStep</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">threading</span><span class="w"> </span><span class="kn">import</span> <span class="n">Lock</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span>
+
+<span class="o">...</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyPropagateStep</span><span class="p">(</span><span class="n">FlowPropagateStep</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A flow propagate step to log an ASCII representation of records.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Define the description of the step</span>
+
+    <span class="c1"># Define the config_types of the step</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;MyPropagateStep&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate the configurations for the step.&quot;&quot;&quot;</span>
+        <span class="c1"># Implement the `validate` function</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">propagate_records</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;MyPropagateStep&quot;</span><span class="p">,</span>
+        <span class="n">records</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Lock</span><span class="p">]],</span>
+        <span class="n">logger</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">get_metadata</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">set_metadata</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Log the ASCII representation of records.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            curr_records (list[tuple[int, Lock]]): The current list of records</span>
+<span class="sd">            logger (Callable[[str], None]): A function to log data</span>
+<span class="sd">            get_metadata (Callable[[str], Any]): A function to get flow</span>
+<span class="sd">              metadata</span>
+<span class="sd">            set_metadata (Callable[[str, Any], None]): A function to get</span>
+<span class="sd">              flow metadata</span>
+<span class="sd">            debug (bool, optional): Whether to run in debug. Defaults to</span>
+<span class="sd">              False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[int]: The new list of records</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Implement the `propagate_records` function</span>
+</pre></div>
+</div>
+<p>The trickiest portion will likely be <code class="docutils literal notranslate"><span class="pre">propagate_records</span></code>; this is
+where the main functionality comes in. Recall that the step should
+iterate over the record list, and acquire the lock for any particular
+record before accessing it. A common programming pattern for this is
+shown below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">record</span><span class="p">,</span> <span class="n">lock</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
+        <span class="c1"># Perform functionality</span>
+</pre></div>
+</div>
+<p>With this in mind, update <code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code> with an implementation of
+<code class="docutils literal notranslate"><span class="pre">MyPropagateStep</span></code>. Once you’re done, you can also check it against
+the reference implementation below. If you’re familiar with type
+annotations in Python, feel free to include them as well, although they
+aren’t the focus of this tutorial.</p>
+<div class="toggle highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyPropagateStep</span><span class="p">(</span><span class="n">FlowPropagateStep</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A flow propagate step to log an ASCII representation of records.&quot;&quot;&quot;</span>
+
+    <span class="n">description</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;A flow propagate step to log an ASCII representation of records.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">config_types</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;modulus&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="s2">&quot;The modulus to perform on records&quot;</span><span class="p">)]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;MyPropagateStep&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate the configurations for the step.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="o">.</span><span class="n">modulus</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="o">.</span><span class="n">modulus</span> <span class="o">&gt;=</span> <span class="mi">95</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid modulus: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="o">.</span><span class="n">modulus</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">propagate_records</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;MyPropagateStep&quot;</span><span class="p">,</span>
+        <span class="n">records</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Lock</span><span class="p">]],</span>
+        <span class="n">logger</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">get_metadata</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">set_metadata</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Log the ASCII representation of records.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            curr_records (list[tuple[int, Lock]]): The current list of records</span>
+<span class="sd">            logger (Callable[[str], None]): A function to log data</span>
+<span class="sd">            get_metadata (Callable[[str], Any]): A function to get flow</span>
+<span class="sd">              metadata</span>
+<span class="sd">            set_metadata (Callable[[str, Any], None]): A function to get</span>
+<span class="sd">              flow metadata</span>
+<span class="sd">            debug (bool, optional): Whether to run in debug. Defaults to</span>
+<span class="sd">              False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[int]: The new list of records</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ascii_repr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">record</span><span class="p">,</span> <span class="n">lock</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
+                <span class="n">record_char</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">((</span><span class="n">record</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="o">.</span><span class="n">modulus</span><span class="p">)</span> <span class="o">+</span> <span class="mi">33</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Adding </span><span class="si">{</span><span class="n">record</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">record_char</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+                <span class="n">ascii_repr</span> <span class="o">+=</span> <span class="n">record_char</span>
+        <span class="n">logger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ASCII Representation: </span><span class="si">{</span><span class="n">ascii_repr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Once <code class="docutils literal notranslate"><span class="pre">MyPropagateStep</span></code> has been implemented, we can use it in our flow!</p>
+<div class="tip admonition">
+<p class="admonition-title">Implementing <code class="docutils literal notranslate"><span class="pre">MyPropagateStep</span></code></p>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">BasicPropagateStep</span></code> with <code class="docutils literal notranslate"><span class="pre">MyPropagateStep</span></code> in our flow by
+changing the class we add to the flow with
+<a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow.add_propagate_step" title="flow.flow.Flow.add_propagate_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_propagate_step()</span></code></a>. Change the name for this
+step from <code class="docutils literal notranslate"><span class="pre">print-sum</span></code> to <code class="docutils literal notranslate"><span class="pre">print-ascii</span></code> (both in the flow and
+configurations). Finally, modify the configurations to provide a
+<code class="docutils literal notranslate"><span class="pre">modulus</span></code> configuration to the <code class="docutils literal notranslate"><span class="pre">print-ascii</span></code> step, then validate
+and run the flow as before. What output do you get?</p>
+</div>
+</section>
+<section id="adding-a-flow-to-a-flow-manager">
+<h2>Adding a Flow to a Flow Manager<a class="headerlink" href="#adding-a-flow-to-a-flow-manager" title="Link to this heading"></a></h2>
+<p>The last thing you may wish to do is to add our newly-created
+<a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a> to a <a class="reference internal" href="../../library_reference/flow_manager/#flow.flow_manager.FlowManager" title="flow.flow_manager.FlowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowManager</span></code></a>,
+to run it on a pre-determined schedule. We can re-use our implementation of
+<code class="docutils literal notranslate"><span class="pre">basic-flow</span></code>, and start our new <a class="reference internal" href="../../library_reference/flow_manager/#flow.flow_manager.FlowManager" title="flow.flow_manager.FlowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowManager</span></code></a>
+in another file</p>
+<div class="tip admonition">
+<p class="admonition-title">Starting <code class="docutils literal notranslate"><span class="pre">basic_flow_manager</span></code></p>
+<p>Using your preferred code editor, open a new Python file named
+<code class="docutils literal notranslate"><span class="pre">basic_flow_manager.py</span></code> in the same directory as <code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code>,
+and add the following imports to start our file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">basic_flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">basic_flow</span>         <span class="c1"># Our flow from before</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flow.flow_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlowManager</span> <span class="c1"># The flow manager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flow.schedule</span><span class="w"> </span><span class="kn">import</span> <span class="n">Always</span>          <span class="c1"># A schedule to run our flow</span>
+</pre></div>
+</div>
+<p>From here, we can create a <a class="reference internal" href="../../library_reference/flow_manager/#flow.flow_manager.FlowManager" title="flow.flow_manager.FlowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowManager</span></code></a>,
+naming it <code class="docutils literal notranslate"><span class="pre">basic_flow_manager</span></code>, by adding the following line (noting
+that 4 processes should be used to run flows in parallel):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">basic_flow_manager</span> <span class="o">=</span> <span class="n">FlowManager</span><span class="p">(</span><span class="n">num_processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p><a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a>s can be added either already configured (with
+<a class="reference internal" href="../../library_reference/flow_manager/#flow.flow_manager.FlowManager.add_conf_flow" title="flow.flow_manager.FlowManager.add_conf_flow"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_conf_flow()</span></code></a>) or without
+configurations (with <a class="reference internal" href="../../library_reference/flow_manager/#flow.flow_manager.FlowManager.add_unconf_flow" title="flow.flow_manager.FlowManager.add_unconf_flow"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_unconf_flow()</span></code></a>).
+For this tutorial, we’ll add <code class="docutils literal notranslate"><span class="pre">basic_flow</span></code> as <em>unconfigured</em> (since we haven’t
+called <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow.config" title="flow.flow.Flow.config"><code class="xref py py-meth docutils literal notranslate"><span class="pre">config()</span></code></a> yet)</p>
+<div class="tip admonition">
+<p class="admonition-title">Adding <code class="docutils literal notranslate"><span class="pre">basic_flow</span></code></p>
+<p>We can add <code class="docutils literal notranslate"><span class="pre">basic_flow</span></code> to <code class="docutils literal notranslate"><span class="pre">basic_flow_manager</span></code> with the following
+line (using the <a class="reference internal" href="../../library_reference/schedules/#flow.schedule.Always" title="flow.schedule.Always"><code class="xref py py-class docutils literal notranslate"><span class="pre">Always</span></code></a> schedule to indicate
+that <code class="docutils literal notranslate"><span class="pre">basic_flow</span></code> should be run whenever <code class="docutils literal notranslate"><span class="pre">basic_flow_manager</span></code> is run).</p>
+<p>This additionally tells <code class="docutils literal notranslate"><span class="pre">basic_flow_manager</span></code> which configuration file
+to use to configure <code class="docutils literal notranslate"><span class="pre">basic_flow</span></code>, as well as that we want to have the
+terminal show the output of <code class="docutils literal notranslate"><span class="pre">basic_flow</span></code> when it runs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">basic_flow_manager</span><span class="o">.</span><span class="n">add_unconf_flow</span><span class="p">(</span>
+    <span class="n">basic_flow</span><span class="p">,</span> <span class="n">Always</span><span class="p">(),</span> <span class="s2">&quot;./configs/basic-flow-configs.yaml&quot;</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The last step is to run the <a class="reference internal" href="../../library_reference/flow_manager/#flow.flow_manager.FlowManager" title="flow.flow_manager.FlowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowManager</span></code></a> with the
+<a class="reference internal" href="../../library_reference/flow_manager/#flow.flow_manager.FlowManager.run" title="flow.flow_manager.FlowManager.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">run()</span></code></a> method</p>
+<div class="tip admonition">
+<p class="admonition-title">Running <code class="docutils literal notranslate"><span class="pre">basic_flow_manager</span></code></p>
+<p>Finish <code class="docutils literal notranslate"><span class="pre">basic_flow_manager.py</span></code> by adding the following line to run
+<code class="docutils literal notranslate"><span class="pre">basic_flow_manager</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">basic_flow_manager</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>From here, we can run the flow as a normal Python file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>basic_flow_manager.py
+</pre></div>
+</div>
+<p>This should run <code class="docutils literal notranslate"><span class="pre">basic_flow</span></code> according to the <code class="docutils literal notranslate"><span class="pre">Always</span></code> schedule, and
+should produce very similar output to <code class="docutils literal notranslate"><span class="pre">basic_flow.py</span></code></p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../installation/" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../linting/" class="btn btn-neutral float-right" title="Linting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Aidan McNay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

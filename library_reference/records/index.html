@@ -1,0 +1,544 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Records &mdash; courseflow 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/code_link.css?v=b5f1985d" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=51fd25b1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Record Steps" href="../record_steps/" />
+    <link rel="prev" title="Linting" href="../../getting_started/linting/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            courseflow
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/overview/">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/prerequisites/">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/tutorial/">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/linting/">Linting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Records</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#base-classes">Base Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#records.spreadsheet_record.SpreadsheetRecord"><code class="docutils literal notranslate"><span class="pre">SpreadsheetRecord</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#implementations">Implementations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#records.student_record.StudentRecord"><code class="docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#records.tag_record.TagRecords"><code class="docutils literal notranslate"><span class="pre">TagRecords</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../record_steps/">Record Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update_steps/">Update Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../propagate_steps/">Propagate Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../record_storers/">Record Storers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow/">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metadata/">Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../schedules/">Schedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_manager/">Flow Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/">Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utilities/">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">courseflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Records</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Aidan-McNay/courseflow/blob/main/docs/library_reference/records.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="records">
+<h1>Records<a class="headerlink" href="#records" title="Link to this heading"></a></h1>
+<p>Records used in flows can be any types; however, steps may often only work
+with a specific subset of types. It is therefore useful to define base
+classes, such that steps will work with any type that implements the base
+class.</p>
+<section id="base-classes">
+<h2>Base Classes<a class="headerlink" href="#base-classes" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="records.spreadsheet_record.SpreadsheetRecord">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">records.spreadsheet_record.</span></span><span class="sig-name descname"><span class="pre">SpreadsheetRecord</span></span><a class="headerlink" href="#records.spreadsheet_record.SpreadsheetRecord" title="Link to this definition"></a></dt>
+<dd><p>A specific record type that can be represented in a spreadsheet.</p>
+<p>To achieve this, the object must be able to be expressed from and as
+a list of strings.</p>
+<p>Child classes must accordingly identify the headers that should be used
+in a spreadsheet that contains them:</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="records.spreadsheet_record.SpreadsheetRecord.headers">
+<em class="property"><span class="k"><span class="pre">abstract</span></span><span class="w"> </span><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">headers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#records.spreadsheet_record.SpreadsheetRecord.headers" title="Link to this definition"></a></dt>
+<dd><p>The headers to use for the given object.</p>
+<p>These should be sufficient to represent all data in an object
+instance, and be of the same order as the data in the string
+representation.</p>
+</dd></dl>
+
+<p>Additionally, child classes must implement the following two methods to
+enable translation to and from a spreadsheet representation:</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="records.spreadsheet_record.SpreadsheetRecord.to_strings">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_strings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#records.spreadsheet_record.SpreadsheetRecord.to_strings" title="Link to this definition"></a></dt>
+<dd><p>Represent itself as a list of strings.</p>
+<p>The list should be the same length as its headers, with each element
+representing the data for the corresponding header.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A representation of the instance as strings</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="records.spreadsheet_record.SpreadsheetRecord.from_strings">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_strings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#records.spreadsheet_record.SpreadsheetRecord" title="records.spreadsheet_record.SpreadsheetRecord"><span class="pre">SpreadsheetRecord</span></a></span></span><a class="headerlink" href="#records.spreadsheet_record.SpreadsheetRecord.from_strings" title="Link to this definition"></a></dt>
+<dd><p>Construct itself from a mapping of strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>header_mapping</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – A mapping of headers to the
+data under the header. Some headers may not be present, and
+the class must determine whether it can still be constructed.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of the class constructed</dt><dd><p>from the provided data</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#records.spreadsheet_record.SpreadsheetRecord" title="records.spreadsheet_record.SpreadsheetRecord">SpreadsheetRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="implementations">
+<h2>Implementations<a class="headerlink" href="#implementations" title="Link to this heading"></a></h2>
+<p>Currently, the following two classes are used by the majority of
+implemented steps to achieve the necessary functionality:</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="records.student_record.StudentRecord">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">records.student_record.</span></span><span class="sig-name descname"><span class="pre">StudentRecord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enrolled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">github_username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">github_valid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_no_username_ping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_valid_ping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sent_invite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invite_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">github_accepted</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_accepted_ping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">personal_repo_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">added_to_personal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_group_ping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_repo_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">added_to_group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#records.student_record.StudentRecord" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#records.spreadsheet_record.SpreadsheetRecord" title="records.spreadsheet_record.SpreadsheetRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpreadsheetRecord</span></code></a></p>
+<p>A record indicating a student’s status in the class.</p>
+<p>This includes metadata about the student, as well as
+attributes reflecting whether specific activities have been
+completed.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">first_name</span></span></dt>
+<dd><p>The student’s first name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">last_name</span></span></dt>
+<dd><p>The student’s last name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">netid</span></span></dt>
+<dd><p>The student’s NetID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">cuid</span></span></dt>
+<dd><p>The student’s CUID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">enrolled</span></span></dt>
+<dd><p>Whether the student is still enrolled or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">github_username</span></span></dt>
+<dd><p>The student’s GitHub username, if known</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">github_valid</span></span></dt>
+<dd><p>Whether their GitHub username is valid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">last_no_username_ping</span></span></dt>
+<dd><p>When they were last pinged about not submitting a GitHub username</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[datetime.datetime]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">last_valid_ping</span></span></dt>
+<dd><p>When they were last pinged about their invalid GitHub username,
+if at all</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[datetime.datetime]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">sent_invite</span></span></dt>
+<dd><p>Whether they’ve been sent a GitHub invitation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">invite_date</span></span></dt>
+<dd><p>When they were sent a GitHub invitation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[datetime.datetime]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">github_accepted</span></span></dt>
+<dd><p>Whether they’ve accepted their GitHub invite</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">last_accepted_ping</span></span></dt>
+<dd><p>When they were last pinged to accept the GitHub invite, if at all</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[datetime.datetime]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">personal_repo_name</span></span></dt>
+<dd><p>The name of their personal GitHub repository</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">added_to_personal</span></span></dt>
+<dd><p>Whether they’ve been added to their personal GitHub repository</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">group_num</span></span></dt>
+<dd><p>The number of their lab group on Canvas</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">group_repo_name</span></span></dt>
+<dd><p>The name of their lab group’s repo on GitHub</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">added_to_group</span></span></dt>
+<dd><p>Whether they’ve been added to their lab group’s repo on GitHub</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="records.student_record.StudentRecord.headers">
+<span class="sig-name descname"><span class="pre">headers</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['First</span> <span class="pre">Name',</span> <span class="pre">'Last</span> <span class="pre">Name',</span> <span class="pre">'NetID',</span> <span class="pre">'CUID',</span> <span class="pre">'Enrolled?',</span> <span class="pre">'GithubUsername',</span> <span class="pre">'ValidUsername?',</span> <span class="pre">'LastUsernamePing',</span> <span class="pre">'LastValidPing',</span> <span class="pre">'SentInvite?',</span> <span class="pre">'InviteDate',</span> <span class="pre">'GithubAccepted?',</span> <span class="pre">'LastAcceptedPing',</span> <span class="pre">'PersonalRepoName',</span> <span class="pre">'AddedToPersonal?',</span> <span class="pre">'LastGroupPing',</span> <span class="pre">'GroupNum',</span> <span class="pre">'GroupRepoName',</span> <span class="pre">'AddedToGroup?']</span></em><a class="headerlink" href="#records.student_record.StudentRecord.headers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="records.student_record.StudentRecord.to_strings">
+<span class="sig-name descname"><span class="pre">to_strings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#records.student_record.StudentRecord.to_strings" title="Link to this definition"></a></dt>
+<dd><p>Represent the record as a list of strings.</p>
+<p>This is used to store the record in a spreadsheet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The strings that represent the record</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="records.student_record.StudentRecord.from_strings">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_strings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">StudentRecordChild</span></span></span><a class="headerlink" href="#records.student_record.StudentRecord.from_strings" title="Link to this definition"></a></dt>
+<dd><p>Form a StudentRecord from the data found under headers.</p>
+<p>This is used to obtain a record from a spreadsheet entry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>header_mapping</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – The mapping of headers to row data</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Raised if a mandatory header is missing</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The corresponding record with the desired data</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#records.student_record.StudentRecord" title="records.student_record.StudentRecord">StudentRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="records.tag_record.TagRecords">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">records.tag_record.</span></span><span class="sig-name descname"><span class="pre">TagRecords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repo_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'personal'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'group'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#records.tag_record.TagRecords" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#records.spreadsheet_record.SpreadsheetRecord" title="records.spreadsheet_record.SpreadsheetRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpreadsheetRecord</span></code></a></p>
+<p>A collection of TagRecords for a specific repository.</p>
+<div class="note admonition">
+<p class="admonition-title">Using <a class="reference internal" href="#records.tag_record.TagRecords" title="records.tag_record.TagRecords"><code class="xref py py-class docutils literal notranslate"><span class="pre">TagRecords</span></code></a></p>
+<p><a class="reference internal" href="#records.tag_record.TagRecords" title="records.tag_record.TagRecords"><code class="xref py py-class docutils literal notranslate"><span class="pre">TagRecords</span></code></a> are meant to be
+inherited from in order to use; this is to allow flexibility with
+how many submissions/labs they represent, while maintaining string
+typing. When creating a child class, users must:</p>
+<ul class="simple">
+<li><p>Override the <code class="docutils literal notranslate"><span class="pre">labs</span></code> class attribute to represent all necessary
+labs to tag</p></li>
+<li><p>Override the <code class="docutils literal notranslate"><span class="pre">headers</span></code> attribute to accurately reflect the new
+headers needed to represent the class in a spreadsheet</p></li>
+</ul>
+<p>An example is provided below, where the resulting <code class="docutils literal notranslate"><span class="pre">MyTagRecords</span></code>
+represents tags for two lab submissions (using
+<a class="reference internal" href="../miscellaneous/#records.tag_record.get_tag_headers" title="records.tag_record.get_tag_headers"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_tag_headers()</span></code></a> to get the headers for the particular set
+of labs):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyTagRecords</span><span class="p">(</span><span class="n">TagRecords</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A custom TagRecords class&quot;&quot;&quot;</span>
+
+    <span class="n">labs</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;lab1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lab2&quot;</span>
+    <span class="p">]</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="n">get_tag_headers</span><span class="p">(</span><span class="n">labs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Instances of the resulting class will have the attributes <code class="docutils literal notranslate"><span class="pre">lab1</span></code>
+and <code class="docutils literal notranslate"><span class="pre">lab2</span></code>, each of which contain a
+<a class="reference internal" href="../miscellaneous/#records.tag_record.TagRecord" title="records.tag_record.TagRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">TagRecord</span></code></a>. If a
+lab is provided such that the name cannot be accessed as an object
+attribute using the dot syntax, users should use <code class="docutils literal notranslate"><span class="pre">getattr</span></code> and
+<code class="docutils literal notranslate"><span class="pre">setattr</span></code> appropriately to access the attributes.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="records.tag_record.TagRecords.to_strings">
+<span class="sig-name descname"><span class="pre">to_strings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#records.tag_record.TagRecords.to_strings" title="Link to this definition"></a></dt>
+<dd><p>Represent the record as a list of strings.</p>
+<p>This is used to store the record in a spreadsheet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The string representation</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="records.tag_record.TagRecords.from_strings">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_strings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#records.tag_record.TagRecords" title="records.tag_record.TagRecords"><span class="pre">TagRecords</span></a></span></span><a class="headerlink" href="#records.tag_record.TagRecords.from_strings" title="Link to this definition"></a></dt>
+<dd><p>Form a TagRecords from the data found under headers.</p>
+<p>This is used to obtain a record from a spreadsheet entry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>header_mapping</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – The mapping of headers to row data</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Raised if a mandatory header is missing</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The corresponding record with the desired data</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#records.tag_record.TagRecords" title="records.tag_record.TagRecords">TagRecords</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../getting_started/linting/" class="btn btn-neutral float-left" title="Linting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../record_steps/" class="btn btn-neutral float-right" title="Record Steps" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Aidan McNay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

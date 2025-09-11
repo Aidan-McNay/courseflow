@@ -1,0 +1,714 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Propagate Steps &mdash; courseflow 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/code_link.css?v=b5f1985d" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=51fd25b1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Record Storers" href="../record_storers/" />
+    <link rel="prev" title="Update Steps" href="../update_steps/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            courseflow
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/overview/">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/prerequisites/">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/tutorial/">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/linting/">Linting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../records/">Records</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../record_steps/">Record Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update_steps/">Update Steps</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Propagate Steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#base-class">Base Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flow.flow_steps.FlowPropagateStep"><code class="docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#implementations">Implementations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#canvas_steps.assign_groups.AssignGroups"><code class="docutils literal notranslate"><span class="pre">AssignGroups</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#canvas_steps.ping_join_group.PingJoinGroup"><code class="docutils literal notranslate"><span class="pre">PingJoinGroup</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#canvas_steps.enrollment.PingNewEnrollment"><code class="docutils literal notranslate"><span class="pre">PingNewEnrollment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github_steps.add_to_group_repos.AddToGroupRepos"><code class="docutils literal notranslate"><span class="pre">AddToGroupRepos</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github_steps.add_to_personal_repos.AddToPersonalRepos"><code class="docutils literal notranslate"><span class="pre">AddToPersonalRepos</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github_steps.create_group_repos.CreateGroupRepos"><code class="docutils literal notranslate"><span class="pre">CreateGroupRepos</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github_steps.create_personal_repos.CreatePersonalRepos"><code class="docutils literal notranslate"><span class="pre">CreatePersonalRepos</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github_steps.invite_students.InviteStudents"><code class="docutils literal notranslate"><span class="pre">InviteStudents</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github_steps.remove_unenrolled.RemoveUnenrolled"><code class="docutils literal notranslate"><span class="pre">RemoveUnenrolled</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github_steps.tag_repo.RepoTagger"><code class="docutils literal notranslate"><span class="pre">RepoTagger</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github_steps.update_group_repo_descr.UpdateGroupRepoDescr"><code class="docutils literal notranslate"><span class="pre">UpdateGroupRepoDescr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.basic_steps.BasicPropagateStep"><code class="docutils literal notranslate"><span class="pre">BasicPropagateStep</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.ping_invalid_username.PingInvalidUsername"><code class="docutils literal notranslate"><span class="pre">PingInvalidUsername</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.ping_no_accept.PingNoAccept"><code class="docutils literal notranslate"><span class="pre">PingNoAccept</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.ping_no_username.PingNoUsername"><code class="docutils literal notranslate"><span class="pre">PingNoUsername</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../record_storers/">Record Storers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow/">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metadata/">Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../schedules/">Schedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_manager/">Flow Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/">Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utilities/">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">courseflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Propagate Steps</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Aidan-McNay/courseflow/blob/main/docs/library_reference/propagate_steps.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="propagate-steps">
+<h1>Propagate Steps<a class="headerlink" href="#propagate-steps" title="Link to this heading"></a></h1>
+<section id="base-class">
+<h2>Base Class<a class="headerlink" href="#base-class" title="Link to this heading"></a></h2>
+<p>All propagate steps must inherit from/implement the following base class
+(with some repeated from <a class="reference internal" href="../miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a>)</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowPropagateStep">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flow.flow_steps.</span></span><span class="sig-name descname"><span class="pre">FlowPropagateStep</span></span><span class="sig-paren">[</span><em class="sig-param"><span class="n"><span class="pre">RecordType</span></span></em><span class="sig-paren">]</span><a class="headerlink" href="#flow.flow_steps.FlowPropagateStep" title="Link to this definition"></a></dt>
+<dd><p>A flow step to make external changes based on our records.</p>
+<p>Parent Class: <a class="reference internal" href="../miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowPropagateStep.description">
+<em class="property"><span class="k"><span class="pre">abstract</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#flow.flow_steps.FlowPropagateStep.description" title="Link to this definition"></a></dt>
+<dd><p>A high-level description of the step</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowPropagateStep.config_types">
+<em class="property"><span class="k"><span class="pre">abstract</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">ValidConfigTypes</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#flow.flow_steps.FlowPropagateStep.config_types" title="Link to this definition"></a></dt>
+<dd><p>The types of the configurations for the step. Each tuple in the list
+should include the name, type, and description of a configuration
+(respectively). See <a class="reference internal" href="../miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowPropagateStep.validate">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#flow.flow_steps.FlowPropagateStep.validate" title="Link to this definition"></a></dt>
+<dd><p>This function should inspect the object’s <code class="docutils literal notranslate"><span class="pre">configs</span></code> attribute, and
+perform any static validation possible.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flow.flow_steps.FlowPropagateStep.propagate_records">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">propagate_records</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">records</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">RecordType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">allocate_lock</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#flow.flow_steps.FlowPropagateStep.propagate_records" title="Link to this definition"></a></dt>
+<dd><p>Propagate our records to update any external entities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>records</strong> (<em>list</em><em>[</em><em>tuple</em><em>[</em><em>RecordType</em><em>, </em><em>Lock</em><em>]</em><em>]</em>) – The list of records
+to manipulate</p></li>
+<li><p><strong>logger</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>None</em><em>]</em>) – A function to log any notable
+events</p></li>
+<li><p><strong>get_metadata</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>Any</em><em>]</em><em>,</em>) – A function to retrieve global
+metadata previously set in the flow</p></li>
+<li><p><strong>set_metadata</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>None</em><em>]</em>) – A function to set
+global metadata within the flow</p></li>
+<li><p><strong>debug</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether we are in “debug” mode. In debug
+mode, no external state should be modified, and we are free to
+inject dummy information. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="implementations">
+<h2>Implementations<a class="headerlink" href="#implementations" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="canvas_steps.assign_groups.AssignGroups">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">canvas_steps.assign_groups.</span></span><span class="sig-name descname"><span class="pre">AssignGroups</span></span><a class="headerlink" href="#canvas_steps.assign_groups.AssignGroups" title="Link to this definition"></a></dt>
+<dd><p>A propagate step to assign students to a group on Canvas.</p>
+<p>This step takes in a current Canvas group
+(likely with some self-grouping), and pairs up remaining students to
+form lab groups. Groups are made to ensure that pairs are in the same
+lab section. Odd numbers are resolved by forming a group of three.</p>
+<div class="admonition-lab-sections admonition">
+<p class="admonition-title">Lab sections</p>
+<p>Lab sections are identified by having the string <code class="docutils literal notranslate"><span class="pre">LAB</span></code> in the
+name. Students will only be paired if they are in such a section;
+if no lab sections exist, no new pairings will be done.</p>
+</div>
+<p>Note that current groups are <strong>NOT</strong> checked to see whether they are
+groups of fewer than three; the Canvas group can be configured to
+restrict this. However, solo students in a group are removed and
+re-assigned. This also has the side-benefit that if a student drops,
+the remaining partner is re-assigned to another group automatically.
+If an instructor wishes to disable this, they should disable the
+step.</p>
+<p>The Canvas group (as well as our records) will be updated with the new
+group mapping.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+<p>Sets metadata: <a class="reference internal" href="../metadata/#old_groups" title="old_groups"><code class="xref py py-attr docutils literal notranslate"><span class="pre">old_groups</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="canvas_steps.assign_groups.AssignGroups.configs.group_category">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">group_category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#canvas_steps.assign_groups.AssignGroups.configs.group_category" title="Link to this definition"></a></dt>
+<dd><p>The category to reference/pair students in on Canvas</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="canvas_steps.assign_groups.AssignGroups.configs.canvas_group_regex">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">canvas_group_regex</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#canvas_steps.assign_groups.AssignGroups.configs.canvas_group_regex" title="Link to this definition"></a></dt>
+<dd><p>The regex to extract group numbers from Canvas group names.
+The number will be the first matching group in the regex
+(ex. <code class="docutils literal notranslate"><span class="pre">ECE</span> <span class="pre">2300:</span> <span class="pre">Lab</span> <span class="pre">Group</span> <span class="pre">(\d+)</span></code>). Use single-quotes in
+the YAML file to specify</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="canvas_steps.assign_groups.AssignGroups.configs.form_date">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">form_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime.datetime</span></em><a class="headerlink" href="#canvas_steps.assign_groups.AssignGroups.configs.form_date" title="Link to this definition"></a></dt>
+<dd><p>When groups should be formed and logged. No groups will be
+formed or logged before then</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="canvas_steps.assign_groups.AssignGroups.canvas_group_pattern">
+<span class="sig-name descname"><span class="pre">canvas_group_pattern</span></span><a class="headerlink" href="#canvas_steps.assign_groups.AssignGroups.canvas_group_pattern" title="Link to this definition"></a></dt>
+<dd><p>The format to make new Canvas groups with. Instances of <code class="docutils literal notranslate"><span class="pre">&lt;num&gt;</span></code>
+will be replaced with the group number. This should be complementary
+with <a class="reference internal" href="#canvas_steps.assign_groups.AssignGroups.configs.canvas_group_regex" title="canvas_steps.assign_groups.AssignGroups.configs.canvas_group_regex"><code class="xref py py-attr docutils literal notranslate"><span class="pre">canvas_group_regex</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="canvas_steps.ping_join_group.PingJoinGroup">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">canvas_steps.ping_join_group.</span></span><span class="sig-name descname"><span class="pre">PingJoinGroup</span></span><a class="headerlink" href="#canvas_steps.ping_join_group.PingJoinGroup" title="Link to this definition"></a></dt>
+<dd><p>Ping users who haven’t joined a group on Canvas.</p>
+<p>This step uses Gmail to send an email to students who haven’t yet joined
+a configured group on Canvas</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="canvas_steps.ping_join_group.PingJoinGroup.configs.start_date">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">start_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime.datetime</span></em><a class="headerlink" href="#canvas_steps.ping_join_group.PingJoinGroup.configs.start_date" title="Link to this definition"></a></dt>
+<dd><p>The date when email notifications should start (none will be sent
+before this date)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="canvas_steps.ping_join_group.PingJoinGroup.configs.email_gap">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">email_gap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#canvas_steps.ping_join_group.PingJoinGroup.configs.email_gap" title="Link to this definition"></a></dt>
+<dd><p>The number of days to wait between notifications.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="canvas_steps.ping_join_group.PingJoinGroup.configs.email_template">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">email_template</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#canvas_steps.ping_join_group.PingJoinGroup.configs.email_template" title="Link to this definition"></a></dt>
+<dd><p>The path to a template email (in the form of a text file).
+Instances of <code class="docutils literal notranslate"><span class="pre">&lt;first_name&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;last_name&gt;</span></code>
+will be replaced appropriately for each notification.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="canvas_steps.ping_join_group.PingJoinGroup.configs.group_category">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">group_category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#canvas_steps.ping_join_group.PingJoinGroup.configs.group_category" title="Link to this definition"></a></dt>
+<dd><p>The category to check on Canvas</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="canvas_steps.ping_join_group.PingJoinGroup.configs.send_email">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">send_email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#canvas_steps.ping_join_group.PingJoinGroup.configs.send_email" title="Link to this definition"></a></dt>
+<dd><p>The email to send from (matching <code class="docutils literal notranslate"><span class="pre">GMAIL_API_KEY</span></code>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="canvas_steps.ping_join_group.PingJoinGroup.configs.subject">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">subject</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#canvas_steps.ping_join_group.PingJoinGroup.configs.subject" title="Link to this definition"></a></dt>
+<dd><p>The subject that the notification email should have</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="canvas_steps.enrollment.PingNewEnrollment">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">canvas_steps.enrollment.</span></span><span class="sig-name descname"><span class="pre">PingNewEnrollment</span></span><a class="headerlink" href="#canvas_steps.enrollment.PingNewEnrollment" title="Link to this definition"></a></dt>
+<dd><p>A propagate step to ping a user when new enrollment is detected.</p>
+<p>This step uses Gmail to send an email to a configured recipient, informing
+them that new enrollment in the course has occurred.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+<p>Uses metadata: <a class="reference internal" href="../metadata/#new_netids" title="new_netids"><code class="xref py py-attr docutils literal notranslate"><span class="pre">new_netids</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="canvas_steps.enrollment.PingNewEnrollment.configs.send_email">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">send_email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#canvas_steps.enrollment.PingNewEnrollment.configs.send_email" title="Link to this definition"></a></dt>
+<dd><p>The email to send from (matching <code class="docutils literal notranslate"><span class="pre">GMAIL_API_KEY</span></code>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="canvas_steps.enrollment.PingNewEnrollment.configs.recv_email">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">recv_email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#canvas_steps.enrollment.PingNewEnrollment.configs.recv_email" title="Link to this definition"></a></dt>
+<dd><p>The email to send the notification to</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="canvas_steps.enrollment.PingNewEnrollment.configs.subject">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">subject</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#canvas_steps.enrollment.PingNewEnrollment.configs.subject" title="Link to this definition"></a></dt>
+<dd><p>The subject that the notification email should have</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="github_steps.add_to_group_repos.AddToGroupRepos">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">github_steps.add_to_group_repos.</span></span><span class="sig-name descname"><span class="pre">AddToGroupRepos</span></span><a class="headerlink" href="#github_steps.add_to_group_repos.AddToGroupRepos" title="Link to this definition"></a></dt>
+<dd><p>A propagate step to give students permission to their group repos.</p>
+<p>This step manages access to group repos through team membership to the
+corresponding GitHub team. Users are added to the team if they don’t
+already have access. Additionally, users are removed from their old
+teams, to prevent them from having access to old groups.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+<p>Uses metadata: <a class="reference internal" href="../metadata/#old_groups" title="old_groups"><code class="xref py py-attr docutils literal notranslate"><span class="pre">old_groups</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.add_to_group_repos.AddToGroupRepos.configs.name_format">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">name_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.add_to_group_repos.AddToGroupRepos.configs.name_format" title="Link to this definition"></a></dt>
+<dd><p>The format to use for naming GitHub teams. Instances of <code class="docutils literal notranslate"><span class="pre">&lt;num&gt;</span></code> will
+be replaced with the group’s number.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.add_to_group_repos.AddToGroupRepos.configs.num_places">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">num_places</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#github_steps.add_to_group_repos.AddToGroupRepos.configs.num_places" title="Link to this definition"></a></dt>
+<dd><p>The minimum number of places to represent the group’s number with
+(filling with zeros as necessary). For example, if set to 2,
+Group 6 would have their number formatted as <code class="docutils literal notranslate"><span class="pre">06</span></code> in their team name.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="github_steps.add_to_personal_repos.AddToPersonalRepos">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">github_steps.add_to_personal_repos.</span></span><span class="sig-name descname"><span class="pre">AddToPersonalRepos</span></span><a class="headerlink" href="#github_steps.add_to_personal_repos.AddToPersonalRepos" title="Link to this definition"></a></dt>
+<dd><p>A propagate step to give students permission to their personal repos.</p>
+<p>This step checks for students that have a personal repo (indicated by
+having a personal repo name), but don’t currently have access, and
+provides them access.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="github_steps.create_group_repos.CreateGroupRepos">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">github_steps.create_group_repos.</span></span><span class="sig-name descname"><span class="pre">CreateGroupRepos</span></span><a class="headerlink" href="#github_steps.create_group_repos.CreateGroupRepos" title="Link to this definition"></a></dt>
+<dd><p>A propagate step to create any needed group repos.</p>
+<p>This step checks for records that have a group number but no repo yet,
+and creates the appropriate repos with a README file. Additionally, a
+GitHub team is created with the same name, and is given access to the
+repo. Students are not yet added to the team.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.create_group_repos.CreateGroupRepos.configs.name_format">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">name_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.create_group_repos.CreateGroupRepos.configs.name_format" title="Link to this definition"></a></dt>
+<dd><p>The format to use for naming GitHub teams. Instances of <code class="docutils literal notranslate"><span class="pre">&lt;num&gt;</span></code> will
+be replaced with the group’s number.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.create_group_repos.CreateGroupRepos.configs.num_places">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">num_places</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#github_steps.create_group_repos.CreateGroupRepos.configs.num_places" title="Link to this definition"></a></dt>
+<dd><p>The minimum number of places to represent the group’s number with
+(filling with zeros as necessary). For example, if set to 2,
+Group 6 would have their number formatted as <code class="docutils literal notranslate"><span class="pre">06</span></code> in their team name.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.create_group_repos.CreateGroupRepos.configs.readme_path">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">readme_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.create_group_repos.CreateGroupRepos.configs.readme_path" title="Link to this definition"></a></dt>
+<dd><p>The path to the local README file, to include in the repo.
+Instances of <code class="docutils literal notranslate"><span class="pre">&lt;repo_name&gt;</span></code> will be replaced appropriately.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.create_group_repos.CreateGroupRepos.configs.readme_commit_msg">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">readme_commit_msg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.create_group_repos.CreateGroupRepos.configs.readme_commit_msg" title="Link to this definition"></a></dt>
+<dd><p>The commit message to use when adding the README</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.create_group_repos.CreateGroupRepos.configs.create_upstream">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">create_upstream</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#github_steps.create_group_repos.CreateGroupRepos.configs.create_upstream" title="Link to this definition"></a></dt>
+<dd><p>Whether to create a branch of the repo named <code class="docutils literal notranslate"><span class="pre">upstream</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.create_group_repos.CreateGroupRepos.configs.staff_team">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">staff_team</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.create_group_repos.CreateGroupRepos.configs.staff_team" title="Link to this definition"></a></dt>
+<dd><p>The name of the staff team in the GitHub organization. The team will
+be given access to all created repos.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.create_group_repos.CreateGroupRepos.configs.staff_permissions">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">staff_permissions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.create_group_repos.CreateGroupRepos.configs.staff_permissions" title="Link to this definition"></a></dt>
+<dd><p>The permissions to give the staff team in all created repos
+(any of <code class="docutils literal notranslate"><span class="pre">pull</span></code>, <code class="docutils literal notranslate"><span class="pre">triage</span></code>, <code class="docutils literal notranslate"><span class="pre">push</span></code>, <code class="docutils literal notranslate"><span class="pre">maintain</span></code>, or <code class="docutils literal notranslate"><span class="pre">admin</span></code>)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="github_steps.create_personal_repos.CreatePersonalRepos">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">github_steps.create_personal_repos.</span></span><span class="sig-name descname"><span class="pre">CreatePersonalRepos</span></span><a class="headerlink" href="#github_steps.create_personal_repos.CreatePersonalRepos" title="Link to this definition"></a></dt>
+<dd><p>A propagate step to create any needed personal repos.</p>
+<p>This step checks for records that don’t have a repo corresponding to
+their NetID, and creates a repo for them.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.create_personal_repos.CreatePersonalRepos.configs.name_format">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">name_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.create_personal_repos.CreatePersonalRepos.configs.name_format" title="Link to this definition"></a></dt>
+<dd><p>The format to use for naming GitHub teams. Instances of <code class="docutils literal notranslate"><span class="pre">&lt;netid&gt;</span></code>
+will be replaced with the student’s NetID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.create_personal_repos.CreatePersonalRepos.configs.readme_path">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">readme_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.create_personal_repos.CreatePersonalRepos.configs.readme_path" title="Link to this definition"></a></dt>
+<dd><p>The path to the local README file, to include in the repo.
+Instances of <code class="docutils literal notranslate"><span class="pre">&lt;repo_name&gt;</span></code> will be replaced appropriately.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.create_personal_repos.CreatePersonalRepos.configs.readme_commit_msg">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">readme_commit_msg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.create_personal_repos.CreatePersonalRepos.configs.readme_commit_msg" title="Link to this definition"></a></dt>
+<dd><p>The commit message to use when adding the README</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.create_personal_repos.CreatePersonalRepos.configs.create_upstream">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">create_upstream</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#github_steps.create_personal_repos.CreatePersonalRepos.configs.create_upstream" title="Link to this definition"></a></dt>
+<dd><p>Whether to create a branch of the repo named <code class="docutils literal notranslate"><span class="pre">upstream</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.create_personal_repos.CreatePersonalRepos.configs.staff_team">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">staff_team</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.create_personal_repos.CreatePersonalRepos.configs.staff_team" title="Link to this definition"></a></dt>
+<dd><p>The name of the staff team in the GitHub organization. The team will
+be given access to all created repos.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.create_personal_repos.CreatePersonalRepos.configs.staff_permissions">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">staff_permissions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.create_personal_repos.CreatePersonalRepos.configs.staff_permissions" title="Link to this definition"></a></dt>
+<dd><p>The permissions to give the staff team in all created repos
+(any of <code class="docutils literal notranslate"><span class="pre">pull</span></code>, <code class="docutils literal notranslate"><span class="pre">triage</span></code>, <code class="docutils literal notranslate"><span class="pre">push</span></code>, <code class="docutils literal notranslate"><span class="pre">maintain</span></code>, or <code class="docutils literal notranslate"><span class="pre">admin</span></code>)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="github_steps.invite_students.InviteStudents">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">github_steps.invite_students.</span></span><span class="sig-name descname"><span class="pre">InviteStudents</span></span><a class="headerlink" href="#github_steps.invite_students.InviteStudents" title="Link to this definition"></a></dt>
+<dd><p>Invite students to join the GitHub organization.</p>
+<p>This step checks for students that have a valid GitHub username, and
+invites them to join the GitHub organization.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.invite_students.InviteStudents.configs.student_team">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">student_team</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.invite_students.InviteStudents.configs.student_team" title="Link to this definition"></a></dt>
+<dd><p>The name of the student team on GitHub. All students will be invited
+to join this team.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="github_steps.remove_unenrolled.RemoveUnenrolled">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">github_steps.remove_unenrolled.</span></span><span class="sig-name descname"><span class="pre">RemoveUnenrolled</span></span><a class="headerlink" href="#github_steps.remove_unenrolled.RemoveUnenrolled" title="Link to this definition"></a></dt>
+<dd><p>A propagate step to remove unenrolled users from GitHub.</p>
+<p>This step checks for records that have been sent an invite but are
+no longer enrolled, and removes them from GitHub.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.remove_unenrolled.RemoveUnenrolled.configs.staff_team">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">staff_team</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.remove_unenrolled.RemoveUnenrolled.configs.staff_team" title="Link to this definition"></a></dt>
+<dd><p>The name of the staff team on GitHub, to sanity-check that we never
+remove a staff member</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="github_steps.tag_repo.RepoTagger">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">github_steps.tag_repo.</span></span><span class="sig-name descname"><span class="pre">RepoTagger</span></span><a class="headerlink" href="#github_steps.tag_repo.RepoTagger" title="Link to this definition"></a></dt>
+<dd><p>A propagate step to tag a specific lab submission.</p>
+<p>This step is generated for a specific lab submission and repo type
+(<code class="docutils literal notranslate"><span class="pre">personal</span></code> or <code class="docutils literal notranslate"><span class="pre">group</span></code>), and will tag repos of the specified type
+with the given tag.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.tag_record.TagRecords" title="records.tag_record.TagRecords"><code class="xref py py-class docutils literal notranslate"><span class="pre">TagRecords</span></code></a></p>
+<div class="note admonition">
+<p class="admonition-title">Generating <a class="reference internal" href="#github_steps.tag_repo.RepoTagger" title="github_steps.tag_repo.RepoTagger"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepoTagger</span></code></a>s</p>
+<p><a class="reference internal" href="#github_steps.tag_repo.RepoTagger" title="github_steps.tag_repo.RepoTagger"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepoTagger</span></code></a>s are unlike other steps
+in that they are not statically defined. Instead, a dynamic type is
+created using <a class="reference internal" href="../miscellaneous/#github_steps.tag_repo.get_tagger" title="github_steps.tag_repo.get_tagger"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_tagger()</span></code></a> to tag
+a specific repo type for a specific lab submission. See
+<a class="reference internal" href="../miscellaneous/#github_steps.tag_repo.get_tagger" title="github_steps.tag_repo.get_tagger"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_tagger()</span></code></a> for more details on how
+to generate <a class="reference internal" href="#github_steps.tag_repo.RepoTagger" title="github_steps.tag_repo.RepoTagger"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepoTagger</span></code></a>s</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.tag_repo.RepoTagger.configs.tag_name">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">tag_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.tag_repo.RepoTagger.configs.tag_name" title="Link to this definition"></a></dt>
+<dd><p>The tag name that will be used to tag the repos</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.tag_repo.RepoTagger.configs.deadline">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">deadline</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime.datetime</span></em><a class="headerlink" href="#github_steps.tag_repo.RepoTagger.configs.deadline" title="Link to this definition"></a></dt>
+<dd><p>The deadline for the lab. Repos will be tagged when this step is run
+on or after the deadline.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="github_steps.update_group_repo_descr.UpdateGroupRepoDescr">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">github_steps.update_group_repo_descr.</span></span><span class="sig-name descname"><span class="pre">UpdateGroupRepoDescr</span></span><a class="headerlink" href="#github_steps.update_group_repo_descr.UpdateGroupRepoDescr" title="Link to this definition"></a></dt>
+<dd><p>A propagate step to update group repo descriptions.</p>
+<p>This step checks the current membership of each repository, and updates
+the description if it doesn’t match the current membership. This makes
+sure that repositories always reflect the most up-to-date group
+membership.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="github_steps.update_group_repo_descr.UpdateGroupRepoDescr.configs.repo_regex">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">repo_regex</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#github_steps.update_group_repo_descr.UpdateGroupRepoDescr.configs.repo_regex" title="Link to this definition"></a></dt>
+<dd><p>The regex to identify repos to modify. Only repositories with names
+matching the regex will be modified. Use single quotes in the YAML
+configuration file to specify.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.basic_steps.BasicPropagateStep">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.basic_steps.</span></span><span class="sig-name descname"><span class="pre">BasicPropagateStep</span></span><a class="headerlink" href="#utils.basic_steps.BasicPropagateStep" title="Link to this definition"></a></dt>
+<dd><p>A basic flow propagate step to log the sum of all records.</p>
+<p>Supported record types: <code class="docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.ping_invalid_username.PingInvalidUsername">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.ping_invalid_username.</span></span><span class="sig-name descname"><span class="pre">PingInvalidUsername</span></span><a class="headerlink" href="#utils.ping_invalid_username.PingInvalidUsername" title="Link to this definition"></a></dt>
+<dd><p>Ping users who submitted an invalid username.</p>
+<p>This step finds the records that submitted an invalid GitHub username,
+and emails them informing them of such.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_invalid_username.PingInvalidUsername.configs.start_date">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">start_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime.datetime</span></em><a class="headerlink" href="#utils.ping_invalid_username.PingInvalidUsername.configs.start_date" title="Link to this definition"></a></dt>
+<dd><p>The date when email notifications should start (none will be sent
+before this date)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_invalid_username.PingInvalidUsername.configs.email_gap">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">email_gap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#utils.ping_invalid_username.PingInvalidUsername.configs.email_gap" title="Link to this definition"></a></dt>
+<dd><p>The number of days to wait between notifications.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_invalid_username.PingInvalidUsername.configs.email_template">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">email_template</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#utils.ping_invalid_username.PingInvalidUsername.configs.email_template" title="Link to this definition"></a></dt>
+<dd><p>The path to a template email (in the form of a text file).
+Instances of <code class="docutils literal notranslate"><span class="pre">&lt;first_name&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;last_name&gt;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&lt;username&gt;</span></code>
+will be replaced appropriately for each notification.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_invalid_username.PingInvalidUsername.configs.send_email">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">send_email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#utils.ping_invalid_username.PingInvalidUsername.configs.send_email" title="Link to this definition"></a></dt>
+<dd><p>The email to send from (matching <code class="docutils literal notranslate"><span class="pre">GMAIL_API_KEY</span></code>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_invalid_username.PingInvalidUsername.configs.subject">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">subject</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#utils.ping_invalid_username.PingInvalidUsername.configs.subject" title="Link to this definition"></a></dt>
+<dd><p>The subject that the notification email should have</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.ping_no_accept.PingNoAccept">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.ping_no_accept.</span></span><span class="sig-name descname"><span class="pre">PingNoAccept</span></span><a class="headerlink" href="#utils.ping_no_accept.PingNoAccept" title="Link to this definition"></a></dt>
+<dd><p>Ping users who haven’t accepted their GitHub invitation.</p>
+<p>This step finds records that have a pending invitation (that they
+haven’t accepted), and emails them informing them of such.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_no_accept.PingNoAccept.configs.start_date">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">start_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime.datetime</span></em><a class="headerlink" href="#utils.ping_no_accept.PingNoAccept.configs.start_date" title="Link to this definition"></a></dt>
+<dd><p>The date when email notifications should start (none will be sent
+before this date)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_no_accept.PingNoAccept.configs.email_gap">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">email_gap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#utils.ping_no_accept.PingNoAccept.configs.email_gap" title="Link to this definition"></a></dt>
+<dd><p>The number of days to wait between notifications.</p>
+<p>(Note that this gap is also adhered to from when the invitation
+was initially sent).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_no_accept.PingNoAccept.configs.email_template">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">email_template</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#utils.ping_no_accept.PingNoAccept.configs.email_template" title="Link to this definition"></a></dt>
+<dd><p>The path to a template email (in the form of a text file).
+Instances of <code class="docutils literal notranslate"><span class="pre">&lt;first_name&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;last_name&gt;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&lt;username&gt;</span></code>
+will be replaced appropriately for each notification.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_no_accept.PingNoAccept.configs.send_email">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">send_email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#utils.ping_no_accept.PingNoAccept.configs.send_email" title="Link to this definition"></a></dt>
+<dd><p>The email to send from (matching <code class="docutils literal notranslate"><span class="pre">GMAIL_API_KEY</span></code>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_no_accept.PingNoAccept.configs.subject">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">subject</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#utils.ping_no_accept.PingNoAccept.configs.subject" title="Link to this definition"></a></dt>
+<dd><p>The subject that the notification email should have</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.ping_no_username.PingNoUsername">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.ping_no_username.</span></span><span class="sig-name descname"><span class="pre">PingNoUsername</span></span><a class="headerlink" href="#utils.ping_no_username.PingNoUsername" title="Link to this definition"></a></dt>
+<dd><p>Ping users who haven’t submitted a username.</p>
+<p>This step finds records that have no GitHub username (a.k.a. they
+haven’t submitted one yet), and emails them informing them of such.</p>
+<p>Supported record types: <a class="reference internal" href="../records/#records.student_record.StudentRecord" title="records.student_record.StudentRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudentRecord</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_no_username.PingNoUsername.configs.start_date">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">start_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime.datetime</span></em><a class="headerlink" href="#utils.ping_no_username.PingNoUsername.configs.start_date" title="Link to this definition"></a></dt>
+<dd><p>The date when email notifications should start (none will be sent
+before this date)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_no_username.PingNoUsername.configs.email_gap">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">email_gap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#utils.ping_no_username.PingNoUsername.configs.email_gap" title="Link to this definition"></a></dt>
+<dd><p>The number of days to wait between notifications.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_no_username.PingNoUsername.configs.email_template">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">email_template</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#utils.ping_no_username.PingNoUsername.configs.email_template" title="Link to this definition"></a></dt>
+<dd><p>The path to a template email (in the form of a text file).
+Instances of <code class="docutils literal notranslate"><span class="pre">&lt;first_name&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;last_name&gt;</span></code>
+will be replaced appropriately for each notification.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_no_username.PingNoUsername.configs.send_email">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">send_email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#utils.ping_no_username.PingNoUsername.configs.send_email" title="Link to this definition"></a></dt>
+<dd><p>The email to send from (matching <code class="docutils literal notranslate"><span class="pre">GMAIL_API_KEY</span></code>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.ping_no_username.PingNoUsername.configs.subject">
+<span class="sig-prename descclassname"><span class="pre">configs.</span></span><span class="sig-name descname"><span class="pre">subject</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#utils.ping_no_username.PingNoUsername.configs.subject" title="Link to this definition"></a></dt>
+<dd><p>The subject that the notification email should have</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../update_steps/" class="btn btn-neutral float-left" title="Update Steps" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../record_storers/" class="btn btn-neutral float-right" title="Record Storers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Aidan McNay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

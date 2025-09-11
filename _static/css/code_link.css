@@ -1,0 +1,8 @@
+/* 
+ * =======================================================================
+ * py_xref.css
+ * =======================================================================
+ * A basic CSS file to color cross-references in code format
+ */
+
+.rst-content a code { color: rebeccapurple !important; }

@@ -1,0 +1,483 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview &mdash; courseflow 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/code_link.css?v=b5f1985d" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=51fd25b1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Prerequisites" href="../prerequisites/" />
+    <link rel="prev" title="courseflow documentation" href="../../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            courseflow
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#records">Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#steps">Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#flows">Flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#record-storers">Record Storers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#metadata">Metadata</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-flows">Configuring Flows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-modes">Step Modes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#flow-managers">Flow Managers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../prerequisites/">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linting/">Linting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/records/">Records</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/record_steps/">Record Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/update_steps/">Update Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/propagate_steps/">Propagate Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/record_storers/">Record Storers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/flow/">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/metadata/">Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/schedules/">Schedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/flow_manager/">Flow Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/miscellaneous/">Miscellaneous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library_reference/utilities/">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">courseflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Overview</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Aidan-McNay/courseflow/blob/main/docs/getting_started/overview.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">courseflow</span></code> is a framework for managing Cornell classes across a
+variety of platforms, including Google Sheets and GitHub. It implements
+several wrappers around API calls, and integrates different pieces of
+functionality together to autonomously manage a course. Finally, it also
+provides one-off scripts for expediting common tasks that users may wish
+to perform manually</p>
+<section id="records">
+<h2>Records<a class="headerlink" href="#records" title="Link to this heading"></a></h2>
+<p>It is useful to consider discrete objects of information, to consider
+how they should move through different processing steps in our scripts.
+In the documentation, you will see these referenced as <em>records</em>. A
+record is a collection of information that is passed between different
+steps; an example might be a object containing a student’s name, NetID,
+and lab section.</p>
+</section>
+<section id="steps">
+<h2>Steps<a class="headerlink" href="#steps" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">courseflow</span></code>’s functionality is centered around <strong>flow steps</strong>. A
+flow step performs a single operation on course data, in the form of a
+record. Examples include emailing a student based on their course
+standing, or adding a student to a GitHub repo based on their Canvas group.</p>
+<p>Flow steps must have the <code class="docutils literal notranslate"><span class="pre">description</span></code> and <code class="docutils literal notranslate"><span class="pre">config_types</span></code> attributes,
+and must implement the <code class="docutils literal notranslate"><span class="pre">validate</span></code> function at a baseline:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyFlowStep</span><span class="p">(</span><span class="n">FlowStep</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;A custom FlowStep.&quot;&quot;&quot;</span>
+  <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;A custom FlowStep&quot;</span>
+
+  <span class="n">config_types</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;The name of the user running the flow&quot;</span>
+  <span class="p">]</span>
+
+  <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;MyFlowStep&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="o">.</span><span class="n">user</span> <span class="o">!=</span> <span class="s2">&quot;Aidan&quot;</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;You aren&#39;t Aidan!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code>: A high-level discription of what the step does</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_types</span></code>: The name, type, and description of all
+configurations that the step needs. The type should be a <em>flat</em>
+type (a.k.a. not a collection), such that it can be checked with
+<code class="docutils literal notranslate"><span class="pre">isinstance</span></code>. Currently supported configuration types are <code class="docutils literal notranslate"><span class="pre">int</span></code>,
+<code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>, and <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">validate</span></code>: A function fo validate configurations (without running
+the step). If the configurations aren’t “valid” (where validity
+differs based on the semantics of each step), <code class="docutils literal notranslate"><span class="pre">validate</span></code> should
+raise an exception</p></li>
+</ul>
+<p>The base class <a class="reference internal" href="../../library_reference/miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a> implements the
+<code class="docutils literal notranslate"><span class="pre">__init__</span></code> method, such that all configurations are included in a
+<code class="docutils literal notranslate"><span class="pre">configs</span></code> attribute for each step object when it’s instantiated (with
+each configuration being appropriately typed). In addition, the above
+attributes allow a <a class="reference internal" href="../../library_reference/miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a> to dump its
+high-level description and configurations into template configuration
+files, allowing users to get an example of what the expected
+configurations might look like.</p>
+<div class="note admonition">
+<p class="admonition-title">Why class attributes?</p>
+<p>The above configurations are specified as part of the class, not of a
+particular instance. When extending the flow, if you want a
+<a class="reference internal" href="../../library_reference/miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a> that performs a different
+high-level action (beyond configurations), you will need to implement a
+new <a class="reference internal" href="../../library_reference/miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a>. Having the configurations as
+part of the class:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Helps extenders of the class by forcing configurations to be checked
+upon step instantion, causing faulty configurations to be caught
+early-on before any other steps have run</p></li>
+<li><p>Allows documentation to be generated for a step without an instance
+of the class</p></li>
+<li><p>Allows for robust type checking and type annotation</p></li>
+<li><p>Makes sense semantically; the functionality and expected configurations
+of a step should be engrained as part of its type, not checked for a
+particular instance</p></li>
+</ul>
+</div></blockquote>
+</div>
+<p>In addition to a base <a class="reference internal" href="../../library_reference/miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a>, four more
+abstract classes are defined to further define the semantics of a step,
+based on how they interact with records:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A <a class="reference internal" href="../../library_reference/record_steps/#flow.flow_steps.FlowRecordStep" title="flow.flow_steps.FlowRecordStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowRecordStep</span></code></a> <strong>generates</strong> records. It
+takes in a current list of records, and possibly adds records to the
+list, returning the new list. For example, a
+<a class="reference internal" href="../../library_reference/record_steps/#flow.flow_steps.FlowRecordStep" title="flow.flow_steps.FlowRecordStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowRecordStep</span></code></a> might look at the current
+Canvas enrollment, and add records for any student not already in the
+list of records.</p></li>
+<li><p>A <a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a> <strong>updates</strong> records. It
+takes in a current list of records, and updates the records based on
+current information. For example, a
+<a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a> might look at each record,
+and update it with the student’s current submission to a Canvas quiz.
+A <a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a> <strong>DOES NOT</strong> update any
+external entity about the information in records. Instead, it should
+check the gathered information, and generate any necessary exceptions
+(although ideally, a <a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a> would
+handle any exceptions itself).</p></li>
+<li><p>A <a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a> <strong>propagates</strong> the
+data in records to external entities, such as Canvas and GitHub. For
+example, a <a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a>
+might see that a record indicates a missing submission from a student,
+and would email the student about that submission. A
+<a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a> should ideally never
+generate any exceptions; any faulty configurations should be caught
+with <code class="docutils literal notranslate"><span class="pre">validate</span></code>, and any faulty data should be caught by the
+<a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a> that added it. Like
+<a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a>,
+a <a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a> is allowed to modify
+record data, primarily to indicate that propagation to external
+entities has occurred.</p></li>
+<li><p>A <a class="reference internal" href="../../library_reference/record_storers/#flow.record_storer.RecordStorer" title="flow.record_storer.RecordStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecordStorer</span></code></a> is used to store
+records; we’ll cover them more with flows.</p></li>
+</ul>
+</div></blockquote>
+<div class="note admonition">
+<p class="admonition-title">Update vs. Propagate</p>
+<p>A key note is the difference between a
+<a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a> and a
+<a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a>; the former should add
+and check any incoming data, whereas the latter uses said data to
+update other external entities, such as Canvas and GitHub. These are
+separated such that all <a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a>
+instances occur before any
+<a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a> instances, ensuring that
+any exceptions are caught before external state is modified (similar to
+a processor’s commit point). While this somewhat limits expressibility,
+we haven’t found this to be a practical issue, and workarounds can be
+implemented with multiple flows.</p>
+</div>
+<p>These steps each additionall require child classes to implement either
+<a class="reference internal" href="../../library_reference/record_steps/#flow.flow_steps.FlowRecordStep.new_records" title="flow.flow_steps.FlowRecordStep.new_records"><code class="xref py py-meth docutils literal notranslate"><span class="pre">new_records()</span></code></a>,
+<a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep.update_records" title="flow.flow_steps.FlowUpdateStep.update_records"><code class="xref py py-meth docutils literal notranslate"><span class="pre">update_records()</span></code></a>, or
+<a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep.propagate_records" title="flow.flow_steps.FlowPropagateStep.propagate_records"><code class="xref py py-meth docutils literal notranslate"><span class="pre">propagate_records()</span></code></a>, respectively.
+Consult the class reference for more details. Extensions of the framework
+should inherit from these three classes, in order to be integrated into a
+<a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a></p>
+</section>
+<section id="flows">
+<h2>Flows<a class="headerlink" href="#flows" title="Link to this heading"></a></h2>
+<p>A <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a> is a sequence of
+<a class="reference internal" href="../../library_reference/miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a>s to be executed in order to achieve
+a high-level goal. <a class="reference internal" href="../../library_reference/record_steps/#flow.flow_steps.FlowRecordStep" title="flow.flow_steps.FlowRecordStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowRecordStep</span></code></a>s,
+<a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a>s, and
+<a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a>s can all be added to a
+<a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a>; the relevant class is provided (as
+configurations aren’t available to instantiate with), as well as a name
+for the particular step. A particular step can be added multiple
+times to a flow, such that each named instance can be configured
+differently.</p>
+<p>A <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a> runs its steps as follows:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>All <a class="reference internal" href="../../library_reference/record_steps/#flow.flow_steps.FlowRecordStep" title="flow.flow_steps.FlowRecordStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowRecordStep</span></code></a>s are run
+sequentially (to ensure that all updates
+from a given step are known to subsequent step, in the case that two
+<a class="reference internal" href="../../library_reference/record_steps/#flow.flow_steps.FlowRecordStep" title="flow.flow_steps.FlowRecordStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowRecordStep</span></code></a>s may want to add the
+same record)</p></li>
+<li><p>All <a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a>s are run in
+parallel; the degree of parallelism can be specified by flow’s
+<code class="docutils literal notranslate"><span class="pre">num_threads</span></code> configuration. Lock striping is used to ensure safety;
+records are provided as a list of tuples containing a record and a
+lock, and each step should acquire the lock before acting on/updating
+the respective record</p></li>
+<li><p>All <a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a>s are run in
+parallel, similar to <a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a>s</p></li>
+</ol>
+</div></blockquote>
+<p>Depending on the semantics, a user may wish to specify additional
+dependencies/orderings between
+<a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a>s or
+<a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a>s.
+<a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a>s allow this by allowing a list of dependency
+step names to be specified when adding one of these steps to a flow, such
+that a step will not be allowed to run until all of the dependency steps
+have completed. <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a>s will check that dependency
+steps have already been added to the flow, preventing deadlock by forcing
+the dependency tree to be a directed acyclic graph (DAG).</p>
+<a class="reference internal image-reference" href="../../_images/example-flow-execution.jpg"><img alt="An example execution timeline of a flow" class="align-center" src="../../_images/example-flow-execution.jpg" style="width: 50%;" />
+</a>
+</section>
+<section id="record-storers">
+<h2>Record Storers<a class="headerlink" href="#record-storers" title="Link to this heading"></a></h2>
+<p>Aside from adding to, updating, and propagating lists of records, a flow
+also needs to be able to store records. This is abstracted away with a
+<a class="reference internal" href="../../library_reference/record_storers/#flow.record_storer.RecordStorer" title="flow.record_storer.RecordStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecordStorer</span></code></a>, an abstract class that
+inherits from <a class="reference internal" href="../../library_reference/miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a>. In addition to the
+required attributes for a <a class="reference internal" href="../../library_reference/miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a>, a
+<a class="reference internal" href="../../library_reference/record_storers/#flow.record_storer.RecordStorer" title="flow.record_storer.RecordStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecordStorer</span></code></a> must implement the following
+two methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../../library_reference/record_storers/#flow.record_storer.RecordStorer.get_records" title="flow.record_storer.RecordStorer.get_records"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_records()</span></code></a>: This is used
+to access the list of records from wherever/however they’re stored,
+and is used at the start of a <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a> to get the
+existing list of records</p></li>
+<li><p><a class="reference internal" href="../../library_reference/record_storers/#flow.record_storer.RecordStorer.set_records" title="flow.record_storer.RecordStorer.set_records"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_records()</span></code></a>: This is used
+to store the (new) list of records at the end of a
+<a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a>, after they have been processed by the
+other steps</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyRecordStorer</span><span class="p">(</span><span class="n">RecordStorer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A custom RecordStorer.&quot;&quot;&quot;</span>
+    
+    <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_records</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span> <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">RecordType</span><span class="p">]:</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_records</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">,</span>
+        <span class="n">rec_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">RecordType</span><span class="p">],</span>
+        <span class="n">logger</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<section id="metadata">
+<h3>Metadata<a class="headerlink" href="#metadata" title="Link to this heading"></a></h3>
+<p>Data is primarily passed between steps through records. However, steps
+may also want to communicate data that isn’t reflected in a record, such
+as events that have already occurred in a flow. This data is referred to
+as <em>metadata</em>. <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a>s provide mechanisms for
+<a class="reference internal" href="../../library_reference/miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a>s to access
+metadata from the flow. When called to perform their specific action,
+<a class="reference internal" href="../../library_reference/miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a>s are provided with:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">set_metadata</span></code> (<code class="docutils literal notranslate"><span class="pre">typing.Callable[[str,</span> <span class="pre">typing.Any],</span> <span class="pre">None]</span></code>): A function
+to associate any object with a particular name for the overall flow</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_metadata</span></code> (<code class="docutils literal notranslate"><span class="pre">typing.Callable[[str],</span> <span class="pre">typing.Any]</span></code>): A function to
+retrieve the data associated with a particular name for a flow. If the
+name has no data associated with it, <code class="docutils literal notranslate"><span class="pre">None</span></code> is returned</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">set_metadata</span><span class="p">(</span><span class="s2">&quot;course_number&quot;</span><span class="p">,</span> <span class="mi">2300</span><span class="p">)</span>
+
+<span class="o">...</span>
+
+<span class="n">num</span> <span class="o">=</span> <span class="n">get_metadata</span><span class="p">(</span><span class="s2">&quot;course_number&quot;</span><span class="p">)</span> <span class="c1"># num holds 2300</span>
+</pre></div>
+</div>
+<p>This allows <a class="reference internal" href="../../library_reference/miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a>s to comunicate
+arbitrary data between each other. However, this introduces a number of
+other considerations:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>To support arbitrary data, <code class="docutils literal notranslate"><span class="pre">get_metadata</span></code> returns an object of type
+<code class="docutils literal notranslate"><span class="pre">typing.Any</span></code>. To be type-safe, each
+<a class="reference internal" href="../../library_reference/miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a> must dynamically type
+check the returned data (or use <code class="docutils literal notranslate"><span class="pre">typing.cast</span></code>, although this isn’t
+preferred and may lead to bugs from non-rigorous type checking)</p></li>
+<li><p>Whether a datum exists or not depends on the ordering of steps. If this
+dependency exists between two
+<a class="reference internal" href="../../library_reference/update_steps/#flow.flow_steps.FlowUpdateStep" title="flow.flow_steps.FlowUpdateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowUpdateStep</span></code></a>s or two
+<a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a>s, the dependency must
+be specified in the flow using <code class="docutils literal notranslate"><span class="pre">depends_on</span></code> to ensure reproducible
+ordering in the DAG (requiring appropriate documentation for users
+using the steps)</p></li>
+<li><p>Steps accessing a particular piece of data must be sure to use the same
+name as the step that set the data</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="configuring-flows">
+<h2>Configuring Flows<a class="headerlink" href="#configuring-flows" title="Link to this heading"></a></h2>
+<p>Once we have a flow, we need to be able to configure it for our specific
+needs. All <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a>s have a
+<a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow.config" title="flow.flow.Flow.config"><code class="xref py py-meth docutils literal notranslate"><span class="pre">config()</span></code></a> method that takes in a dictionary
+configuration for the flow, and configures each step appropriately. Each
+step should have a different entry in the configuration dictionary with
+all of its configurations. The flow will check that all necessary
+configurations are present (of the correct type), and will instantiate all
+steps with their configurations. Once configured, a flow can be run using
+the <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow.run" title="flow.flow.Flow.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
+<p>While it is possible to ascertain the necessary configurations from the
+flow and its construction, <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a>s additionally
+provide a <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow.describe_config" title="flow.flow.Flow.describe_config"><code class="xref py py-meth docutils literal notranslate"><span class="pre">describe_config()</span></code></a> method to make this
+process easier. For a constructed <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a>, this method
+will produce a dictionary of identical structure to the expected
+configuration, where each entry is a description of what is expected in
+the configuration. See the <a class="reference internal" href="../tutorial/"><span class="doc">tutorial</span></a> for an example.</p>
+<section id="step-modes">
+<h3>Step Modes<a class="headerlink" href="#step-modes" title="Link to this heading"></a></h3>
+<p>In addition to each <a class="reference internal" href="../../library_reference/miscellaneous/#flow.flow_steps.FlowStep" title="flow.flow_steps.FlowStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStep</span></code></a>s
+configurations, a <em>mode</em> is expected for each step. Each step can be
+configured in one of three modes:</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">include</span></code>: This should be the default mode, and runs the step
+“normally”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">debug</span></code>: When a step is run in debug mode, its operation may differ
+slightly. This is up to each individual step, but may include
+providing sample data and/or more verbose output</p>
+<div class="caution admonition">
+<p class="admonition-title">Propagate Steps in debug</p>
+<p>When run in debug,
+<a class="reference internal" href="../../library_reference/propagate_steps/#flow.flow_steps.FlowPropagateStep" title="flow.flow_steps.FlowPropagateStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowPropagateStep</span></code></a>s should <strong>never</strong>
+actually modify external state (as doing so on debug data may be
+incorrect, as well as because we may not wish to perform updates
+when debugging a script). Instead, such steps should use their
+<code class="docutils literal notranslate"><span class="pre">logger</span></code> to indicate their intent to modify state, but not
+actually do so</p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exclude</span></code>: The step is excluded, and will not be run. Dependencies on
+excluded steps are removed from DAGs</p>
+<div class="note admonition">
+<p class="admonition-title">Record Storing</p>
+<p>Because of their central role in a flow, a <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a>‘s
+<a class="reference internal" href="../../library_reference/record_storers/#flow.record_storer.RecordStorer" title="flow.record_storer.RecordStorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecordStorer</span></code></a> cannot be excluded</p>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<p>See the <a class="reference internal" href="../tutorial/"><span class="doc">tutorial</span></a> for an example.</p>
+</section>
+</section>
+<section id="flow-managers">
+<h2>Flow Managers<a class="headerlink" href="#flow-managers" title="Link to this heading"></a></h2>
+<p>Finally, users may often wish to run multiple flows from one script in
+parallel. <code class="docutils literal notranslate"><span class="pre">courseflow</span></code> supports this through the use of
+<a class="reference internal" href="../../library_reference/flow_manager/#flow.flow_manager.FlowManager" title="flow.flow_manager.FlowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowManager</span></code></a>s. A
+<a class="reference internal" href="../../library_reference/flow_manager/#flow.flow_manager.FlowManager" title="flow.flow_manager.FlowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowManager</span></code></a> keeps track of multiple
+<a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a>s, as well as an associated
+<a class="reference internal" href="../../library_reference/schedules/#flow.schedule.Schedule" title="flow.schedule.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a> for each. When a
+<a class="reference internal" href="../../library_reference/flow_manager/#flow.flow_manager.FlowManager" title="flow.flow_manager.FlowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowManager</span></code></a> is run, it checks the
+<a class="reference internal" href="../../library_reference/schedules/#flow.schedule.Schedule" title="flow.schedule.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a> of each <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a> and,
+if appropriate, runs the <a class="reference internal" href="../../library_reference/flow/#flow.flow.Flow" title="flow.flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../" class="btn btn-neutral float-left" title="courseflow documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../prerequisites/" class="btn btn-neutral float-right" title="Prerequisites" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Aidan McNay.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
