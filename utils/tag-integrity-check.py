@@ -282,6 +282,7 @@ for record in tag_records:
             print_no_object(repo_name, tag_name)
             issue_with_repo = True
         elif git_tag.object.sha != commit_sha:
+            issue_with_repo = True
             print_commit_sha_mismatch(
                 repo_name, tag_name, commit_sha, git_tag.object.sha
             )
